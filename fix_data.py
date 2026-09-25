@@ -50,6 +50,9 @@ for r in rows:
     # Maximum Escape: en 2026 solo opera Girona 27; Trafalgar 17, Bruc 9 y salas sin local no son reservables
     if r['local'].startswith('Maximum Escape') and 'Girona, 27' not in (r['dir'] or ''):
         r['estado'], r['estado_ev'] = 'Cerrado', 'no aparece en el calendario de reservas de maximumescape.com (sept. 2026)'; log.append(f"Maximum cerrada: {r['sala']}")
+    # Refugio 27 (Maximum Escape, Girona 27) tampoco está en el calendario de reservas (captura del usuario, 25/09/2026)
+    if r['local'] == 'Maximum Escape 1' and r['sala'] == 'Refugio 27':
+        r['estado'], r['estado_ev'] = 'Cerrado', 'no aparece en el calendario de reservas de maximumescape.com (sept. 2026)'; log.append('Refugio 27 cerrada')
     # Horror Box: la web ya no lista Catalepsia
     if r['local'] == 'Horror Box' and r['sala'] == 'Catalepsia':
         r['estado'], r['estado_ev'] = 'Cerrado', 'no aparece en la web oficial (sept. 2026)'; log.append('Catalepsia cerrada')
