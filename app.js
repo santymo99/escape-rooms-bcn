@@ -175,7 +175,8 @@
     // color = categoría de esa sala, badge = cuántas salas hay dentro (solo si más de una)
     const { node, g } = m;
     const best = bestOf(rooms);
-    node.className = 'mk' + (!best.rank ? ' is-plain' : '') + (best.rank && best.rank <= 10 ? ' is-top10' : '')
+    const keep = [...node.classList].filter(c => c.startsWith('maplibregl')).join(' '); // clases de MapLibre: posicionan el marcador
+    node.className = keep + ' mk' + (!best.rank ? ' is-plain' : '') + (best.rank && best.rank <= 10 ? ' is-top10' : '')
       + (best.extra ? ' is-extra' : '') + (rooms.length > 1 ? ' is-multi' : '') + ((state.sel && rooms.some(r => r.id === state.sel)) || state.openLocal === g.id ? ' is-sel' : '');
     node.style.setProperty('--mk', catVar(best.cat));
     node.innerHTML = (best.rank ? `<div class="mk-pin">${best.rank}</div>` : '<div class="mk-dot"></div>')
