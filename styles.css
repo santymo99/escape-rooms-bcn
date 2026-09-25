@@ -557,3 +557,9 @@ input[type="range"]::-moz-range-thumb { width: 20px; height: 20px; border-radius
 .d-back:hover { color: var(--ink); border-color: var(--gold); }
 .g-list { display: grid; gap: var(--space-2); margin-top: var(--space-4); }
 .g-list .card { margin: 0; }
+
+/* puesto vacante del ranking (sala cerrada que conserva el número) */
+.card-hole { cursor: default; opacity: .55; border-style: dashed; }
+.card-hole:hover { border-color: var(--line); }
+.card-hole .card-n { background: none; border: 1.5px dashed var(--ink-3); color: var(--ink-3); font-weight: 700; }
+.card-hole .card-title { color: var(--ink-3); }

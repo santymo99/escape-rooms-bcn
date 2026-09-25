@@ -61,6 +61,16 @@ for r in rows:
     if r['cat'] in ('Misterio', 'Thriller', 'Atraco'):
         r['cat_alt'] = r['cat']; r['cat'] = 'Thriller/Misterio'
 
+# ---------- Estado confirmado por el usuario el 25/09/2026 (calendario de reservas activo en la web oficial) ----------
+EV2 = 'calendario de reservas activo en la web oficial, comprobado por el usuario el 25/09/2026'
+OK_LOCALES = ('Criogenic Barcelona', 'Unreal Vilapicina', 'Vortex', 'Rowka')
+for r in rows:
+    if (r['local'] in OK_LOCALES or (r['local'].startswith('Abduction ') and r['municipio'] == 'Badalona')) and r['estado'] != 'Abierto':
+        r['estado'], r['estado_ev'] = 'Abierto', EV2; log.append(f"Abierto: {r['local']} / {r['sala']}")
+    # Abduction: todas las salas de Badalona comparten web oficial (captura del calendario, 25/09/2026)
+    if r['local'].startswith('Abduction ') and r['municipio'] == 'Badalona' and not r.get('web'):
+        r['web'] = 'https://www.abduction.es/badalona/'
+
 json.dump(d, open(p, 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'))
 open(p.replace('.json', '.js'), 'w', encoding='utf-8').write('/* generado desde data.json — no editar a mano */\nwindow.ESCAPE_DATA = ' + json.dumps(d, ensure_ascii=False, separators=(',', ':')) + ';\n')
 print('\n'.join(log) or 'sin cambios')

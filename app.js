@@ -249,6 +249,19 @@
       return;
     }
     pend.forEach(r => wrap.appendChild(card(r)));
+    // puestos vacantes: salas cerradas que conservan su número hasta la próxima edición del ranking
+    // (solo cuando se ve el ranking completo, para no confundir con los filtros)
+    if (pend.length === nTop) {
+      state.data.rank.filter(r => r.rank && r.estado === 'Cerrado').forEach(r => {
+        const hole = el('div', 'card card-hole', `<div class="card-n">${r.rank}</div>
+          <div class="card-main">
+            <div class="card-title">Puesto vacante</div>
+            <div class="card-sub">${esc(r.sala)} · ${esc(r.local)} · cerrada${r.estado_ev ? ` — ${esc(r.estado_ev)}` : ''}. Se mantiene el número hasta la próxima edición del ranking.</div>
+          </div>`);
+        const next = [...wrap.querySelectorAll('.card')].find(c => !c.classList.contains('card-hole') && Number(c.querySelector('.card-n').textContent) > r.rank);
+        next ? wrap.insertBefore(hole, next) : wrap.appendChild(hole);
+      });
+    }
     if (done.length) {
       wrap.appendChild(el('div', 'list-sep', `<span>Resto del inventario (${done.length})</span>`));
       done.forEach(r => wrap.appendChild(card(r)));
