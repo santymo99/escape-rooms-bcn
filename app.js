@@ -377,7 +377,7 @@
       cell('Dificultad', dif, difSmall),
       cell('Valoración', rating, ratingSmall),
       cell('Estado', r.estado === 'Abierto' ? 'En funcionamiento' : (r.estado && r.estado !== 'n.a.' ? r.estado : null),
-           r.estado === 'Abierto' ? 'reservas activas en su web' : null),
+           r.estado === 'Abierto' ? (r.estado_ev || 'reservas activas en su web') : null),
       cell('Año', r.anio ? `${r.anio}${r.anio_aprox ? ' (aprox.)' : ''}` : null),
       cell('Actores', r.actores === true ? 'Sí, en directo' : (r.actores === false ? 'No' : null)),
       cell('Idiomas', r.idiomas),

@@ -71,6 +71,61 @@ for r in rows:
     if r['local'].startswith('Abduction ') and r['municipio'] == 'Badalona' and not r.get('web'):
         r['web'] = 'https://www.abduction.es/badalona/'
 
+# ---------- Encargo 2 (25/09/2026): 94 locales cotejados por el usuario + 22 candidatas confirmadas ----------
+# Ficheros en encargo2/: estados_2026-09-25.jsonl (por local: evidencia + estado por sala) y candidatas_2026-09-25.jsonl.
+# Tipos: cal = calendario de reservas con horas · rev = reseñas recientes, sin calendario visible · null = sin confirmar · cer = cerrada.
+import os, math
+E2 = os.path.join(os.path.dirname(os.path.abspath(p)), 'encargo2')
+FECHA2 = ' (comprobado por el usuario, 25/09/2026)'
+PREF = {'cal': 'calendario de reservas activo. ', 'rev': 'reseñas recientes; sin calendario visible. ', 'null': 'sin confirmar: ', 'cer': ''}
+if os.path.isdir(E2):
+    byname = {}
+    for r in rows: byname.setdefault((r['local'], r['sala']), []).append(r)
+    faltan = []
+    for line in open(os.path.join(E2, 'estados_2026-09-25.jsonl'), encoding='utf-8'):
+        e = json.loads(line)
+        for sala, tipo in e['salas'].items():
+            rs = byname.get((e['local'], sala))
+            if not rs: faltan.append(f"{e['local']} / {sala}"); continue
+            for r in rs:
+                nuevo = {'cal': 'Abierto', 'rev': 'Abierto', 'null': None, 'cer': 'Cerrado'}[tipo]
+                if r['estado'] != nuevo: log.append(f"estado {r['estado']} → {nuevo}: {e['local']} / {sala}")
+                r['estado'], r['estado_ev'] = nuevo, PREF[tipo] + e['ev'] + FECHA2
+    if faltan: print('SIN EMPAREJAR:', faltan)
+    # ---------- Correcciones del usuario el 26/09/2026 (capturas de pantalla) ----------
+    FECHA3 = ' (captura aportada por el usuario, 26/09/2026)'
+    BIZ = 'botón de reserva activo para Backstab, Circus, Toys y Moorder en bizarrebcn.com; sin calendario de horas visible'
+    OV = {('Vortex', 'Apophis'): 'calendario de reservas activo. Calendario Escape Room Director de octubre de 2026 con días y horas disponibles en vortexescape.com',
+          ('Bizarre Escape Room', 'Circus'): BIZ, ('Bizarre Escape Room', 'Backstab'): BIZ, ('Bizarre Escape Room', 'Moorder'): BIZ,
+          ('Bizarre Escape Room', 'Toys'): BIZ + '; opinión ERL de 10/2025'}
+    for (loc, sala), ev in OV.items():
+        for r in byname.get((loc, sala), []):
+            r['estado'], r['estado_ev'] = 'Abierto', ev + FECHA3; log.append(f"Abierto (26/09): {loc} / {sala}")
+    # Maximum: el horario online (26/09/2026) solo lista Gángsters y La Mazmorra; Alkabán sigue en la web → sin confirmar; Oscuridad y Zen Room no aparecen → Cerrado.
+    # candidatas: entran en "otras", sin puesto; nombre de local unificado con el ya mapeado a ≤50 m
+    def dist(a, b, c, e_): return 6371000 * math.acos(min(1, math.sin(math.radians(a))*math.sin(math.radians(c)) + math.cos(math.radians(a))*math.cos(math.radians(c))*math.cos(math.radians(e_-b))))
+    ids = {r['id'] for r in rows}
+    plantilla = {k: None for k in d['otras'][0].keys()}
+    for line in open(os.path.join(E2, 'candidatas_2026-09-25.jsonl'), encoding='utf-8'):
+        c = json.loads(line)
+        if c['id'] in ids: continue
+        c.pop('c2', None)
+        if not c.get('rating'): c['rating'] = None
+        if not c.get('rating_n'): c['rating_n'] = None
+        if c['rating'] is None: c['rating_src'] = None
+        c['estado_ev'] = c['estado_ev'] + FECHA2
+        cerca = [r for r in rows if r.get('lat') and r['prec'] != 'city' and dist(c['lat'], c['lon'], r['lat'], r['lon']) <= 50 and r['local'][:6].lower() == c['local'][:6].lower()]
+        if cerca and cerca[0]['local'] != c['local']:
+            c['local_alt'], c['local'] = c['local'], cerca[0]['local']; log.append(f"candidata: local {c['local_alt']} → {c['local']}")
+        mismo = [r for r in rows if r['municipio'] == c['municipio'] and r.get('zona_g')]
+        c['zona_g'] = mismo[0]['zona_g'] if mismo else 'Resto de la provincia'
+        c['lejana'] = mismo[0].get('lejana', True) if mismo else True
+        c['coche'] = mismo[0].get('coche') if mismo else None
+        c['zona'] = mismo[0].get('zona') if mismo else None
+        rec = dict(plantilla); rec.update(c); rec['extra'] = False; rec['rank'] = None; rec['rvol'] = []; rec['faltan'] = [k for k in ('anio', 'dificultad', 'premios', 'actores', 'idiomas') if not rec.get(k)]
+        d['otras'].append(rec); rows.append(rec); ids.add(rec['id']); log.append(f"candidata añadida: {rec['local']} / {rec['sala']}")
+    d['meta']['total'] = len(rows); d['meta']['n_otras'] = len(d['otras']); d['meta']['generado'] = '2026-09-26'
+
 json.dump(d, open(p, 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'))
 open(p.replace('.json', '.js'), 'w', encoding='utf-8').write('/* generado desde data.json — no editar a mano */\nwindow.ESCAPE_DATA = ' + json.dumps(d, ensure_ascii=False, separators=(',', ':')) + ';\n')
 print('\n'.join(log) or 'sin cambios')
