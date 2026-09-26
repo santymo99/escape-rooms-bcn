@@ -708,3 +708,95 @@ input[type="range"]::-moz-range-thumb { width: 20px; height: 20px; border-radius
 .mk.is-top10 .mk-stack { width: 35px; height: 35px; left: 8px; top: -8px; }
 .mk.is-plain .mk-stack { width: 13px; height: 13px; left: 4px; top: -4px; }
 .mk.is-extra .mk-stack { width: 26px; height: 26px; left: 6px; top: -6px; }
+
+/* ============ v3 · Linterna + Neón (26/09 tarde) ============
+   Dirección elegida: luz dorada real (halos, brillos) sobre la penumbra;
+   chips y tarjetas de categoría con el color del género como neón. ============ */
+[data-v="2"] .topbar { grid-template-columns: auto auto minmax(0, 1fr) auto; position: relative; overflow: hidden; --mx: 18%; }
+[data-theme="dark"][data-v="2"] .topbar::before {
+  content: ""; position: absolute; inset: -60% auto auto var(--mx); width: 520px; height: 220%; transform: translateX(-50%);
+  background: radial-gradient(closest-side, rgba(225, 175, 74, .22), rgba(225, 175, 74, .06) 55%, transparent 75%);
+  pointer-events: none; transition: left .35s var(--ease); z-index: -1;
+}
+[data-v="2"] .topbar > * { position: relative; z-index: 1; }
+[data-theme="dark"][data-v="2"] .logo { filter: drop-shadow(0 0 12px rgba(225, 175, 74, .7)); }
+@media (prefers-reduced-motion: no-preference) {
+  [data-theme="dark"][data-v="2"] .logo { animation: flicker 1.6s steps(1, end) 1; }
+  @keyframes flicker { 0%, 100% { opacity: 1 } 8% { opacity: .35 } 12% { opacity: 1 } 40% { opacity: .55 } 44% { opacity: 1 } }
+}
+/* píldora de zona */
+[data-v="2"] .zone-pill {
+  display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 10px 0 12px; border-radius: 999px;
+  font-size: var(--text-xs); font-weight: 700; color: var(--gold); text-decoration: none; white-space: nowrap;
+  background: var(--gold-soft); border: 1px solid color-mix(in oklab, var(--gold) 35%, transparent);
+  transition: background .18s var(--ease), border-color .18s var(--ease);
+}
+[data-v="2"] .zone-pill:hover { background: color-mix(in oklab, var(--gold) 24%, transparent); border-color: var(--gold); }
+[data-v="2"] .zone-pill svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; opacity: .8; }
+[data-v="2"] .zone-short { display: none; }
+@media (max-width: 640px) {
+  [data-v="2"] .topbar { grid-template-columns: auto 1fr auto; }
+  [data-v="2"] .zone-pill { grid-row: 1; grid-column: 2; justify-self: start; }
+  [data-v="2"] .topbar-actions { grid-column: 3; }
+  [data-v="2"] .zone-long { display: none; } [data-v="2"] .zone-short { display: inline; }
+}
+/* chips neón */
+[data-v="2"] .chip { border-color: color-mix(in oklab, var(--dot, var(--line)) 55%, transparent); color: var(--ink-2); }
+[data-v="2"] .chip .dot { box-shadow: 0 0 8px var(--dot); }
+[data-v="2"] .chip:hover { border-color: var(--dot, var(--ink-3)); color: var(--ink); box-shadow: 0 0 14px -4px var(--dot, transparent); }
+[data-v="2"] .chip.is-active { background: var(--dot, var(--gold)); border-color: var(--dot, var(--gold)); color: #10121a; box-shadow: 0 0 18px color-mix(in oklab, var(--dot, var(--gold)) 55%, transparent); }
+[data-v="2"] .chip--f, [data-v="2"] .chip--clear { border-color: var(--line); color: var(--ink-2); box-shadow: none; }
+/* cabecera del ranking */
+[data-v="2"] .rk-head { display: grid; grid-template-columns: 1.1fr .9fr; gap: var(--space-4); align-items: stretch; margin-bottom: var(--space-4); }
+@media (max-width: 760px) { [data-v="2"] .rk-head { grid-template-columns: 1fr; } }
+[data-v="2"] .rk-title { position: relative; padding: var(--space-5) var(--space-6); border-radius: var(--r-xl); overflow: hidden; background: var(--surface); border: 1px solid var(--line-soft); }
+[data-theme="dark"][data-v="2"] .rk-title::before { content: ""; position: absolute; inset: 0; background: radial-gradient(70% 120% at 0% 0%, rgba(225, 175, 74, .22), transparent 60%); pointer-events: none; }
+[data-v="2"] .rk-title h2 { font-family: "Clash Display", sans-serif; font-size: clamp(1.7rem, 1.2rem + 2vw, 2.4rem); line-height: 1; margin: 0 0 var(--space-2); }
+[data-v="2"] .rk-title p { margin: 0; color: var(--ink-2); font-size: var(--text-sm); line-height: 1.5; }
+[data-v="2"] .played { display: flex; flex-direction: column; justify-content: space-between; gap: var(--space-3); padding: var(--space-4) var(--space-5); border-radius: var(--r-xl); background: var(--surface); border: 1px dashed var(--line); }
+[data-v="2"] .played.has-some { border-style: solid; border-color: color-mix(in oklab, var(--gold) 45%, transparent); }
+[data-v="2"] .played-txt strong { display: block; font-family: "Clash Display", sans-serif; font-size: var(--text-lg); line-height: 1.15; }
+[data-v="2"] .played-txt span { display: block; margin-top: 4px; color: var(--ink-3); font-size: var(--text-xs); line-height: 1.45; }
+[data-v="2"] .switch { display: inline-flex; align-items: center; gap: 10px; font-size: var(--text-sm); font-weight: 600; cursor: pointer; user-select: none; }
+[data-v="2"] .switch input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+[data-v="2"] .switch-ui { width: 40px; height: 22px; border-radius: 999px; background: var(--line); position: relative; transition: background .18s var(--ease); flex: none; }
+[data-v="2"] .switch-ui::after { content: ""; position: absolute; top: 3px; left: 3px; width: 16px; height: 16px; border-radius: 50%; background: var(--ink); transition: transform .18s var(--ease); }
+[data-v="2"] .switch input:checked + .switch-ui { background: var(--gold); }
+[data-v="2"] .switch input:checked + .switch-ui::after { transform: translateX(18px); background: var(--gold-ink); }
+[data-v="2"] .switch input:disabled ~ * , [data-v="2"] .switch:has(input:disabled) { opacity: .5; cursor: default; }
+[data-v="2"] .switch input:focus-visible + .switch-ui { outline: 2px solid var(--gold); outline-offset: 2px; }
+/* tarjetas de categoría: neón */
+[data-v="2"] .cat-tile { border: 1.5px solid color-mix(in oklab, var(--mk) 55%, transparent); }
+[data-v="2"] .cat-tile-txt { background: linear-gradient(to top, color-mix(in oklab, var(--mk) 55%, #06070a) 0%, color-mix(in oklab, var(--mk) 20%, rgba(6, 7, 10, .55)) 45%, transparent 100%); }
+[data-v="2"] .cat-tile::before { box-shadow: 0 0 0 2px rgba(6, 7, 10, .6), 0 0 12px var(--mk); }
+[data-v="2"] .cat-tile:hover { border-color: var(--mk); box-shadow: 0 0 22px -4px var(--mk); transform: translateY(-2px); }
+[data-v="2"] .cat-tile.is-active { border-color: var(--mk); box-shadow: 0 0 0 2px var(--mk), 0 0 26px -2px var(--mk); }
+/* tarjetas del ranking: linterna */
+[data-v="2"] .card { position: relative; overflow: hidden; border: 1px solid var(--line-soft); background: var(--surface); }
+[data-theme="dark"][data-v="2"] .card { background: linear-gradient(90deg, #12151b, #0e1015); }
+[data-theme="dark"][data-v="2"] .card::after { content: ""; position: absolute; inset: 0; background: radial-gradient(140px 70px at 0% 50%, color-mix(in oklab, var(--mk) 28%, transparent), transparent 70%); pointer-events: none; }
+[data-v="2"] .card:hover { border-color: color-mix(in oklab, var(--mk) 50%, var(--line)); }
+[data-v="2"] .card-n { width: 48px; height: auto; background: none; border-radius: 0; color: var(--gold); font-family: "Clash Display", sans-serif; font-weight: 700; font-size: 1.55rem; line-height: 1; }
+[data-theme="dark"][data-v="2"] .card-n { text-shadow: 0 0 18px rgba(225, 175, 74, .65); }
+[data-v="2"] .card.is-top10 .card-n, [data-v="2"] .card:nth-child(-n+12) .card-n { font-size: 1.75rem; }
+[data-v="2"] .card.is-plain .card-n { color: var(--ink-3); font-size: 1.2rem; border: 0; text-shadow: none; }
+[data-v="2"] .card-img { border: 1px solid color-mix(in oklab, var(--mk) 35%, var(--line-soft)); box-shadow: 0 8px 20px -10px #000; }
+/* jugadas */
+[data-v="2"] .card.is-done { opacity: .5; }
+[data-v="2"] .card.is-done:hover { opacity: .85; }
+[data-v="2"] .card.is-done .card-n { color: var(--ink-3); text-shadow: none; }
+[data-v="2"] .pill--done { background: var(--gold-soft); border-color: color-mix(in oklab, var(--gold) 45%, transparent); color: var(--gold); font-weight: 700; }
+[data-v="2"] .mk.is-done .mk-pin, [data-v="2"] .mk.is-done .mk-dot { opacity: .42; filter: saturate(.4); }
+[data-v="2"] .d-done { display: inline-flex; align-items: center; gap: 8px; margin: var(--space-4) 0 0; padding: 10px 16px; border-radius: 999px; font: inherit; font-size: var(--text-sm); font-weight: 700; cursor: pointer;
+  background: none; color: var(--ink-2); border: 1.5px dashed var(--line); transition: all .16s var(--ease); }
+[data-v="2"] .d-done:hover { border-color: var(--gold); color: var(--ink); }
+[data-v="2"] .d-done.is-on { background: var(--gold); border: 1.5px solid var(--gold); color: var(--gold-ink); box-shadow: 0 0 18px rgba(225, 175, 74, .45); }
+[data-v="2"] .d-done-ic { width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center; font-size: 12px; border: 1.5px solid currentColor; }
+[data-v="2"] .d-done.is-on .d-done-ic { background: var(--gold-ink); color: var(--gold); border-color: var(--gold-ink); }
+/* pie del ranking */
+[data-v="2"] .list-foot { margin: var(--space-8) 0 var(--space-4); padding: var(--space-6); border-radius: var(--r-xl); background: var(--surface); border: 1px solid var(--line-soft); display: grid; gap: var(--space-2); justify-items: start; }
+[data-v="2"] .list-foot strong { font-family: "Clash Display", sans-serif; font-size: var(--text-xl); line-height: 1.1; }
+[data-v="2"] .list-foot span { color: var(--ink-2); font-size: var(--text-sm); max-width: 56ch; line-height: 1.5; }
+[data-v="2"] .btn-gold { display: inline-flex; align-items: center; gap: 8px; margin-top: var(--space-2); padding: 11px 18px; border-radius: 999px; text-decoration: none; font-weight: 700; font-size: var(--text-sm); background: var(--gold); color: var(--gold-ink); box-shadow: 0 10px 26px -12px rgba(225, 175, 74, .7); }
+[data-v="2"] .btn-gold:hover { filter: brightness(1.06); }
+[data-v="2"] .list-view { padding-bottom: calc(var(--space-16) + 40px); }

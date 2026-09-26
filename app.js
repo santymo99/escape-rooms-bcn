@@ -36,8 +36,17 @@
     cat: 'all', q: '', sel: null, view: 'map',
     f: { zona: '', players: 0, dif: '', noDif: false },
     pop: null,
-    theme: (() => { try { return localStorage.getItem('gps-theme') || 'dark'; } catch (e) { return 'dark'; } })()
+    theme: (() => { try { return localStorage.getItem('gps-theme') || 'dark'; } catch (e) { return 'dark'; } })(),
+    // «Ya la he jugado»: se guarda en este navegador (sin registro). No se sincroniza entre dispositivos.
+    done: (() => { try { return new Set(JSON.parse(localStorage.getItem('gps-done') || '[]')); } catch (e) { return new Set(); } })(),
+    hideDone: (() => { try { return localStorage.getItem('gps-hidedone') === '1'; } catch (e) { return false; } })()
   };
+  const isDone = r => state.done.has(r.id);
+  function toggleDone(id) {
+    state.done.has(id) ? state.done.delete(id) : state.done.add(id);
+    try { localStorage.setItem('gps-done', JSON.stringify([...state.done])); } catch (e) {}
+  }
+  function setHideDone(v) { state.hideDone = !!v; try { localStorage.setItem('gps-hidedone', v ? '1' : '0'); } catch (e) {} }
 
   /* ---------------- tema ---------------- */
   function applyTheme() {
@@ -74,6 +83,7 @@
     if (!fitsGroup(r, f.players)) return false;
     // dificultad: la sala sin dato solo entra si el usuario pide verlas (nunca se le asigna un nivel)
     if (f.dif && r.dif !== f.dif && !(f.noDif && !r.dif)) return false;
+    if (state.hideDone && isDone(r)) return false;
     return true;
   }
   const activeFilterCount = () =>
@@ -173,7 +183,7 @@
     const best = bestOf(rooms);
     const keep = [...node.classList].filter(c => c.startsWith('maplibregl')).join(' '); // clases de MapLibre: posicionan el marcador
     node.className = keep + ' mk' + (!best.rank ? ' is-plain' : '') + (best.rank && best.rank <= 10 ? ' is-top10' : '')
-      + (best.extra ? ' is-extra' : '') + (rooms.length > 1 ? ' is-multi' : '') + ((state.sel && rooms.some(r => r.id === state.sel)) || state.openLocal === g.id ? ' is-sel' : '');
+      + (best.extra ? ' is-extra' : '') + (rooms.length > 1 ? ' is-multi' : '') + (rooms.every(isDone) ? ' is-done' : '') + ((state.sel && rooms.some(r => r.id === state.sel)) || state.openLocal === g.id ? ' is-sel' : '');
     node.style.setProperty('--mk', catVar(best.cat));
     // local con varias salas: un segundo disco apilado detrás (sin cifra, para no confundir con el puesto)
     node.innerHTML = (rooms.length > 1 ? '<div class="mk-stack"></div>' : '')
@@ -261,16 +271,24 @@
          <img src="${catImg(k, true)}" alt="" loading="lazy" decoding="async" />
          <span class="cat-tile-txt"><strong>${esc(CATS[k].label)}</strong><small>${counts[k]} ${counts[k] === 1 ? 'sala' : 'salas'}</small></span>
        </button>`).join('');
+    const nDone = state.rooms.filter(isDone).length;
     const head = el('div', 'list-head', `
-      <div class="hero">
-        <img class="hero-img" src="/img/portada.webp" srcset="/img/portada-640.webp 640w, /img/portada.webp 1280w" sizes="(max-width: 640px) 100vw, 880px" alt="" decoding="async" />
-        <div class="hero-txt">
+      <div class="rk-head">
+        <div class="rk-title">
           <h2>El ranking</h2>
-          <p>Las ${nTop} salas más recomendadas de la provincia, ordenadas de la 1 a la ${nTop}. Las otras ${nExtra} del inventario van debajo, sin número.</p>
+          <p>Las ${nTop} salas más recomendadas de la provincia, ordenadas. Las otras ${nExtra} del inventario van debajo, sin número.</p>
+        </div>
+        <div class="played${nDone ? ' has-some' : ''}">
+          <div class="played-txt">
+            <strong>${nDone ? `Has jugado ${nDone} · te quedan ${state.rooms.length - nDone}` : 'Marca las que ya has jugado'}</strong>
+            <span>${nDone ? 'Se guardan en este navegador. ' : 'Abre una sala y pulsa «Ya la he jugado»: '}Así descubres las que te quedan por hacer.</span>
+          </div>
+          <label class="switch"><input type="checkbox" id="hideDone"${state.hideDone ? ' checked' : ''}${nDone ? '' : ' disabled'} /><span class="switch-ui" aria-hidden="true"></span>Ocultar jugadas</label>
         </div>
       </div>
       <div class="cat-grid" id="catGrid">${tiles}</div>`);
     wrap.appendChild(head);
+    const hd = head.querySelector('#hideDone'); if (hd) hd.onchange = () => { setHideDone(hd.checked); render(); };
     head.querySelectorAll('.cat-tile').forEach(t => t.onclick = () => {
       state.cat = state.cat === t.dataset.cat ? 'all' : t.dataset.cat; closePop(); buildChips(); buildQChips(); render();
     });
@@ -297,10 +315,11 @@
       wrap.appendChild(el('div', 'list-sep', `<span>Resto del inventario (${done.length})</span>`));
       done.forEach(r => wrap.appendChild(card(r)));
     }
+    wrap.appendChild(el('div', 'list-foot', `<strong>¿Falta tu escape room?</strong><span>Si tienes una sala que no está en el mapa o ves un dato que no cuadra, cuéntanoslo: lo revisamos a mano.</span><a class="btn-gold" href="/contacto/">Escríbenos →</a>`));
   }
 
   function card(r) {
-    const b = el('button', 'card' + (!r.rank ? ' is-plain' : ''));
+    const b = el('button', 'card' + (!r.rank ? ' is-plain' : '') + (isDone(r) ? ' is-done' : ''));
     b.style.setProperty('--mk', catVar(r.cat));
     const price = r.pmin != null ? `${fmtPrice(r)} /pers.` : null;
     b.innerHTML = `<div class="card-n">${r.rank || '·'}</div>
@@ -317,6 +336,7 @@
           ${r.rpond && r.rn ? pill(`★ ${String(r.rpond).replace('.', ',')} (${nf(r.rn)})`) : ''}
           ${r.premios ? pill('Premiada', 'pill--gold') : ''}
           ${r.extra ? pill('51+', 'pill--extra') : ''}
+          ${isDone(r) ? pill('✓ Jugada', 'pill--done') : ''}
           ${!hasPos(r) ? pill('Ubicación no confirmada', 'pill--warn') : ''}
         </div>
       </div>`;
@@ -341,6 +361,7 @@
     const back = siblings.length
       ? `<button class="d-back" type="button" id="dBack">← ${esc(g.local)} · ${siblings.length + 1} salas</button>` : '';
     $('#sheetBody').innerHTML = back + detailHTML(r);
+    const dd = $('#sheetBody .d-done'); if (dd) dd.onclick = () => { toggleDone(r.id); render(); if (state.sel === r.id) select(r.id, false); };
     if (siblings.length) $('#dBack').onclick = () => openGroup(g.id, false);
     openSheet('#sheet');
   }
@@ -431,6 +452,7 @@
       <div class="d-local">${esc(r.local)} · ${esc(r.municipio)}${zonaLabel(r) ? ` · ${esc(zonaLabel(r))}` : ''}</div>
       ${r.tema ? `<p class="d-tema">${esc(r.tema)}</p>` : ''}
       ${r.porque && r.rank && whyText(r) ? `<div class="d-why"><strong>Qué cuenta para su puesto ${r.rank}</strong>${esc(whyText(r))}</div>` : ''}
+      <button type="button" class="d-done${isDone(r) ? ' is-on' : ''}" data-done="${esc(r.id)}"><span class="d-done-ic" aria-hidden="true">✓</span>${isDone(r) ? 'Ya la has jugado · quitar marca' : 'Ya la he jugado'}</button>
       <dl class="d-grid">${cells}</dl>
       ${r.premios ? `<div class="d-sec"><h3>Reconocimientos</h3><p>${esc(r.premios)}</p></div>` : ''}
       <div class="d-sec">
@@ -648,4 +670,10 @@
     console.error('Fallo al arrancar el mapa:', err);
     $('#sk').innerHTML = '<div class="sk-inner">No se han podido cargar los datos. Recarga la página.</div>';
   });
+
+  // Linterna: el halo de la cabecera sigue al puntero (solo con ratón; en táctil queda fijo)
+  if (matchMedia('(hover: hover) and (prefers-reduced-motion: no-preference)').matches) {
+    const tb = document.querySelector('.topbar');
+    tb.addEventListener('pointermove', e => { const b = tb.getBoundingClientRect(); tb.style.setProperty('--mx', `${((e.clientX - b.left) / b.width * 100).toFixed(1)}%`); }, { passive: true });
+  }
 })();
