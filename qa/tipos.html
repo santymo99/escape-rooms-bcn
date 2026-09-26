@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><meta name="robots" content="noindex" />
+<title>GPS Escape · tipografías para titulares</title>
+<link href="https://api.fontshare.com/v2/css?f%5B%5D=satoshi@400,500,700&f%5B%5D=clash-display@500,600,700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Michroma&family=Cinzel:wght@500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Instrument+Serif&family=Unbounded:wght@500;600&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet" />
+<style>
+:root{--gold:#e1af4a;--bg:#090b10;--ink:#eff2f7;--ink2:#b4b7bf;--ink3:#82868f}
+*{box-sizing:border-box}body{margin:0;background:#0b0d12;color:var(--ink);font-family:Satoshi,system-ui,sans-serif;padding:28px 20px 80px}
+h1{font-family:"Clash Display",sans-serif;margin:0 0 6px}p.d{color:var(--ink2);max-width:74ch;line-height:1.5;margin:0 0 22px}
+.lab{font-family:Satoshi;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin:26px 0 8px}
+.hero{position:relative;height:440px;border-radius:18px;overflow:hidden;isolation:isolate;display:grid;align-items:end;max-width:1100px}
+.hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:60% 40%;z-index:-2}
+.hero::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(to top,var(--bg) 0%,rgba(9,11,16,.78) 34%,rgba(9,11,16,.2) 70%,transparent),radial-gradient(60% 70% at 8% 85%,rgba(225,175,74,.16),transparent 70%)}
+.in{padding:0 36px 34px;max-width:600px}
+.eye{color:var(--gold);font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;margin:0 0 12px}
+.h{margin:0;line-height:1.04;text-shadow:0 2px 30px rgba(0,0,0,.5)}
+.lead{margin:12px 0 22px;color:var(--ink2);max-width:42ch;font-size:1rem;line-height:1.55}
+.cta{display:inline-flex;align-items:center;gap:14px;padding:12px 18px;background:var(--gold);color:#2b1c00;border-radius:14px;text-decoration:none}
+.cta strong{display:block;font-size:1.05rem}.cta small{display:block;font-size:.78rem;font-weight:600;opacity:.8}
+.f1 .h{font-family:"Clash Display",sans-serif;font-weight:600;font-size:3.2rem;letter-spacing:-.02em}.f1 .cta strong{font-family:"Clash Display";font-weight:600}
+.f2 .h{font-family:Michroma,sans-serif;font-weight:400;font-size:2.15rem;letter-spacing:.01em;line-height:1.18}.f2 .cta strong{font-family:Michroma;font-size:.9rem;letter-spacing:.02em}
+.f3 .h{font-family:Cinzel,serif;font-weight:600;font-size:2.7rem;letter-spacing:.02em;line-height:1.12}.f3 .cta strong{font-family:Cinzel;font-weight:600}
+.f4 .h{font-family:Fraunces,serif;font-weight:500;font-size:3.3rem;letter-spacing:-.01em;font-variation-settings:"opsz" 144}.f4 .cta strong{font-family:Fraunces;font-weight:600}
+.f5 .h{font-family:"Instrument Serif",serif;font-weight:400;font-size:3.6rem;letter-spacing:-.01em}.f5 .h i{font-style:italic;color:var(--gold)}.f5 .cta strong{font-family:"Instrument Serif";font-size:1.2rem}
+.f6 .h{font-family:"Cormorant Garamond",serif;font-weight:600;font-size:3.5rem;letter-spacing:-.005em;line-height:1}.f6 .cta strong{font-family:"Cormorant Garamond";font-weight:600;font-size:1.2rem}
+.f7 .h{font-family:Unbounded,sans-serif;font-weight:500;font-size:2.4rem;letter-spacing:-.02em;line-height:1.12}.f7 .cta strong{font-family:Unbounded;font-weight:600;font-size:.95rem}
+</style></head><body>
+<h1>Tipografías para los titulares</h1>
+<p class="d">Mismo hero de la portada con siete fuentes para el titular (y el nombre del botón). El texto pequeño sigue en Satoshi en todas. La marca «GPS ESCAPE» ya está fijada en Michroma; aquí se trata del resto de titulares de la web.</p>
+<div id="list"></div>
+<script>
+const F=[['F1 · Clash Display 600 (actual)','f1'],['F2 · Michroma (la de la marca)','f2'],['F3 · Cinzel (capitales clásicas)','f3'],['F4 · Fraunces (serif suave, editorial)','f4'],['F5 · Instrument Serif (fina, con cursiva dorada)','f5'],['F6 · Cormorant Garamond (elegante, clásica)','f6'],['F7 · Unbounded (ancha, moderna)','f7']];
+document.getElementById('list').innerHTML=F.map(([n,k])=>`<p class="lab">${n}</p><div class="hero ${k}"><img src="/img/portada.webp" alt=""><div class="in"><p class="eye">Escape rooms verificados sala a sala</p><h2 class="h">Busca escape rooms ${k==='f5'?'<i>en tu provincia</i>':'en tu provincia'}</h2><p class="lead">Compara salas por categoría, dificultad, premios y reseñas. Marca las que ya has jugado para descubrir las que te quedan.</p><a class="cta"><span><strong>Provincia de Barcelona</strong><small>228 salas · 91 en el ranking · 38 municipios</small></span><span>→</span></a></div></div>`).join('');
+</script>
+</body></html>
