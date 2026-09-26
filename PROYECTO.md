@@ -63,8 +63,10 @@ de estado lo hace el usuario a mano. Las páginas publicadas como artefacto de C
     en un horario online que sí funciona (caso Refugio 27 y Alkabán de Maximum). Se muestra sin afirmar nada.
   · `Cerrado` = aviso de cierre, dominio caído/en venta o sala retirada de la web oficial. Se conserva en
     data.json como historial pero NO se publica (app.js la filtra).
-- Ranking: es NUESTRO (factores: TERPECA, GibaEscape, Escape Room Lover, Google, etc.); la fórmula está por
-  definir (pendiente 4). Hasta la próxima edición no se renumera ni se mete nadie en un hueco: una sala cerrada
+- Ranking: es NUESTRO y **su criterio no se publica**: ni pesos, ni fórmula, ni fuentes ponderadas en ninguna pantalla
+  (decisión del 26/09). La web solo dice que las salas se revisan a mano y que hay N salas ordenadas; la ficha muestra
+  «Qué cuenta para su puesto N» en prosa (generado desde el campo `porque`, sin cifras). Internamente la fórmula sigue
+  por definir (pendiente 6). Hasta la próxima edición no se renumera ni se mete nadie en un hueco: una sala cerrada
   con puesto se muestra como "Puesto vacante" (tarjeta gris `.card-hole`, solo con el ranking completo visible).
   Hoy los huecos son 74 (Endurance II) y 78 (Forbidden room). El 65 volvió a ocuparlo Refugio 27 (sin confirmar).
   Las salas nuevas entran en `otras`, sin puesto, hasta que haya fórmula.
