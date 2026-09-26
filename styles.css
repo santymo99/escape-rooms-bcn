@@ -674,3 +674,13 @@ input[type="range"]::-moz-range-thumb { width: 20px; height: 20px; border-radius
   [data-v="2"] .card-img { display: none; }
 }
 @media (prefers-reduced-motion: reduce) { [data-v="2"] .cat-tile, [data-v="2"] .tab, [data-v="2"] .search { transition: none; } }
+/* correcciones tras captura (26/09) */
+[data-v="2"] .list { max-width: 880px; }
+[data-v="2"] .list-head { width: 100%; max-width: none; margin: 0 0 var(--space-2); }
+@media (min-width: 860px) {
+  [data-v="2"] .filters { flex-wrap: wrap; overflow: visible; }
+  [data-v="2"] .chips { flex-wrap: wrap; }
+}
+@media (max-width: 640px) {
+  [data-v="2"] .tabbar { left: var(--space-3); transform: none; }
+}
