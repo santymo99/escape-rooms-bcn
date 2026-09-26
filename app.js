@@ -225,6 +225,27 @@
     }
   }
 
+
+  // El campo `porque` de data.json guarda el desglose numérico (uso interno). En la ficha solo se
+  // publica QUÉ se tiene en cuenta, sin puntuaciones ni pesos (decisión del 26/09).
+  function whyText(r) {
+    const p = String(r.porque || '');
+    const parts = [];
+    const rec = p.match(/Reconocimiento[^→]*→\s*([^.]+)\./);
+    if (rec) {
+      const srcs = rec[1].split(',').map(s => s.replace(/\s*[\d.,]+\s*$/, '').trim()).filter(Boolean);
+      if (srcs.length) parts.push(`reconocimiento del sector (${srcs.join(', ')})`);
+    }
+    const rev = p.match(/\(([\d.,]+)\s*ponderado sobre\s*(\d+)\s*reseñas?\)/);
+    if (rev) parts.push(`reseñas contrastadas (${rev[1].replace('.', ',')} de media ponderada sobre ${nf(Number(rev[2]))})`);
+    else if (r.rpond && r.rn) parts.push(`reseñas contrastadas (${String(r.rpond).replace('.', ',')} sobre ${nf(r.rn)})`);
+    if (r.dur) parts.push(`duración (${r.dur} min)`);
+    if (r.jmax) parts.push(`comodidad para grupos (hasta ${r.jmax} jugadores)`);
+    if (!parts.length) return '';
+    const s = parts.join('; ');
+    return s.charAt(0).toUpperCase() + s.slice(1) + '.';
+  }
+
   function pill(txt, cls) { return txt ? `<span class="pill ${cls || ''}">${esc(txt)}</span>` : ''; }
 
   function renderList(visible) {
@@ -409,7 +430,7 @@
       <h2 class="d-title">${esc(r.sala)}</h2>
       <div class="d-local">${esc(r.local)} · ${esc(r.municipio)}${zonaLabel(r) ? ` · ${esc(zonaLabel(r))}` : ''}</div>
       ${r.tema ? `<p class="d-tema">${esc(r.tema)}</p>` : ''}
-      ${r.porque && r.rank ? `<div class="d-why"><strong>Por qué está en el puesto ${r.rank}</strong>${esc(r.porque)}</div>` : ''}
+      ${r.porque && r.rank && whyText(r) ? `<div class="d-why"><strong>Qué cuenta para su puesto ${r.rank}</strong>${esc(whyText(r))}</div>` : ''}
       <dl class="d-grid">${cells}</dl>
       ${r.premios ? `<div class="d-sec"><h3>Reconocimientos</h3><p>${esc(r.premios)}</p></div>` : ''}
       <div class="d-sec">
