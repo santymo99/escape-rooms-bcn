@@ -326,7 +326,7 @@
       <img class="card-img" src="${catImg(r.cat, true)}" alt="" loading="lazy" decoding="async" />
       <div class="card-main">
         <div class="card-title">${esc(r.sala)}</div>
-        <div class="card-sub">${esc(r.local)} · ${esc(r.municipio)}${r.coche != null ? ` · ${r.coche} min` : ''}</div>
+        <div class="card-sub">${esc(r.local)} · ${esc(r.municipio)}</div>
         <div class="card-meta">
           ${pill(r.cat, 'pill--cat')}
           ${r.jmin != null ? pill(`${r.jmin}-${r.jmax} jug.`) : ''}
