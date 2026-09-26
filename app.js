@@ -433,8 +433,7 @@
            r.estado === 'Abierto' ? (r.estado_ev || 'reservas activas en su web') : null),
       cell('Año', r.anio ? `${r.anio}${r.anio_aprox ? ' (aprox.)' : ''}` : null),
       cell('Actores', r.actores === true ? 'Sí, en directo' : (r.actores === false ? 'No' : null)),
-      cell('Idiomas', r.idiomas),
-      cell('Desde Barcelona', r.coche != null ? `~${r.coche} min en coche` : null)
+      cell('Idiomas', r.idiomas)
     ].filter(Boolean).join('');
 
     const precLabel = { exact: 'Portal exacto verificado', portal: 'Portal verificado', street: 'Precisión de calle', city: 'Ubicación no confirmada: no aparece en el mapa hasta verificar sus coordenadas' }[r.prec] || null;
