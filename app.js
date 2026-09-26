@@ -444,7 +444,6 @@
         <span class="pill pill--cat" style="--mk:${catVar(r.cat)}">${esc(r.cat || '—')}</span>
 
         ${r.extra ? pill('Fuera del top 50', 'pill--extra') : ''}
-        ${r.lejana ? pill('Fuera del radio de 20 min') : ''}
         ${!hasPos(r) ? pill('Ubicación no confirmada', 'pill--warn') : ''}
       </div>
       <h2 class="d-title">${esc(r.sala)}</h2>
