@@ -576,10 +576,11 @@ input[type="range"]::-moz-range-thumb { width: 20px; height: 20px; border-radius
 }
 [data-v="2"] .brand { text-decoration: none; color: inherit; gap: var(--space-2); }
 [data-v="2"] .brand:hover { color: inherit; }
-[data-v="2"] .logo { width: 36px; height: 36px; filter: drop-shadow(0 0 10px rgba(225, 175, 74, .45)); }
+[data-v="2"] .logo { width: 38px; height: 38px; filter: drop-shadow(0 0 10px rgba(225, 175, 74, .45)); }
 [data-v="2"] .lg-line { fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
 [data-v="2"] .lg-fill { fill: currentColor; }
 [data-v="2"] .lg-cut { fill: var(--bg); }
+[data-v="2"] .logo path, [data-v="2"] .logo circle { vector-effect: none; }
 [data-v="2"] .brand-txt strong { font-size: 1.05rem; letter-spacing: .06em; line-height: 1.05; }
 [data-v="2"] .brand-txt span { font-size: var(--text-xs); }
 [data-v="2"] .search {
@@ -802,7 +803,7 @@ input[type="range"]::-moz-range-thumb { width: 20px; height: 20px; border-radius
 [data-v="2"] .list-view { padding-bottom: calc(var(--space-16) + 40px); }
 
 /* ---- marca (wordmark) ---- */
-[data-v="2"] .wm { display: inline-flex; align-items: baseline; gap: .3em; font-family: "Clash Display", sans-serif; font-weight: 700; font-size: 1.32rem; line-height: 1; letter-spacing: 0; }
-[data-v="2"] .wm b { color: var(--gold); font-weight: 700; }
+[data-v="2"] .wm { display: inline-flex; align-items: baseline; gap: .45em; font-family: Michroma, sans-serif; font-weight: 400; font-size: .98rem; line-height: 1; letter-spacing: .04em; }
+[data-v="2"] .wm b { color: var(--gold); font-weight: 400; }
 [data-theme="dark"][data-v="2"] .wm b { text-shadow: 0 0 16px rgba(225, 175, 74, .55); }
-[data-v="2"] .wm span { font-weight: 600; font-size: .8em; letter-spacing: .14em; color: var(--ink); }
+[data-v="2"] .wm span { font-size: .8em; letter-spacing: .14em; color: var(--ink); }
