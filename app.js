@@ -231,7 +231,7 @@
   function whyText(r) {
     const p = String(r.porque || '');
     const parts = [];
-    const rec = p.match(/Reconocimiento[^→]*→\s*([^.]+)\./);
+    const rec = p.match(/Reconocimiento[^→]*→\s*(.+?)\.\s*Reseñas/);
     if (rec) {
       const srcs = rec[1].split(',').map(s => s.replace(/\s*[\d.,]+\s*$/, '').trim()).filter(Boolean);
       if (srcs.length) parts.push(`reconocimiento del sector (${srcs.join(', ')})`);
