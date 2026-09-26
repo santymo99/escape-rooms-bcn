@@ -126,6 +126,26 @@ if os.path.isdir(E2):
         d['otras'].append(rec); rows.append(rec); ids.add(rec['id']); log.append(f"candidata añadida: {rec['local']} / {rec['sala']}")
     d['meta']['total'] = len(rows); d['meta']['n_otras'] = len(d['otras']); d['meta']['generado'] = '2026-09-26'
 
+# ---------- Comarca (asignación oficial de la Generalitat; geografía, no dato de sala) ----------
+COMARCA = {
+ 'Barcelona':'Barcelonès','Badalona':'Barcelonès',"L'Hospitalet de Llobregat":'Barcelonès','Santa Coloma de Gramenet':'Barcelonès',
+ 'Mataró':'Maresme','Calella':'Maresme','Pineda de Mar':'Maresme','Arenys de Mar':'Maresme',
+ 'Terrassa':'Vallès Occidental','Sabadell':'Vallès Occidental','Montcada i Reixac':'Vallès Occidental','Ripollet':'Vallès Occidental',
+ 'Rubí':'Vallès Occidental','Cerdanyola del Vallès':'Vallès Occidental','Sant Cugat del Vallès':'Vallès Occidental','Les Fonts':'Vallès Occidental',
+ 'Cornellà de Llobregat':'Baix Llobregat','El Prat de Llobregat':'Baix Llobregat','Esplugues de Llobregat':'Baix Llobregat','Sant Boi de Llobregat':'Baix Llobregat',
+ 'Pallejà':'Baix Llobregat','Sant Feliu de Llobregat':'Baix Llobregat','Gavà':'Baix Llobregat','Sant Andreu de la Barca':'Baix Llobregat',
+ 'Castelldefels':'Baix Llobregat','Esparreguera':'Baix Llobregat','Olesa de Montserrat':'Baix Llobregat',
+ 'Granollers':'Vallès Oriental','Les Franqueses del Vallès':'Vallès Oriental','Mollet del Vallès':'Vallès Oriental',
+ 'Berga':'Berguedà','Gironella':'Berguedà','Vilanova i la Geltrú':'Garraf','Manresa':'Bages','Sant Fruitós de Bages':'Bages',
+ "Sant Sadurní d'Anoia":'Alt Penedès','Vilafranca del Penedès':'Alt Penedès','Igualada':'Anoia',
+}
+sin_comarca = set()
+for r in rows:
+    c = COMARCA.get(r['municipio'])
+    if c: r['comarca'] = c
+    else: r['comarca'] = None; sin_comarca.add(r['municipio'])
+if sin_comarca: print('SIN COMARCA:', sorted(sin_comarca))
+
 json.dump(d, open(p, 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'))
 open(p.replace('.json', '.js'), 'w', encoding='utf-8').write('/* generado desde data.json — no editar a mano */\nwindow.ESCAPE_DATA = ' + json.dumps(d, ensure_ascii=False, separators=(',', ':')) + ';\n')
 print('\n'.join(log) or 'sin cambios')

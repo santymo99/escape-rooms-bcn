@@ -34,7 +34,7 @@
   const state = {
     data: null, rooms: [], groups: [], markers: new Map(), map: null, openLocal: null,
     cat: 'all', q: '', sel: null, view: 'map',
-    f: { price: 65, players: 0, coche: 70, dur: 0, dif: '', actores: false, premios: false, resenas: false, soloRank: false },
+    f: { zona: '', players: 0, dif: '', noDif: false },
     pop: null,
     theme: matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'
   };
@@ -54,7 +54,9 @@
 
   /* ---------------- helpers de datos ---------------- */
   const priceOf = r => (r.pmax ?? r.pmin ?? null);
-  const DEF_F = { price: 65, players: 0, coche: 70, dur: 0, dif: '', actores: false, premios: false, resenas: false, soloRank: false };
+  const DEF_F = { zona: '', players: 0, dif: '', noDif: false };
+  const CAT_IMG = { 'Terror': 'terror', 'Thriller/Misterio': 'misterio', 'Aventura': 'aventura', 'Ciencia ficción': 'scifi', 'Histórico': 'historico', 'Fantasía': 'fantasia', 'Humor': 'humor', 'Clásico': 'clasico' };
+  const catImg = (c, sm) => `img/${CAT_IMG[c] || 'clasico'}${sm ? '-sm' : ''}.webp`;
   function fitsGroup(r, n) {
     if (!n) return true;
     if (r.jmax != null && r.jmax < n) return false;
@@ -63,25 +65,19 @@
   }
   function matches(r, f) {
     f = f || state.f;
-    if (f.soloRank && !r.rank) return false;
     if (state.cat !== 'all' && r.cat !== state.cat) return false;
     if (state.q) {
       const hay = `${r.sala} ${r.local} ${r.municipio} ${r.zona || ''} ${r.cat} ${r.tema || ''}`.toLowerCase();
       if (!hay.includes(state.q)) return false;
     }
-    const p = priceOf(r);
-    if (f.price < 65 && p != null && p > f.price) return false;
+    if (f.zona && r.comarca !== f.zona) return false;
     if (!fitsGroup(r, f.players)) return false;
-    if (f.coche < 70 && r.coche != null && r.coche > f.coche) return false;
-    if (f.dur && (r.dur == null || r.dur < f.dur)) return false;
-    if (f.dif && r.dif !== f.dif) return false;
-    if (f.actores && r.actores !== true) return false;
-    if (f.premios && !r.premios) return false;
-    if (f.resenas && !(r.rn >= 50)) return false;
+    // dificultad: la sala sin dato solo entra si el usuario pide verlas (nunca se le asigna un nivel)
+    if (f.dif && r.dif !== f.dif && !(f.noDif && !r.dif)) return false;
     return true;
   }
   const activeFilterCount = () =>
-    Object.keys(DEF_F).reduce((n, k) => n + (state.f[k] !== DEF_F[k] ? 1 : 0), 0);
+    Object.keys(DEF_F).filter(k => k !== 'noDif').reduce((n, k) => n + (state.f[k] !== DEF_F[k] ? 1 : 0), 0);
   // cuántas salas pendientes quedarían si un filtro tomara otro valor
   function countWith(key, value) {
     const f = { ...state.f, [key]: value };
@@ -217,9 +213,8 @@
     const nr = visible.filter(r => r.rank).length;
     const nSin = visible.filter(r => !hasPos(r)).length;
     const nLoc = new Set(visible.filter(hasPos).map(r => r.gid)).size;
-    $('#counter').innerHTML = `<span id="counterN">${visible.length}</span> salas · ${nLoc} locales${nr ? ` · ${nr} puntuadas` : ''}${nSin ? ` · <span class="counter-warn">${nSin} sin ubicar</span>` : ''}`;
-    const n = activeFilterCount();
-    $('#filterCount').hidden = !n; $('#filterCount').textContent = n;
+    $('#counter').innerHTML = `<span id="counterN">${visible.length}</span> salas · ${nLoc} locales${nr ? ` · ${nr} puntuadas` : ''}${nSin ? ` · <span class="counter-warn">${nSin} sin ubicar</span>` : ''}${state.f.dif && !state.f.noDif ? ` · <button class="counter-link" id="showNoDif">+${state.rooms.filter(r => !r.dif && matches(r, { ...state.f, dif: '' })).length} sin dificultad publicada</button>` : ''}`;
+    const snd = $('#showNoDif'); if (snd) snd.onclick = () => { state.f.noDif = true; buildQChips(); render(); };
     renderList(visible);
     if (state.sel && !vis.has(state.sel)) closeSheet();
     else if (state.openLocal && openEl === '#sheet' && !state.sel) {
@@ -238,11 +233,25 @@
 
     const nTop = state.rooms.filter(r => r.rank).length;
     const nExtra = state.rooms.filter(r => !r.rank).length;
-    const head = el('div', 'list-head', `<h2>${nTop} salas puntuadas y ${nExtra} más del inventario</h2>
-      <p>Las ${nTop} salas puntuadas van ordenadas con un único criterio: 50 % reconocimiento verificado del sector (puestos TERPECA 2020-2025, premios 10 Escapes, Escape Room Awards, GibaEscape, OcioTerror, Room Escapers; cuenta el mejor aval y suman los siguientes), 25 % reseñas, 10 % duración y 15 % comodidad para ir en grupo (tiempo en coche, aforo, precio). El 1 es el más recomendado y cada ficha desglosa su puntuación.</p>
-      <p class="list-note">Las reseñas no se toman en bruto: se aplica una <strong>media bayesiana</strong> que arrastra hacia la media del sector (4,87 sobre 20.554 reseñas) a las salas con poco volumen, así que un 5,0 con 3 opiniones ya no gana a un 4,9 con 1.500.</p>
-      <p class="list-note">Las otras <strong>${nExtra} salas</strong> del inventario aparecen sin número: están en el mapa con toda su ficha, pero no tienen avales externos suficientes para entrar en la puntuación comparada.</p>`);
+    const counts = {}; state.rooms.forEach(r => counts[r.cat] = (counts[r.cat] || 0) + 1);
+    const tiles = Object.keys(CATS).filter(k => counts[k]).sort((a, b) => counts[b] - counts[a]).map(k =>
+      `<button class="cat-tile${state.cat === k ? ' is-active' : ''}" data-cat="${esc(k)}" style="--mk:${catVar(k)}">
+         <img src="${catImg(k, true)}" alt="" loading="lazy" decoding="async" />
+         <span class="cat-tile-txt"><strong>${esc(CATS[k].label)}</strong><small>${counts[k]} ${counts[k] === 1 ? 'sala' : 'salas'}</small></span>
+       </button>`).join('');
+    const head = el('div', 'list-head', `
+      <div class="hero">
+        <img class="hero-img" src="img/hero.webp" alt="" decoding="async" />
+        <div class="hero-txt">
+          <h2>El ranking</h2>
+          <p>${nTop} salas puntuadas con un único criterio: 50 % reconocimiento verificado del sector (TERPECA 2020-2025, premios 10 Escapes, Escape Room Awards, GibaEscape, OcioTerror, Room Escapers), 25 % reseñas con media bayesiana, 10 % duración y 15 % comodidad para ir en grupo. Cada ficha desglosa su puntuación. Las otras ${nExtra} salas del inventario van debajo, sin número.</p>
+        </div>
+      </div>
+      <div class="cat-grid" id="catGrid">${tiles}</div>`);
     wrap.appendChild(head);
+    head.querySelectorAll('.cat-tile').forEach(t => t.onclick = () => {
+      state.cat = state.cat === t.dataset.cat ? 'all' : t.dataset.cat; closePop(); buildChips(); buildQChips(); render();
+    });
 
     if (!pend.length && !done.length) {
       wrap.appendChild(el('div', 'empty', '<strong>Sin resultados</strong>Prueba a relajar algún filtro.'));
@@ -273,6 +282,7 @@
     b.style.setProperty('--mk', catVar(r.cat));
     const price = r.pmin != null ? `${fmtPrice(r)} /pers.` : null;
     b.innerHTML = `<div class="card-n">${r.rank || '·'}</div>
+      <img class="card-img" src="${catImg(r.cat, true)}" alt="" loading="lazy" decoding="async" />
       <div class="card-main">
         <div class="card-title">${esc(r.sala)}</div>
         <div class="card-sub">${esc(r.local)} · ${esc(r.municipio)}${r.coche != null ? ` · ${r.coche} min` : ''}</div>
@@ -431,7 +441,6 @@
   }
   $('#scrim').onclick = () => { if (openEl === '#sheet') closeSheet(); else closeAll(); };
   $('#sheetClose').onclick = closeSheet;
-  $('#filtersClose').onclick = closeAll;
   $('#legendClose').onclick = closeAll;
   addEventListener('keydown', e => {
     if (e.key !== 'Escape') return;
@@ -486,9 +495,8 @@
   /* ------------- filtros rápidos (segunda fila) ------------- */
   const QF = [
     {
-      key: 'coche', label: 'Distancia', hint: 'Tiempo en coche desde Barcelona ciudad.',
-      opts: [[70, 'Sin límite'], [15, 'Hasta 15 min'], [25, 'Hasta 25 min'], [35, 'Hasta 35 min'], [50, 'Hasta 50 min']],
-      short: v => `${v} min`
+      key: 'zona', label: 'Zona', hint: 'Comarca del local.',
+      opts: [['', 'Toda la provincia']], short: v => v
     },
     {
       key: 'players', label: 'Jugadores', hint: 'Solo salas donde ese grupo entra dentro del mínimo y el máximo.',
@@ -496,19 +504,9 @@
       short: v => (v === 8 ? '8+' : `${v}`) + ' pers.'
     },
     {
-      key: 'dif', label: 'Dificultad', hint: '23 de las 68 salas no publican dificultad y quedan fuera al elegir un nivel.',
+      key: 'dif', label: 'Dificultad', hint: '',
       opts: [['', 'Cualquiera'], ['Fácil', 'Fácil'], ['Media', 'Media'], ['Media-Alta', 'Media-Alta'], ['Alta', 'Alta'], ['Muy alta', 'Muy alta']],
       short: v => v
-    },
-    {
-      key: 'price', label: 'Precio', hint: 'Precio máximo por persona en la tarifa más habitual.',
-      opts: [[65, 'Sin límite'], [20, 'Hasta 20 €'], [25, 'Hasta 25 €'], [30, 'Hasta 30 €'], [40, 'Hasta 40 €']],
-      short: v => `≤ ${v} €`
-    },
-    {
-      key: 'dur', label: 'Duración', hint: 'Duración mínima de la partida.',
-      opts: [[0, 'Cualquiera'], [80, '80 min o más'], [90, '90 min o más'], [120, '120 min o más']],
-      short: v => `${v} min+`
     }
   ];
 
@@ -522,11 +520,6 @@
       c.onclick = e => { e.stopPropagation(); togglePop(def, c); };
       box.appendChild(c);
     });
-    const extra = activeFilterCount() - QF.filter(d => state.f[d.key] !== DEF_F[d.key]).length;
-    const more = el('button', 'chip chip--more' + (extra > 0 ? ' is-on' : ''),
-      `Más filtros${extra > 0 ? ` · ${extra}` : ''}`);
-    more.onclick = e => { e.stopPropagation(); closePop(); openSheet('#filters'); };
-    box.appendChild(more);
     if (activeFilterCount() || state.cat !== 'all' || state.q) {
       const cl = el('button', 'chip chip--clear', 'Limpiar');
       cl.onclick = e => { e.stopPropagation(); closePop(); resetFilters(); };
@@ -554,10 +547,18 @@
         `<span>${esc(lab)}</span><em>${n}</em>`);
       b.onclick = () => {
         state.f[def.key] = v;
-        syncPanel(); closePop(); buildQChips(); render();
+        if (def.key === 'dif' && !v) state.f.noDif = false;
+        closePop(); buildQChips(); render();
       };
       box.appendChild(b);
     });
+    if (def.key === 'dif') {
+      const nd = state.rooms.filter(r => !r.dif && matches(r, { ...state.f, dif: '' })).length;
+      const t = el('button', 'pop-opt pop-opt--toggle' + (state.f.noDif ? ' is-sel' : ''),
+        `<span>Mostrar también las que no publican dificultad</span><em>${nd}</em>`);
+      t.onclick = () => { state.f.noDif = !state.f.noDif; closePop(); buildQChips(); render(); };
+      box.appendChild(t);
+    }
     pop.hidden = false;
     // alinear con el chip sin salirse de la pantalla
     const r = chip.getBoundingClientRect();
@@ -575,51 +576,16 @@
   addEventListener('resize', closePop);
 
   /* ---------------- buscador ---------------- */
-  $('#btnSearch').onclick = () => {
-    const w = $('#searchWrap'); w.hidden = !w.hidden;
-    if (!w.hidden) $('#search').focus();
-  };
-  $('#searchClose').onclick = () => { $('#searchWrap').hidden = true; $('#search').value = ''; state.q = ''; buildQChips(); render(); };
   $('#search').oninput = e => { state.q = e.target.value.trim().toLowerCase(); buildQChips(); render(); };
 
   /* ---------------- filtros ---------------- */
-  $('#btnFilters').onclick = () => openSheet('#filters');
   $('#btnLegend').onclick = () => openSheet('#legend');
-  $('#fApply').onclick = closeAll;
-
-  const syncOuts = () => {
-    $('#fPriceOut').textContent = state.f.price >= 65 ? 'sin límite' : `hasta ${state.f.price} €`;
-    $('#fCocheOut').textContent = state.f.coche >= 70 ? 'sin límite' : `${state.f.coche} min`;
-  };
-  // deja el panel grande reflejando el estado actual (lo cambien los chips o él mismo)
-  function syncPanel() {
-    $('#fPrice').value = state.f.price;
-    $('#fCoche').value = state.f.coche;
-    const segs = [['#fPlayers', String(state.f.players)], ['#fDur', String(state.f.dur)], ['#fDif', state.f.dif]];
-    segs.forEach(([sel, v]) => $(sel).querySelectorAll('button')
-      .forEach(b => b.classList.toggle('is-active', b.dataset.v === v)));
-    syncOuts();
-  }
-  const bindRange = (sel, key) => {
-    $(sel).oninput = e => { state.f[key] = +e.target.value; syncOuts(); buildQChips(); render(); };
-  };
-  bindRange('#fPrice', 'price'); bindRange('#fCoche', 'coche');
-  const bindSeg = (sel, key, num) => $(sel).querySelectorAll('button').forEach(b => b.onclick = () => {
-    state.f[key] = num ? +b.dataset.v : b.dataset.v;
-    syncPanel(); buildQChips(); render();
-  });
-  bindSeg('#fPlayers', 'players', true); bindSeg('#fDur', 'dur', true); bindSeg('#fDif', 'dif', false);
-  [['#fActores', 'actores'], ['#fPremios', 'premios'], ['#fResenas', 'resenas'], ['#fSoloRank', 'soloRank']]
-    .forEach(([sel, key]) => $(sel).onchange = e => { state.f[key] = e.target.checked; buildQChips(); render(); });
   function resetFilters() {
     state.f = { ...DEF_F };
-    $('#fActores').checked = false; $('#fPremios').checked = false; $('#fResenas').checked = false;
-    $('#fSoloRank').checked = false;
     state.cat = 'all'; state.q = '';
-    $('#search').value = ''; $('#searchWrap').hidden = true;
-    buildChips(); syncPanel(); buildQChips(); render();
+    $('#search').value = '';
+    buildChips(); buildQChips(); render();
   }
-  $('#fReset').onclick = resetFilters;
 
   /* ---------------- leyenda ---------------- */
   function buildLegend(meta) {
@@ -641,20 +607,17 @@
     // las salas con estado 'Cerrado' se conservan en data.json como historial pero no se publican
     state.rooms = [...d.rank, ...d.otras].filter(r => r.estado !== 'Cerrado');
     buildGroups();
-    $('#brandSub').textContent = `${state.rooms.length} salas · ${state.groups.length} locales · ${state.rooms.filter(r => r.rank).length} puntuadas`;
+    $('#brandSub').textContent = `Encuentra escape rooms · ${state.rooms.length} salas`;
+    $('#lgN').textContent = state.rooms.filter(r => r.rank).length; $('#lgX').textContent = state.rooms.filter(r => !r.rank).length;
     const sinDif = state.rooms.filter(r => !r.dif).length;
-    const hintDif = `${sinDif} de las ${d.meta.total} salas no publican dificultad; quedan fuera al filtrar por un nivel concreto.`;
-    $('#fDifHint').textContent = hintDif;
     const qdif = QF.find(x => x.key === 'dif');
-    qdif.hint = hintDif;
-    // solo los niveles que alguna sala publica de verdad
+    qdif.hint = `${sinDif} de las ${state.rooms.length} salas no publican dificultad; puedes añadirlas a la vista con la última opción.`;
     const niveles = new Set(state.rooms.map(r => r.dif).filter(Boolean));
-    qdif.opts = [['', 'Cualquiera'], ...['Fácil', 'Media', 'Media-Alta', 'Alta', 'Muy alta']
-      .filter(v => niveles.has(v)).map(v => [v, v])];
-    $('#fDif').querySelectorAll('button').forEach(b => {
-      if (b.dataset.v) b.hidden = !niveles.has(b.dataset.v);
-    });
-    buildChips(); buildQChips(); buildLegend(d.meta); syncPanel(); applyTheme();
+    qdif.opts = [['', 'Cualquiera'], ...['Fácil', 'Media', 'Media-Alta', 'Alta', 'Muy alta'].filter(v => niveles.has(v)).map(v => [v, v])];
+    const qz = QF.find(x => x.key === 'zona');
+    const zc = {}; state.rooms.forEach(r => { if (r.comarca) zc[r.comarca] = (zc[r.comarca] || 0) + 1; });
+    qz.opts = [['', 'Toda la provincia'], ...Object.keys(zc).sort((a, b) => zc[b] - zc[a]).map(z => [z, z])];
+    buildChips(); buildQChips(); buildLegend(d.meta); applyTheme();
     render(); // el ranking no depende del mapa: si las teselas fallan, la lista sigue estando
     initMap();
     // red de seguridad: si el mapa no emite 'load' (teselas bloqueadas o sin WebGL)
