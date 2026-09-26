@@ -1,111 +1,131 @@
 <!doctype html>
-<html lang="es" data-theme="dark" data-v="2">
+<html lang="es">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover" />
-<title>GPS Escape · Encuentra escape rooms en Barcelona y provincia</title>
-<meta name="description" content="Mapa y ranking de escape rooms de Barcelona y su provincia, con datos verificados sala a sala: categoría, zona, jugadores, dificultad, precio y reseñas contrastadas." />
-<meta property="og:title" content="GPS Escape · Encuentra escape rooms" />
-<meta property="og:description" content="Mapa y ranking de escape rooms de Barcelona y provincia, verificados sala a sala." />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>GPS Escape · Mapas de escape rooms verificados</title>
+<meta name="description" content="Mapa y ranking de escape rooms con datos verificados sala a sala: premios, reseñas contrastadas, dificultad, jugadores y estado real. Empezamos por la provincia de Barcelona." />
+<link rel="canonical" href="https://gpsescape.es/" />
+<meta property="og:title" content="GPS Escape · Mapas de escape rooms verificados" />
+<meta property="og:description" content="Elige tu mapa: escape rooms con datos verificados sala a sala. Empezamos por la provincia de Barcelona." />
 <meta property="og:image" content="https://gpsescape.es/img/og.jpg" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary_large_image" />
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230d0e12'/%3E%3Ccircle cx='16' cy='16' r='11.5' fill='none' stroke='%23e1af4a' stroke-width='2'/%3E%3Cpath d='M16 6 19 16l-3-1.7L13 16Z' fill='%23e1af4a'/%3E%3Cpath d='M16 26 13 16l3 1.7 3-1.7Z' fill='none' stroke='%23e1af4a' stroke-width='1.6' stroke-linejoin='round'/%3E%3Ccircle cx='16' cy='16' r='1.6' fill='%23e1af4a'/%3E%3C/svg%3E" />
-<link href="https://api.fontshare.com/v2/css?f%5B%5D=satoshi@400,500,700,900&f%5B%5D=clash-display@600,700&display=swap" rel="stylesheet" />
-<link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet" />
-<link rel="stylesheet" href="styles.css?v=19" />
+<meta name="theme-color" content="#090b10" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230d0e12'/%3E%3Ccircle cx='16' cy='16' r='12' fill='none' stroke='%23e1af4a' stroke-width='2'/%3E%3Cpath d='M16 4.5 18.3 13.7 16 12.7 13.7 13.7ZM27.5 16 18.3 18.3 19.3 16 18.3 13.7ZM16 27.5 13.7 18.3 16 19.3 18.3 18.3ZM4.5 16 13.7 13.7 12.7 16 13.7 18.3Z' fill='%23e1af4a'/%3E%3Ccircle cx='16' cy='16' r='4.6' fill='%23e1af4a'/%3E%3Ccircle cx='16' cy='14.9' r='1.55' fill='%230d0e12'/%3E%3Cpath d='M15.25 15.9 14.55 18.8h2.9l-.7-2.9Z' fill='%230d0e12'/%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+<link href="https://api.fontshare.com/v2/css?f%5B%5D=satoshi@400,500,700&f%5B%5D=clash-display@600,700&display=swap" rel="stylesheet" />
+<link rel="preload" as="image" href="/img/portada.webp" imagesrcset="/img/portada-640.webp 640w, /img/portada.webp 1280w" imagesizes="100vw" />
+<link rel="stylesheet" href="/portada.css?v=1" />
 </head>
 <body>
 
-<header class="topbar">
-  <a class="brand" href="./" aria-label="GPS Escape, inicio">
-    <svg class="logo" viewBox="0 0 32 32" aria-hidden="true">
-      <circle class="lg-line" cx="16" cy="16" r="12.5"/>
-      <path class="lg-line" d="M16 1.8v2.4M16 27.8v2.4M1.8 16h2.4M27.8 16h2.4"/>
-      <path class="lg-fill" d="M16 5.2 19.3 16l-3.3-1.9L12.7 16Z"/>
-      <path class="lg-line" d="M16 26.8 12.7 16l3.3 1.9 3.3-1.9Z"/>
-      <circle class="lg-fill" cx="16" cy="16" r="1.7"/>
+<header class="p-top" id="top">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="GPS Escape, inicio">
+      <svg class="logo" viewBox="0 0 32 32" aria-hidden="true">
+      <circle class="lg-line" cx="16" cy="16" r="13"/>
+      <path class="lg-line" d="M7.6 7.6l2.9 2.9M24.4 7.6l-2.9 2.9M7.6 24.4l2.9-2.9M24.4 24.4l-2.9-2.9"/>
+      <path class="lg-fill" d="M16 3.4 18.5 13.5 16 12.4 13.5 13.5ZM28.6 16 18.5 18.5 19.6 16 18.5 13.5ZM16 28.6 13.5 18.5 16 19.6 18.5 18.5ZM3.4 16 13.5 13.5 12.4 16 13.5 18.5Z"/>
+      <circle class="lg-fill" cx="16" cy="16" r="4.6"/>
+      <circle class="lg-cut" cx="16" cy="14.9" r="1.55"/>
+      <path class="lg-cut" d="M15.25 15.9 14.55 18.8h2.9l-.7-2.9Z"/>
     </svg>
-    <span class="brand-txt">
       <strong>GPS ESCAPE</strong>
-      <span id="brandSub">Encuentra escape rooms</span>
-    </span>
-  </a>
-
-  <label class="search" for="search">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg>
-    <input id="search" type="search" placeholder="Busca una sala o un local" autocomplete="off" spellcheck="false" />
-  </label>
-
-  <div class="topbar-actions">
-    <button id="btnTheme" class="icon-btn" aria-label="Cambiar tema">
-      <svg id="iconTheme" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z"/></svg>
-    </button>
+    </a>
+    <nav class="p-nav" aria-label="Secciones">
+      <a href="#categorias">Categorías</a>
+      <a href="#como">Cómo puntuamos</a>
+      <a href="/contacto/">Contacto</a>
+      <a class="btn-sm" href="/barcelona/">Abrir el mapa</a>
+    </nav>
   </div>
 </header>
 
-<div class="filters" aria-label="Filtros">
-  <nav class="chips" id="chips" aria-label="Categoría"></nav>
-  <span class="filters-sep" aria-hidden="true"></span>
-  <nav class="chips chips--f" id="qchips" aria-label="Zona, jugadores y dificultad"></nav>
-</div>
+<main>
+  <section class="hero" aria-labelledby="h1">
+    <img class="hero-img" src="/img/portada.webp" srcset="/img/portada-640.webp 640w, /img/portada.webp 1280w" sizes="100vw" alt="" fetchpriority="high" />
+    <div class="wrap">
+      <p class="eyebrow">Escape rooms verificados sala a sala</p>
+      <h1 id="h1">Elige tu mapa</h1>
+      <p class="lead">Premios, reseñas contrastadas, dificultad, jugadores y estado real de cada sala. Si un dato no está verificado, no está.</p>
+      <a class="cta" href="/barcelona/">
+        <span class="cta-txt">
+          <strong>Provincia de Barcelona</strong>
+          <small><span data-stat="salas">228</span> salas · <span data-stat="puntuadas">91</span> en el ranking · <span data-stat="municipios">38</span> municipios</small>
+        </span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <p class="soon">Más zonas, pronto. Cada zona tendrá su propio mapa.</p>
+    </div>
+    <span class="hero-scroll" aria-hidden="true">Desliza</span>
+  </section>
 
-<div id="pop" class="pop" hidden role="dialog" aria-label="Opciones de filtro">
-  <div class="pop-head"><strong id="popTitle"></strong><span id="popHint" class="pop-hint"></span></div>
-  <div id="popOpts" class="pop-opts"></div>
-</div>
+  <section class="sec" id="categorias" aria-labelledby="h-cat">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <h2 id="h-cat">Por categoría</h2>
+          <p>Ocho géneros, cada uno con su color en el mapa. Toca uno y el mapa de Barcelona se abre ya filtrado.</p>
+        </div>
+        <a href="/barcelona/">Ver todas las salas →</a>
+      </div>
+      <div class="cat-grid">
+        <a class="cat" href="/barcelona/?cat=Terror" style="--c: var(--c-terror)"><img src="/img/cat/terror-640.webp" srcset="/img/cat/terror-640.webp 640w, /img/cat/terror.webp 1280w" sizes="(max-width: 640px) 50vw, 280px" alt="" loading="lazy" /><span class="cat-txt"><i class="dot"></i><strong>Terror</strong><small><span data-cat="Terror">53</span> salas</small></span></a>
+        <a class="cat" href="/barcelona/?cat=Thriller%2FMisterio" style="--c: var(--c-misterio)"><img src="/img/cat/thriller-640.webp" srcset="/img/cat/thriller-640.webp 640w, /img/cat/thriller.webp 1280w" sizes="(max-width: 640px) 50vw, 280px" alt="" loading="lazy" /><span class="cat-txt"><i class="dot"></i><strong>Thriller y misterio</strong><small><span data-cat="Thriller/Misterio">56</span> salas</small></span></a>
+        <a class="cat" href="/barcelona/?cat=Aventura" style="--c: var(--c-aventura)"><img src="/img/cat/aventura-640.webp" srcset="/img/cat/aventura-640.webp 640w, /img/cat/aventura.webp 1280w" sizes="(max-width: 640px) 50vw, 280px" alt="" loading="lazy" /><span class="cat-txt"><i class="dot"></i><strong>Aventura</strong><small><span data-cat="Aventura">50</span> salas</small></span></a>
+        <a class="cat" href="/barcelona/?cat=Ciencia%20ficci%C3%B3n" style="--c: var(--c-scifi)"><img src="/img/cat/scifi-640.webp" srcset="/img/cat/scifi-640.webp 640w, /img/cat/scifi.webp 1280w" sizes="(max-width: 640px) 50vw, 280px" alt="" loading="lazy" /><span class="cat-txt"><i class="dot"></i><strong>Ciencia ficción</strong><small><span data-cat="Ciencia ficción">29</span> salas</small></span></a>
+        <a class="cat" href="/barcelona/?cat=Fantas%C3%ADa" style="--c: var(--c-fantasia)"><img src="/img/cat/fantasia-640.webp" srcset="/img/cat/fantasia-640.webp 640w, /img/cat/fantasia.webp 1280w" sizes="(max-width: 640px) 50vw, 280px" alt="" loading="lazy" /><span class="cat-txt"><i class="dot"></i><strong>Fantasía</strong><small><span data-cat="Fantasía">18</span> salas</small></span></a>
+        <a class="cat" href="/barcelona/?cat=Hist%C3%B3rico" style="--c: var(--c-historico)"><img src="/img/cat/historico-640.webp" srcset="/img/cat/historico-640.webp 640w, /img/cat/historico.webp 1280w" sizes="(max-width: 640px) 50vw, 280px" alt="" loading="lazy" /><span class="cat-txt"><i class="dot"></i><strong>Histórico</strong><small><span data-cat="Histórico">17</span> salas</small></span></a>
+        <a class="cat" href="/barcelona/?cat=Humor" style="--c: var(--c-humor)"><img src="/img/cat/humor-640.webp" srcset="/img/cat/humor-640.webp 640w, /img/cat/humor.webp 1280w" sizes="(max-width: 640px) 50vw, 280px" alt="" loading="lazy" /><span class="cat-txt"><i class="dot"></i><strong>Humor</strong><small><span data-cat="Humor">3</span> salas</small></span></a>
+        <a class="cat" href="/barcelona/?cat=Cl%C3%A1sico" style="--c: var(--c-clasico)"><img src="/img/cat/clasico-640.webp" srcset="/img/cat/clasico-640.webp 640w, /img/cat/clasico.webp 1280w" sizes="(max-width: 640px) 50vw, 280px" alt="" loading="lazy" /><span class="cat-txt"><i class="dot"></i><strong>Clásico</strong><small><span data-cat="Clásico">2</span> salas</small></span></a>
+      </div>
+    </div>
+  </section>
 
-<main id="mapWrap" class="map-wrap">
-  <div id="map"></div>
-  <button id="btnLegend" class="fab fab-legend" aria-label="Cómo leer el mapa">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 10.5v6M12 7.6v.9"/></svg>
-  </button>
-  <div id="counter" class="counter"><span id="counterN">228</span> salas</div>
+  <section class="sec" id="como" aria-labelledby="h-como">
+    <div class="wrap como">
+      <div>
+        <h2 id="h-como">Cómo puntuamos</h2>
+        <p style="margin-top:14px"><strong>Cada sala se revisa a mano.</strong> Cruzamos los premios y reconocimientos del sector (TERPECA, Escape Room Awards, GibaEscape y otros), las reseñas públicas corregidas con media bayesiana para que una sala con tres opiniones no adelante a una con trescientas, y el estado real del local: calendario de reservas activo o reseñas recientes.</p>
+        <p>Solo entran en el ranking las salas con avales externos suficientes. El resto del inventario aparece en el mapa sin número, con lo que sabemos de ellas. <strong>Si un dato falta, se deja en blanco: nunca se estima.</strong></p>
+        <p>Las salas cerradas desaparecen del mapa, pero su puesto queda vacante hasta la siguiente edición del ranking, para no reordenar a las demás por sorpresa.</p>
+      </div>
+      <div class="stats" aria-label="Cifras del mapa de Barcelona">
+        <div class="stat"><b data-stat="salas">228</b><span>salas abiertas o en revisión</span></div>
+        <div class="stat"><b data-stat="puntuadas">91</b><span>salas en el ranking</span></div>
+        <div class="stat"><b>8</b><span>categorías</span></div>
+        <div class="stat"><b data-stat="municipios">38</b><span>municipios de la provincia</span></div>
+      </div>
+    </div>
+  </section>
 </main>
 
-<section id="listView" class="list-view" hidden>
-  <div id="list" class="list"></div>
-</section>
-
-<nav class="tabbar" aria-label="Vista">
-  <button class="tab is-active" data-view="map">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3.5 3.5 6v14.5L9 18l6 2.5 5.5-2.5V3.5L15 6 9 3.5Z"/><path d="M9 3.5V18M15 6v14.5"/></svg>
-    Mapa
-  </button>
-  <button class="tab" data-view="list">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 7h15M4.5 12h15M4.5 17h15"/></svg>
-    Ranking
-  </button>
-</nav>
-
-<!-- Ficha de sala -->
-<div id="sheet" class="sheet" hidden>
-  <div class="sheet-grab" id="sheetGrab"><span></span></div>
-  <button id="sheetClose" class="sheet-close" aria-label="Cerrar ficha">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
-  </button>
-  <div id="sheetBody" class="sheet-body"></div>
-</div>
-
-<!-- Leyenda -->
-<div id="legend" class="sheet sheet--legend" hidden>
-  <div class="sheet-grab"><span></span></div>
-  <button id="legendClose" class="sheet-close" aria-label="Cerrar leyenda">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
-  </button>
-  <div class="sheet-body">
-    <h2 class="sheet-title">Cómo leer el mapa</h2>
-    <p class="legend-p">Los círculos numerados son las <strong><span id="lgN">91</span> salas puntuadas</strong>: el <strong>1</strong> es la más recomendada. Los <strong>puntos sin número</strong> son el resto del inventario: están documentadas, pero sin avales externos suficientes para puntuarlas.</p>
-    <div id="legendCats" class="legend-cats"></div>
-    <div class="legend-x"><span class="lg-x">·</span> Sala sin puntuación comparada (<span id="lgX">137</span>)</div>
-    <p class="legend-note" id="legendNote"></p>
+<footer class="foot" id="contacto">
+  <div class="wrap foot-cta">
+    <div>
+      <h3>¿Falta tu escape room?</h3>
+      <p>Si tienes una sala que no está en el mapa, o ves un dato que no cuadra, cuéntanoslo. Lo revisamos a mano antes de publicarlo.</p>
+    </div>
+    <a class="btn" href="/contacto/">Escríbenos <span aria-hidden="true">→</span></a>
   </div>
-</div>
+  <div class="wrap foot-bar">
+    <span>© 2026 GPS Escape · Datos revisados a mano, sin estimaciones.</span>
+    <nav aria-label="Enlaces"><a href="/barcelona/">Mapa de Barcelona</a><a href="/contacto/">Contacto</a></nav>
+  </div>
+</footer>
 
-<div id="scrim" class="scrim" hidden></div>
-
-<script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
-<script src="data.js?v=17"></script>
-<script src="app.js?v=18"></script>
+<script src="/stats.js?v=1"></script>
+<script>
+(function () {
+  var s = window.GPS_STATS; if (s) {
+    document.querySelectorAll('[data-stat]').forEach(function (e) { var v = s[e.dataset.stat]; if (v != null) e.textContent = v; });
+    document.querySelectorAll('[data-cat]').forEach(function (e) { var v = s.cats && s.cats[e.dataset.cat]; if (v != null) e.textContent = v; });
+  }
+  var top = document.getElementById('top');
+  var onScroll = function () { top.classList.toggle('is-solid', scrollY > 24); };
+  addEventListener('scroll', onScroll, { passive: true }); onScroll();
+})();
+</script>
 </body>
 </html>

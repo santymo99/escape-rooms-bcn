@@ -3,33 +3,32 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover" />
-<title>GPS Escape · Encuentra escape rooms en Barcelona y provincia</title>
+<title>Mapa de escape rooms de Barcelona y provincia · GPS Escape</title>
 <meta name="description" content="Mapa y ranking de escape rooms de Barcelona y su provincia, con datos verificados sala a sala: categoría, zona, jugadores, dificultad, precio y reseñas contrastadas." />
 <meta property="og:title" content="GPS Escape · Encuentra escape rooms" />
 <meta property="og:description" content="Mapa y ranking de escape rooms de Barcelona y provincia, verificados sala a sala." />
 <meta property="og:image" content="https://gpsescape.es/img/og.jpg" />
 <meta property="og:type" content="website" />
+<link rel="canonical" href="https://gpsescape.es/barcelona/" />
 <meta name="twitter:card" content="summary_large_image" />
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230d0e12'/%3E%3Ccircle cx='16' cy='16' r='11.5' fill='none' stroke='%23e1af4a' stroke-width='2'/%3E%3Cpath d='M16 6 19 16l-3-1.7L13 16Z' fill='%23e1af4a'/%3E%3Cpath d='M16 26 13 16l3 1.7 3-1.7Z' fill='none' stroke='%23e1af4a' stroke-width='1.6' stroke-linejoin='round'/%3E%3Ccircle cx='16' cy='16' r='1.6' fill='%23e1af4a'/%3E%3C/svg%3E" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230d0e12'/%3E%3Ccircle cx='16' cy='16' r='12' fill='none' stroke='%23e1af4a' stroke-width='2'/%3E%3Cpath d='M16 4.5 18.3 13.7 16 12.7 13.7 13.7ZM27.5 16 18.3 18.3 19.3 16 18.3 13.7ZM16 27.5 13.7 18.3 16 19.3 18.3 18.3ZM4.5 16 13.7 13.7 12.7 16 13.7 18.3Z' fill='%23e1af4a'/%3E%3Ccircle cx='16' cy='16' r='4.6' fill='%23e1af4a'/%3E%3Ccircle cx='16' cy='14.9' r='1.55' fill='%230d0e12'/%3E%3Cpath d='M15.25 15.9 14.55 18.8h2.9l-.7-2.9Z' fill='%230d0e12'/%3E%3C/svg%3E" />
 <link href="https://api.fontshare.com/v2/css?f%5B%5D=satoshi@400,500,700,900&f%5B%5D=clash-display@600,700&display=swap" rel="stylesheet" />
 <link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet" />
-<link rel="stylesheet" href="styles.css?v=19" />
+<link rel="stylesheet" href="/styles.css?v=20" />
 </head>
 <body>
 
 <header class="topbar">
-  <a class="brand" href="./" aria-label="GPS Escape, inicio">
+  <a class="brand" href="/" aria-label="GPS Escape, inicio">
     <svg class="logo" viewBox="0 0 32 32" aria-hidden="true">
-      <circle class="lg-line" cx="16" cy="16" r="12.5"/>
-      <path class="lg-line" d="M16 1.8v2.4M16 27.8v2.4M1.8 16h2.4M27.8 16h2.4"/>
-      <path class="lg-fill" d="M16 5.2 19.3 16l-3.3-1.9L12.7 16Z"/>
-      <path class="lg-line" d="M16 26.8 12.7 16l3.3 1.9 3.3-1.9Z"/>
-      <circle class="lg-fill" cx="16" cy="16" r="1.7"/>
+      <circle class="lg-line" cx="16" cy="16" r="13"/>
+      <path class="lg-line" d="M7.6 7.6l2.9 2.9M24.4 7.6l-2.9 2.9M7.6 24.4l2.9-2.9M24.4 24.4l-2.9-2.9"/>
+      <path class="lg-fill" d="M16 3.4 18.5 13.5 16 12.4 13.5 13.5ZM28.6 16 18.5 18.5 19.6 16 18.5 13.5ZM16 28.6 13.5 18.5 16 19.6 18.5 18.5ZM3.4 16 13.5 13.5 12.4 16 13.5 18.5Z"/>
+      <circle class="lg-fill" cx="16" cy="16" r="4.6"/>
+      <circle class="lg-cut" cx="16" cy="14.9" r="1.55"/>
+      <path class="lg-cut" d="M15.25 15.9 14.55 18.8h2.9l-.7-2.9Z"/>
     </svg>
-    <span class="brand-txt">
-      <strong>GPS ESCAPE</strong>
-      <span id="brandSub">Encuentra escape rooms</span>
-    </span>
+    <span class="brand-txt"><strong>GPS ESCAPE</strong></span>
   </a>
 
   <label class="search" for="search">
@@ -105,7 +104,7 @@
 <div id="scrim" class="scrim" hidden></div>
 
 <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
-<script src="data.js?v=17"></script>
-<script src="app.js?v=18"></script>
+<script src="/data.js?v=17"></script>
+<script src="/app.js?v=19"></script>
 </body>
 </html>

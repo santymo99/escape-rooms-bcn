@@ -36,7 +36,7 @@
     cat: 'all', q: '', sel: null, view: 'map',
     f: { zona: '', players: 0, dif: '', noDif: false },
     pop: null,
-    theme: matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'
+    theme: (() => { try { return localStorage.getItem('gps-theme') || 'dark'; } catch (e) { return 'dark'; } })()
   };
 
   /* ---------------- tema ---------------- */
@@ -50,13 +50,13 @@
       state.map.setStyle(`https://tiles.openfreemap.org/styles/${style}`, { diff: false });
     }
   }
-  $('#btnTheme').onclick = () => { state.theme = state.theme === 'dark' ? 'light' : 'dark'; applyTheme(); };
+  $('#btnTheme').onclick = () => { state.theme = state.theme === 'dark' ? 'light' : 'dark'; try { localStorage.setItem('gps-theme', state.theme); } catch (e) {} applyTheme(); };
 
   /* ---------------- helpers de datos ---------------- */
   const priceOf = r => (r.pmax ?? r.pmin ?? null);
   const DEF_F = { zona: '', players: 0, dif: '', noDif: false };
   const CAT_IMG = { 'Terror': 'terror', 'Thriller/Misterio': 'thriller', 'Aventura': 'aventura', 'Ciencia ficción': 'scifi', 'Histórico': 'historico', 'Fantasía': 'fantasia', 'Humor': 'humor', 'Clásico': 'clasico' };
-  const catImg = (c, sm) => `img/cat/${CAT_IMG[c] || 'clasico'}${sm ? '-640' : ''}.webp`;
+  const catImg = (c, sm) => `/img/cat/${CAT_IMG[c] || 'clasico'}${sm ? '-640' : ''}.webp`;
   function fitsGroup(r, n) {
     if (!n) return true;
     if (r.jmax != null && r.jmax < n) return false;
@@ -175,8 +175,9 @@
     node.className = keep + ' mk' + (!best.rank ? ' is-plain' : '') + (best.rank && best.rank <= 10 ? ' is-top10' : '')
       + (best.extra ? ' is-extra' : '') + (rooms.length > 1 ? ' is-multi' : '') + ((state.sel && rooms.some(r => r.id === state.sel)) || state.openLocal === g.id ? ' is-sel' : '');
     node.style.setProperty('--mk', catVar(best.cat));
-    node.innerHTML = (best.rank ? `<div class="mk-pin">${best.rank}</div>` : '<div class="mk-dot"></div>')
-      + (rooms.length > 1 ? `<div class="mk-n">${rooms.length}</div>` : '');
+    // local con varias salas: un segundo disco apilado detrás (sin cifra, para no confundir con el puesto)
+    node.innerHTML = (rooms.length > 1 ? '<div class="mk-stack"></div>' : '')
+      + (best.rank ? `<div class="mk-pin">${best.rank}</div>` : '<div class="mk-dot"></div>');
     node.setAttribute('aria-label', `${g.local}, ${g.municipio}: ${rooms.length} ${rooms.length === 1 ? 'sala' : 'salas'}${best.rank ? `, mejor puesto nº ${best.rank}` : ''}`);
   }
 
@@ -241,7 +242,7 @@
        </button>`).join('');
     const head = el('div', 'list-head', `
       <div class="hero">
-        <img class="hero-img" src="img/portada.webp" srcset="img/portada-640.webp 640w, img/portada.webp 1280w" sizes="(max-width: 640px) 100vw, 880px" alt="" decoding="async" />
+        <img class="hero-img" src="/img/portada.webp" srcset="/img/portada-640.webp 640w, /img/portada.webp 1280w" sizes="(max-width: 640px) 100vw, 880px" alt="" decoding="async" />
         <div class="hero-txt">
           <h2>El ranking</h2>
           <p>${nTop} salas puntuadas con un único criterio: 50 % reconocimiento verificado del sector (TERPECA 2020-2025, premios 10 Escapes, Escape Room Awards, GibaEscape, OcioTerror, Room Escapers), 25 % reseñas con media bayesiana, 10 % duración y 15 % comodidad para ir en grupo. Cada ficha desglosa su puntuación. Las otras ${nExtra} salas del inventario van debajo, sin número.</p>
@@ -601,13 +602,13 @@
   sk.id = 'sk'; $('#mapWrap').appendChild(sk);
 
   // data.js (cargado como script) permite abrir el archivo con doble clic; data.json queda como respaldo
-  const load = window.ESCAPE_DATA ? Promise.resolve(window.ESCAPE_DATA) : fetch('data.json?v=2').then(r => r.json());
+  const load = window.ESCAPE_DATA ? Promise.resolve(window.ESCAPE_DATA) : fetch('/data.json?v=2').then(r => r.json());
   load.then(d => {
     state.data = d;
     // las salas con estado 'Cerrado' se conservan en data.json como historial pero no se publican
     state.rooms = [...d.rank, ...d.otras].filter(r => r.estado !== 'Cerrado');
     buildGroups();
-    $('#brandSub').textContent = `Encuentra escape rooms · ${state.rooms.length} salas`;
+    const qcat = new URLSearchParams(location.search).get('cat'); if (qcat && CATS[qcat]) state.cat = qcat;
     $('#lgN').textContent = state.rooms.filter(r => r.rank).length; $('#lgX').textContent = state.rooms.filter(r => !r.rank).length;
     const sinDif = state.rooms.filter(r => !r.dif).length;
     const qdif = QF.find(x => x.key === 'dif');

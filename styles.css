@@ -193,8 +193,9 @@ a:hover { border-bottom-color: var(--gold); }
 }
 .chip .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--dot, var(--ink-3)); flex: none; }
 .chip:hover { color: var(--ink); border-color: var(--ink-3); }
-.chip.is-active { background: var(--ink); color: var(--bg); border-color: var(--ink); }
-.chip.is-active .dot { box-shadow: 0 0 0 2px var(--bg); box-shadow: 0 0 0 2px color-mix(in oklab, var(--bg) 70%, transparent); }
+.chip.is-active { background: var(--dot, var(--gold)); color: #10121a; border-color: var(--dot, var(--gold)); font-weight: 700; }
+.chip:hover { border-color: var(--dot, var(--ink-3)); }
+.chip.is-active .dot { background: #10121a; opacity: .55; }
 
 /* ---------- quick filter chips (2nd row) ---------- */
 .chips--f {
@@ -578,6 +579,7 @@ input[type="range"]::-moz-range-thumb { width: 20px; height: 20px; border-radius
 [data-v="2"] .logo { width: 36px; height: 36px; filter: drop-shadow(0 0 10px rgba(225, 175, 74, .45)); }
 [data-v="2"] .lg-line { fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
 [data-v="2"] .lg-fill { fill: currentColor; }
+[data-v="2"] .lg-cut { fill: var(--bg); }
 [data-v="2"] .brand-txt strong { font-size: 1.05rem; letter-spacing: .06em; line-height: 1.05; }
 [data-v="2"] .brand-txt span { font-size: var(--text-xs); }
 [data-v="2"] .search {
@@ -695,3 +697,14 @@ input[type="range"]::-moz-range-thumb { width: 20px; height: 20px; border-radius
   [data-v="2"] .chips, [data-v="2"] .chips--f { width: 100%; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
   [data-v="2"] .chips::-webkit-scrollbar, [data-v="2"] .chips--f::-webkit-scrollbar { display: none; }
 }
+
+/* ---- local con varias salas: disco apilado detrás del pin (26/09) ---- */
+.mk-n { display: none; }
+.mk-stack {
+  position: absolute; left: 7px; top: -7px; width: 30px; height: 30px; border-radius: 50%;
+  background: color-mix(in oklab, var(--mk, var(--gold)) 55%, var(--bg));
+  border: 2px solid var(--bg); z-index: -1; pointer-events: none;
+}
+.mk.is-top10 .mk-stack { width: 35px; height: 35px; left: 8px; top: -8px; }
+.mk.is-plain .mk-stack { width: 13px; height: 13px; left: 4px; top: -4px; }
+.mk.is-extra .mk-stack { width: 26px; height: 26px; left: 6px; top: -6px; }

@@ -149,3 +149,10 @@ if sin_comarca: print('SIN COMARCA:', sorted(sin_comarca))
 json.dump(d, open(p, 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'))
 open(p.replace('.json', '.js'), 'w', encoding='utf-8').write('/* generado desde data.json — no editar a mano */\nwindow.ESCAPE_DATA = ' + json.dumps(d, ensure_ascii=False, separators=(',', ':')) + ';\n')
 print('\n'.join(log) or 'sin cambios')
+
+# stats.js: cifras para la portada (no carga data.js entero)
+_pub = [r for r in d['rank'] + d['otras'] if r.get('estado') != 'Cerrado']
+_cats = {}
+for r in _pub: _cats[r['cat']] = _cats.get(r['cat'], 0) + 1
+_stats = {'salas': len(_pub), 'puntuadas': len([r for r in _pub if r.get('rank')]), 'municipios': len({r.get('municipio') for r in _pub if r.get('municipio')}), 'cats': _cats}
+open('stats.js', 'w', encoding='utf-8').write('/* generado por fix_data.py — no editar a mano */\nwindow.GPS_STATS = ' + json.dumps(_stats, ensure_ascii=False) + ';\n')
