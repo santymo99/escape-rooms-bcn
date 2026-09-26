@@ -465,7 +465,7 @@
       </div>
       ${r.web ? `<p class="d-web">Web del local: <a href="${esc(r.web)}" target="_blank" rel="noopener">${esc(host(r.web))}</a>${r.url && r.url !== r.web ? ` · ficha: <a href="${esc(r.url)}" target="_blank" rel="noopener">${esc(host(r.url))}</a>` : ''}</p>`
         : (r.url ? `<p class="d-web">El local no publica web propia · ficha: <a href="${esc(r.url)}" target="_blank" rel="noopener">${esc(host(r.url))}</a></p>` : '')}
-      ${r.faltan?.length ? `<p class="d-gaps">Datos que el local no publica: ${esc(r.faltan.map(gapLabel).join(', '))}.</p>` : ''}`;
+      `;
   }
 
   /* ---------------- sheets ---------------- */
