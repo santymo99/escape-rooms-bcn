@@ -183,7 +183,7 @@
     const best = bestOf(rooms);
     const keep = [...node.classList].filter(c => c.startsWith('maplibregl')).join(' '); // clases de MapLibre: posicionan el marcador
     node.className = keep + ' mk' + (!best.rank ? ' is-plain' : '') + (best.rank && best.rank <= 10 ? ' is-top10' : '')
-      + (best.extra ? ' is-extra' : '') + (rooms.length > 1 ? ' is-multi' : '') + (rooms.every(isDone) ? ' is-done' : '') + ((state.sel && rooms.some(r => r.id === state.sel)) || state.openLocal === g.id ? ' is-sel' : '');
+      + (rooms.length > 1 ? ' is-multi' : '') + (rooms.every(isDone) ? ' is-done' : '') + ((state.sel && rooms.some(r => r.id === state.sel)) || state.openLocal === g.id ? ' is-sel' : '');
     node.style.setProperty('--mk', catVar(best.cat));
     // local con varias salas: un segundo disco apilado detrás (sin cifra, para no confundir con el puesto)
     node.innerHTML = (rooms.length > 1 ? '<div class="mk-stack"></div>' : '')
@@ -335,7 +335,6 @@
           ${r.dif ? pill(r.dif) : ''}
           ${r.rpond && r.rn ? pill(`★ ${String(r.rpond).replace('.', ',')} (${nf(r.rn)})`) : ''}
           ${r.premios ? pill('Premiada', 'pill--gold') : ''}
-          ${r.extra ? pill('51+', 'pill--extra') : ''}
           ${isDone(r) ? pill('✓ Jugada', 'pill--done') : ''}
           ${!hasPos(r) ? pill('Ubicación no confirmada', 'pill--warn') : ''}
         </div>
@@ -443,7 +442,6 @@
         <span class="d-rank${!r.rank ? ' is-plain' : ''}" style="--mk:${catVar(r.cat)}">${r.rank || '·'}</span>
         <span class="pill pill--cat" style="--mk:${catVar(r.cat)}">${esc(r.cat || '—')}</span>
 
-        ${r.extra ? pill('Fuera del top 50', 'pill--extra') : ''}
         ${!hasPos(r) ? pill('Ubicación no confirmada', 'pill--warn') : ''}
       </div>
       <h2 class="d-title">${esc(r.sala)}</h2>
@@ -456,15 +454,14 @@
       <div class="d-sec">
         <h3>Ubicación</h3>
         <p class="d-addr">${esc(r.dir || 'Dirección exacta no publicada por el local')}</p>
-        ${precLabel ? `<p class="d-prec">${esc(precLabel)}${r.geo_ref && r.prec !== 'exact' ? ` · referencia: ${esc(r.geo_ref)}` : ''}</p>` : ''}
+        ${r.prec === 'city' ? `<p class="d-prec">Ubicación pendiente de confirmar: no aparece en el mapa.</p>` : ''}
       </div>
       <div class="d-actions">
         ${r.web_sala ? `<a class="btn btn-primary" href="${esc(r.web_sala)}" target="_blank" rel="noopener">Reservar esta sala</a>`
           : (r.web ? `<a class="btn btn-primary" href="${esc(r.web)}" target="_blank" rel="noopener">Web oficial</a>` : '')}
         <a class="btn" href="${esc(gmaps)}" target="_blank" rel="noopener">Cómo llegar</a>
       </div>
-      ${r.web ? `<p class="d-web">Web del local: <a href="${esc(r.web)}" target="_blank" rel="noopener">${esc(host(r.web))}</a>${r.url && r.url !== r.web ? ` · ficha: <a href="${esc(r.url)}" target="_blank" rel="noopener">${esc(host(r.url))}</a>` : ''}</p>`
-        : (r.url ? `<p class="d-web">El local no publica web propia · ficha: <a href="${esc(r.url)}" target="_blank" rel="noopener">${esc(host(r.url))}</a></p>` : '')}
+      ${r.web ? `<p class="d-web">Web del local: <a href="${esc(r.web)}" target="_blank" rel="noopener">${esc(host(r.web))}</a></p>` : ''}
       `;
   }
 
@@ -516,6 +513,7 @@
     if (v === 'map' && state.map) state.map.resize();
   }
   document.querySelectorAll('.tab').forEach(t => t.onclick = () => setView(t.dataset.view));
+  if (location.hash === '#ranking') setView('list');
 
   /* ---------------- chips ---------------- */
   function buildChips() {

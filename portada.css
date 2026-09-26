@@ -16,7 +16,7 @@ html { scroll-behavior: smooth; }
 body { margin: 0; background: var(--bg); color: var(--ink); font-family: Satoshi, system-ui, sans-serif; font-size: 16px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
 a { color: inherit; }
 img { display: block; max-width: 100%; }
-h1, h2, h3 { font-family: "Clash Display", sans-serif; letter-spacing: -.01em; line-height: 1.05; margin: 0; }
+h1, h2, h3 { font-family: Michroma, sans-serif; font-weight: 400; letter-spacing: .01em; line-height: 1.15; margin: 0; }
 .wrap { width: min(100% - 32px, var(--wrap)); margin-inline: auto; }
 :focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
 
@@ -49,7 +49,7 @@ h1, h2, h3 { font-family: "Clash Display", sans-serif; letter-spacing: -.01em; l
 .hero .wrap { padding: 120px 0 64px; width: min(100% - 40px, 1280px); } .hero-in { max-width: 560px; }
 .eyebrow { display: block; margin: 0 0 14px; color: var(--gold); font-size: .74rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; opacity: .9; }
 .eyebrow::before { display: none; }
-.hero h1 { font-size: clamp(2rem, 4.2vw, 3.4rem); font-weight: 600; letter-spacing: -.02em; line-height: 1.04; max-width: 15ch; text-shadow: 0 2px 30px rgba(0,0,0,.5); }
+.hero h1 { font-size: clamp(1.5rem, 2.9vw, 2.3rem); font-weight: 400; letter-spacing: .01em; line-height: 1.18; max-width: 18ch; text-shadow: 0 2px 30px rgba(0,0,0,.5); }
 .hero .lead { margin: 14px 0 26px; max-width: 42ch; color: var(--ink-2); font-size: clamp(.95rem, 1.2vw, 1.05rem); line-height: 1.55; }
 .cta { display: flex; align-items: center; gap: 16px; width: min(100%, 400px); padding: 14px 18px 14px 20px; text-decoration: none;
   background: var(--gold); color: var(--gold-ink); border-radius: var(--r-lg);
@@ -57,7 +57,7 @@ h1, h2, h3 { font-family: "Clash Display", sans-serif; letter-spacing: -.01em; l
 .cta:hover { transform: translateY(-2px); background: #f0c25c; box-shadow: 0 22px 48px -14px rgba(225,175,74,.7); }
 .cta:active { transform: scale(.985); }
 .cta-txt { flex: 1; min-width: 0; }
-.cta-txt strong { display: block; font-family: "Clash Display", sans-serif; font-weight: 600; font-size: 1.15rem; letter-spacing: -.01em; line-height: 1.1; }
+.cta-txt strong { display: block; font-family: Michroma, sans-serif; font-weight: 400; font-size: .95rem; letter-spacing: .02em; line-height: 1.2; }
 .cta-txt small { display: block; margin-top: 3px; font-size: .8rem; font-weight: 600; opacity: .8; }
 .cta svg { width: 24px; height: 24px; flex: none; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; transition: transform .2s var(--ease-out); }
 .cta:hover svg { transform: translateX(4px); }
@@ -68,7 +68,7 @@ h1, h2, h3 { font-family: "Clash Display", sans-serif; letter-spacing: -.01em; l
 /* ---- secciones ---- */
 .sec { padding: 72px 0; }
 .sec-head { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 28px; }
-.sec h2 { font-size: clamp(1.7rem, 3.4vw, 2.5rem); }
+.sec h2 { font-size: clamp(1.2rem, 2.2vw, 1.7rem); }
 .sec-head p { margin: 8px 0 0; color: var(--ink-2); max-width: 56ch; }
 .sec-head a { color: var(--gold); text-decoration: none; font-weight: 700; white-space: nowrap; }
 .sec-head a:hover { text-decoration: underline; }
@@ -86,7 +86,7 @@ h1, h2, h3 { font-family: "Clash Display", sans-serif; letter-spacing: -.01em; l
 .cat:hover img { transform: scale(1.05); }
 .cat-txt { position: absolute; left: 14px; right: 14px; bottom: 12px; }
 .cat-txt .dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: var(--c); box-shadow: 0 0 0 3px color-mix(in oklab, var(--c) 30%, transparent); margin-bottom: 8px; }
-.cat-txt strong { display: block; font-family: "Clash Display", sans-serif; font-size: clamp(1.05rem, 1.8vw, 1.35rem); line-height: 1.1; }
+.cat-txt strong { display: block; font-family: Michroma, sans-serif; font-size: clamp(.78rem, 1.2vw, .95rem); line-height: 1.25; }
 .cat-txt small { display: block; margin-top: 3px; color: var(--ink-2); font-size: .82rem; font-weight: 600; }
 
 /* cómo puntuamos */
@@ -96,14 +96,14 @@ h1, h2, h3 { font-family: "Clash Display", sans-serif; letter-spacing: -.01em; l
 .como p strong { color: var(--ink); }
 .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .stat { padding: 18px 18px 16px; background: var(--surface); border: 1px solid var(--line-soft); border-radius: var(--r-md); }
-.stat b { display: block; font-family: "Clash Display", sans-serif; font-size: 2rem; line-height: 1; color: var(--gold); font-variant-numeric: tabular-nums; }
+.stat b { display: block; font-family: Michroma, sans-serif; font-size: 1.5rem; line-height: 1; color: var(--gold); font-variant-numeric: tabular-nums; }
 .stat span { display: block; margin-top: 6px; color: var(--ink-3); font-size: .85rem; }
 
 /* pie */
 .foot { margin-top: 24px; border-top: 1px solid var(--line-soft); background: var(--bg-2); }
 .foot-cta { padding: 56px 0; display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: center; }
 @media (max-width: 720px) { .foot-cta { grid-template-columns: 1fr; padding: 44px 0; } }
-.foot-cta h3 { font-size: clamp(1.4rem, 3vw, 2rem); }
+.foot-cta h3 { font-size: clamp(1.05rem, 2vw, 1.4rem); }
 .foot-cta p { margin: 8px 0 0; color: var(--ink-2); max-width: 52ch; }
 .btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 22px; border-radius: 999px; text-decoration: none; font-weight: 700;
   background: var(--gold); color: var(--gold-ink); transition: background .2s ease, transform .2s var(--ease-out); }
@@ -130,8 +130,12 @@ h1, h2, h3 { font-family: "Clash Display", sans-serif; letter-spacing: -.01em; l
 .menu-list { position: absolute; right: 0; top: calc(100% + 10px); min-width: 260px; padding: 6px; border-radius: 14px; background: var(--surface); border: 1px solid var(--line); box-shadow: 0 18px 50px -12px rgba(0,0,0,.75); z-index: 50; }
 .menu-list a { display: block; padding: 10px 12px; border-radius: 10px; text-decoration: none; transition: background .15s ease; }
 .menu-list a:hover { background: var(--surface-2); }
-.menu-list a strong { display: block; font-family: "Clash Display", sans-serif; font-size: 1rem; }
+.menu-list a strong { display: block; font-family: Michroma, sans-serif; font-size: .82rem; }
 .menu-list a small { display: block; margin-top: 2px; color: var(--ink-3); font-size: .8rem; }
 .menu-soon { display: block; padding: 8px 12px 6px; color: var(--ink-3); font-size: .8rem; border-top: 1px solid var(--line-soft); margin-top: 4px; }
 @media (prefers-reduced-motion: no-preference) { .menu-list { animation: pop .18s var(--ease-out) both; transform-origin: top right; } @keyframes pop { from { opacity: 0; transform: scale(.95) } to { opacity: 1; transform: none } } }
 @media (max-width: 720px) { .p-nav .menu-btn { display: inline-flex; } }
+
+.hero .lead + .cta { margin-top: 0; }
+.cta-more { display: inline-block; margin: 14px 0 0; color: var(--gold); font-weight: 700; text-decoration: none; font-size: .95rem; }
+.cta-more:hover { text-decoration: underline; }

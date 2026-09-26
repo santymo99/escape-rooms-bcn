@@ -132,7 +132,7 @@ body {
   display: flex; flex-direction: column;
   height: 100dvh;
 }
-h1,h2,h3 { font-family: "Clash Display", Satoshi, sans-serif; font-weight: 600; letter-spacing: -.01em; margin: 0; }
+h1,h2,h3 { font-family: Michroma, Satoshi, sans-serif; font-weight: 400; letter-spacing: .01em; margin: 0; }
 button { font: inherit; color: inherit; }
 a { color: var(--gold); text-decoration: none; border-bottom: 1px solid var(--gold-soft); }
 a:hover { border-bottom-color: var(--gold); }
@@ -154,7 +154,7 @@ a:hover { border-bottom-color: var(--gold); }
 .logo { width: 30px; height: 30px; color: var(--gold); flex: none; }
 .logo path, .logo rect { vector-effect: non-scaling-stroke; }
 .brand-txt { display: flex; flex-direction: column; min-width: 0; }
-.brand-txt strong { font-family: "Clash Display", sans-serif; font-size: var(--text-sm); letter-spacing: -.01em; }
+.brand-txt strong { font-family: Michroma, sans-serif; font-size: var(--text-sm); letter-spacing: -.01em; }
 .brand-txt span { font-size: var(--text-xs); color: var(--ink-3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .topbar-actions { display: flex; gap: var(--space-2); flex: none; }
 .icon-btn {
@@ -307,8 +307,8 @@ a:hover { border-bottom-color: var(--gold); }
   font-variant-numeric: tabular-nums;
 }
 .mk:hover .mk-pin { transform: scale(1.18); z-index: 5; }
-.mk.is-extra .mk-pin {
-  width: 26px; height: 26px; font-size: 11px;
+.mk.is-extra .mk-pin { /* obsoleto: todo el top usa el mismo pin */
+  width: 30px; height: 30px; font-size: 12.5px;
   background: var(--surface);
   background: color-mix(in oklab, var(--mk, var(--gold)) 30%, var(--surface));
   color: var(--ink);
@@ -355,7 +355,7 @@ a:hover { border-bottom-color: var(--gold); }
 }
 .card.is-done .card-n { background: none; border: 1.5px solid var(--ink-3); color: var(--ink-3); font-weight: 700; border-radius: 8px; }
 .card-main { min-width: 0; }
-.card-title { font-family: "Clash Display", sans-serif; font-size: var(--text-base); font-weight: 600; line-height: 1.25; }
+.card-title { font-family: Satoshi, sans-serif; font-size: var(--text-base); font-weight: 700; line-height: 1.25; }
 .card-sub { font-size: var(--text-xs); color: var(--ink-3); margin-top: 3px; }
 .card-meta { display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-2); margin-top: var(--space-3); }
 .pill {
@@ -372,7 +372,7 @@ a:hover { border-bottom-color: var(--gold); }
 .list-sep::after { content: ""; flex: 1; height: 1px; background: var(--line); }
 .list-sep span { font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .08em; color: var(--ink-3); font-weight: 700; }
 .empty { text-align: center; padding: var(--space-16) var(--space-4); color: var(--ink-3); }
-.empty strong { display: block; font-family: "Clash Display", sans-serif; color: var(--ink); font-size: var(--text-lg); margin-bottom: var(--space-2); }
+.empty strong { display: block; font-family: Michroma, sans-serif; color: var(--ink); font-size: var(--text-lg); margin-bottom: var(--space-2); }
 
 /* ---------- tab bar ---------- */
 .tabbar {
@@ -638,7 +638,7 @@ input[type="range"]::-moz-range-thumb { width: 20px; height: 20px; border-radius
   background: linear-gradient(to top, rgba(6, 7, 10, .92) 0%, rgba(6, 7, 10, .72) 55%, rgba(6, 7, 10, 0) 100%);
   color: #eff2f7;
 }
-[data-v="2"] .hero-txt h2 { font-family: "Clash Display", sans-serif; font-size: clamp(1.9rem, 1.4rem + 2.4vw, 3rem); line-height: 1; letter-spacing: -.01em; margin: 0 0 var(--space-3); }
+[data-v="2"] .hero-txt h2 { font-family: Michroma, sans-serif; font-size: clamp(1.9rem, 1.4rem + 2.4vw, 3rem); line-height: 1; letter-spacing: -.01em; margin: 0 0 var(--space-3); }
 [data-v="2"] .hero-txt p { margin: 0; max-width: 64ch; font-size: var(--text-sm); line-height: 1.5; color: #c9cdd6; }
 [data-v="2"] .cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: var(--space-3); margin: var(--space-4) 0 var(--space-2); }
 [data-v="2"] .cat-tile {
@@ -652,7 +652,7 @@ input[type="range"]::-moz-range-thumb { width: 20px; height: 20px; border-radius
   padding: var(--space-3); text-align: left; color: #eff2f7;
   background: linear-gradient(to top, rgba(6, 7, 10, .9), rgba(6, 7, 10, 0));
 }
-[data-v="2"] .cat-tile-txt strong { font-family: "Clash Display", sans-serif; font-size: 1.05rem; line-height: 1.1; }
+[data-v="2"] .cat-tile-txt strong { font-family: Michroma, sans-serif; font-size: .8rem; line-height: 1.2; }
 [data-v="2"] .cat-tile-txt small { font-size: var(--text-xs); color: #c9cdd6; }
 [data-v="2"] .cat-tile::before { content: ""; position: absolute; left: var(--space-3); top: var(--space-3); width: 10px; height: 10px; border-radius: 50%; background: var(--mk); box-shadow: 0 0 0 2px rgba(6, 7, 10, .6); }
 [data-v="2"] .cat-tile:hover { border-color: var(--mk); }
@@ -752,11 +752,11 @@ input[type="range"]::-moz-range-thumb { width: 20px; height: 20px; border-radius
 @media (max-width: 760px) { [data-v="2"] .rk-head { grid-template-columns: 1fr; } }
 [data-v="2"] .rk-title { position: relative; padding: var(--space-5) var(--space-6); border-radius: var(--r-xl); overflow: hidden; background: var(--surface); border: 1px solid var(--line-soft); }
 [data-theme="dark"][data-v="2"] .rk-title::before { content: ""; position: absolute; inset: 0; background: radial-gradient(70% 120% at 0% 0%, rgba(225, 175, 74, .22), transparent 60%); pointer-events: none; }
-[data-v="2"] .rk-title h2 { font-family: "Clash Display", sans-serif; font-size: clamp(1.7rem, 1.2rem + 2vw, 2.4rem); line-height: 1; margin: 0 0 var(--space-2); }
+[data-v="2"] .rk-title h2 { font-family: Michroma, sans-serif; font-size: clamp(1.25rem, 1rem + 1.3vw, 1.7rem); line-height: 1; margin: 0 0 var(--space-2); }
 [data-v="2"] .rk-title p { margin: 0; color: var(--ink-2); font-size: var(--text-sm); line-height: 1.5; }
 [data-v="2"] .played { display: flex; flex-direction: column; justify-content: space-between; gap: var(--space-3); padding: var(--space-4) var(--space-5); border-radius: var(--r-xl); background: var(--surface); border: 1px dashed var(--line); }
 [data-v="2"] .played.has-some { border-style: solid; border-color: color-mix(in oklab, var(--gold) 45%, transparent); }
-[data-v="2"] .played-txt strong { display: block; font-family: "Clash Display", sans-serif; font-size: var(--text-lg); line-height: 1.15; }
+[data-v="2"] .played-txt strong { display: block; font-family: Michroma, sans-serif; font-size: var(--text-sm); line-height: 1.3; }
 [data-v="2"] .played-txt span { display: block; margin-top: 4px; color: var(--ink-3); font-size: var(--text-xs); line-height: 1.45; }
 [data-v="2"] .switch { display: inline-flex; align-items: center; gap: 10px; font-size: var(--text-sm); font-weight: 600; cursor: pointer; user-select: none; }
 [data-v="2"] .switch input { position: absolute; opacity: 0; width: 1px; height: 1px; }
@@ -777,10 +777,10 @@ input[type="range"]::-moz-range-thumb { width: 20px; height: 20px; border-radius
 [data-theme="dark"][data-v="2"] .card { background: linear-gradient(90deg, #12151b, #0e1015); }
 [data-theme="dark"][data-v="2"] .card::after { content: ""; position: absolute; inset: 0; background: radial-gradient(140px 70px at 0% 50%, color-mix(in oklab, var(--mk) 28%, transparent), transparent 70%); pointer-events: none; }
 [data-v="2"] .card:hover { border-color: color-mix(in oklab, var(--mk) 50%, var(--line)); }
-[data-v="2"] .card-n { width: 48px; height: auto; background: none; border-radius: 0; color: var(--gold); font-family: "Clash Display", sans-serif; font-weight: 700; font-size: 1.55rem; line-height: 1; }
+[data-v="2"] .card-n { width: 52px; height: auto; background: none; border-radius: 0; color: var(--gold); font-family: Michroma, sans-serif; font-weight: 400; font-size: 1.2rem; line-height: 1; }
 [data-theme="dark"][data-v="2"] .card-n { text-shadow: 0 0 18px rgba(225, 175, 74, .65); }
-[data-v="2"] .card.is-top10 .card-n, [data-v="2"] .card:nth-child(-n+12) .card-n { font-size: 1.75rem; }
-[data-v="2"] .card.is-plain .card-n { color: var(--ink-3); font-size: 1.2rem; border: 0; text-shadow: none; }
+[data-v="2"] .card.is-top10 .card-n, [data-v="2"] .card:nth-child(-n+12) .card-n { font-size: 1.35rem; }
+[data-v="2"] .card.is-plain .card-n { color: var(--ink-3); font-size: 1rem; border: 0; text-shadow: none; }
 [data-v="2"] .card-img { border: 1px solid color-mix(in oklab, var(--mk) 35%, var(--line-soft)); box-shadow: 0 8px 20px -10px #000; }
 /* jugadas */
 [data-v="2"] .card.is-done { opacity: .5; }
@@ -796,7 +796,7 @@ input[type="range"]::-moz-range-thumb { width: 20px; height: 20px; border-radius
 [data-v="2"] .d-done.is-on .d-done-ic { background: var(--gold-ink); color: var(--gold); border-color: var(--gold-ink); }
 /* pie del ranking */
 [data-v="2"] .list-foot { margin: var(--space-8) 0 var(--space-4); padding: var(--space-6); border-radius: var(--r-xl); background: var(--surface); border: 1px solid var(--line-soft); display: grid; gap: var(--space-2); justify-items: start; }
-[data-v="2"] .list-foot strong { font-family: "Clash Display", sans-serif; font-size: var(--text-xl); line-height: 1.1; }
+[data-v="2"] .list-foot strong { font-family: Michroma, sans-serif; font-size: var(--text-lg); line-height: 1.25; }
 [data-v="2"] .list-foot span { color: var(--ink-2); font-size: var(--text-sm); max-width: 56ch; line-height: 1.5; }
 [data-v="2"] .btn-gold { display: inline-flex; align-items: center; gap: 8px; margin-top: var(--space-2); padding: 11px 18px; border-radius: 999px; text-decoration: none; font-weight: 700; font-size: var(--text-sm); background: var(--gold); color: var(--gold-ink); box-shadow: 0 10px 26px -12px rgba(225, 175, 74, .7); }
 [data-v="2"] .btn-gold:hover { filter: brightness(1.06); }
@@ -807,3 +807,7 @@ input[type="range"]::-moz-range-thumb { width: 20px; height: 20px; border-radius
 [data-v="2"] .wm b { color: var(--gold); font-weight: 400; }
 [data-theme="dark"][data-v="2"] .wm b { text-shadow: 0 0 16px rgba(225, 175, 74, .55); }
 [data-v="2"] .wm span { font-size: .8em; letter-spacing: .14em; color: var(--ink); }
+
+/* 26/09 noche: título de ficha en Satoshi (nombres largos), Michroma en secciones */
+[data-v="2"] .d-title { font-family: Satoshi, sans-serif; font-weight: 700; letter-spacing: -.01em; }
+[data-v="2"] .sheet-title, [data-v="2"] .d-sec h3 { font-family: Michroma, sans-serif; font-size: var(--text-xs); letter-spacing: .08em; text-transform: uppercase; }
