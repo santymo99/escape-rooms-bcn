@@ -34,7 +34,7 @@
   const state = {
     data: null, rooms: [], groups: [], markers: new Map(), map: null, openLocal: null,
     cat: 'all', q: '', sel: null, view: 'map',
-    f: { zona: '', players: 0, dif: '', noDif: false },
+    f: { zona: '', players: 0, dif: '', noDif: false, rank: false },
     pop: null,
     theme: (() => { try { return localStorage.getItem('gps-theme') || 'dark'; } catch (e) { return 'dark'; } })(),
     // «Ya la he jugado»: se guarda en este navegador (sin registro). No se sincroniza entre dispositivos.
@@ -63,7 +63,7 @@
 
   /* ---------------- helpers de datos ---------------- */
   const priceOf = r => (r.pmax ?? r.pmin ?? null);
-  const DEF_F = { zona: '', players: 0, dif: '', noDif: false };
+  const DEF_F = { zona: '', players: 0, dif: '', noDif: false, rank: false };
   const CAT_IMG = { 'Terror': 'terror', 'Thriller/Misterio': 'thriller', 'Aventura': 'aventura', 'Ciencia ficción': 'scifi', 'Histórico': 'historico', 'Fantasía': 'fantasia', 'Humor': 'humor', 'Clásico': 'clasico' };
   const catImg = (c, sm) => `/img/cat/${CAT_IMG[c] || 'clasico'}${sm ? '-640' : ''}.webp`;
   function fitsGroup(r, n) {
@@ -83,6 +83,7 @@
     if (!fitsGroup(r, f.players)) return false;
     // dificultad: la sala sin dato solo entra si el usuario pide verlas (nunca se le asigna un nivel)
     if (f.dif && r.dif !== f.dif && !(f.noDif && !r.dif)) return false;
+    if (f.rank && !r.rank) return false;
     if (state.hideDone && isDone(r)) return false;
     return true;
   }
@@ -224,7 +225,7 @@
     const nr = visible.filter(r => r.rank).length;
     const nSin = visible.filter(r => !hasPos(r)).length;
     const nLoc = new Set(visible.filter(hasPos).map(r => r.gid)).size;
-    $('#counter').innerHTML = `<span id="counterN">${visible.length}</span> salas · ${nLoc} locales${nr ? ` · ${nr} puntuadas` : ''}${nSin ? ` · <span class="counter-warn">${nSin} sin ubicar</span>` : ''}${state.f.dif && !state.f.noDif ? ` · <button class="counter-link" id="showNoDif">+${state.rooms.filter(r => !r.dif && matches(r, { ...state.f, dif: '' })).length} sin dificultad publicada</button>` : ''}`;
+    $('#counter').innerHTML = `<span id="counterN">${visible.length}</span> salas · ${nLoc} locales${nSin ? ` · <span class="counter-warn">${nSin} sin ubicar</span>` : ''}${state.f.dif && !state.f.noDif ? ` · <button class="counter-link" id="showNoDif">+${state.rooms.filter(r => !r.dif && matches(r, { ...state.f, dif: '' })).length} sin dificultad publicada</button>` : ''}`;
     const snd = $('#showNoDif'); if (snd) snd.onclick = () => { state.f.noDif = true; buildQChips(); render(); };
     renderList(visible);
     if (state.sel && !vis.has(state.sel)) closeSheet();
@@ -559,6 +560,13 @@
       c.onclick = e => { e.stopPropagation(); togglePop(def, c); };
       box.appendChild(c);
     });
+    // «Solo ranking»: interruptor, no desplegable. Deja fuera las salas sin puesto.
+    const rk = el('button', 'chip chip--f chip--rank' + (state.f.rank ? ' is-on' : ''),
+      `<svg class="rk-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></svg>Solo ranking`);
+    rk.setAttribute('aria-pressed', state.f.rank ? 'true' : 'false');
+    rk.title = 'Ver solo las salas con puesto en el ranking';
+    rk.onclick = e => { e.stopPropagation(); closePop(); state.f.rank = !state.f.rank; buildQChips(); render(); };
+    box.appendChild(rk);
     if (activeFilterCount() || state.cat !== 'all' || state.q) {
       const cl = el('button', 'chip chip--clear', 'Limpiar');
       cl.onclick = e => { e.stopPropagation(); closePop(); resetFilters(); };

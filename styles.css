@@ -811,3 +811,9 @@ input[type="range"]::-moz-range-thumb { width: 20px; height: 20px; border-radius
 /* 26/09 noche: título de ficha en Satoshi (nombres largos), Michroma en secciones */
 [data-v="2"] .d-title { font-family: Satoshi, sans-serif; font-weight: 700; letter-spacing: -.01em; }
 [data-v="2"] .sheet-title, [data-v="2"] .d-sec h3 { font-family: Michroma, sans-serif; font-size: var(--text-xs); letter-spacing: .08em; text-transform: uppercase; }
+
+/* ---- chip «Solo ranking» (interruptor) ---- */
+.chip--rank { padding: 7px 13px 7px 10px; gap: 6px; }
+.chip--rank .rk-ico { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linejoin: round; opacity: .75; flex: none; }
+.chip--rank.is-on { border-color: var(--gold); color: var(--gold); background: color-mix(in oklab, var(--gold) 14%, transparent); box-shadow: 0 0 0 1px color-mix(in oklab, var(--gold) 35%, transparent), 0 0 14px color-mix(in oklab, var(--gold) 22%, transparent); }
+.chip--rank.is-on .rk-ico { fill: var(--gold); opacity: 1; }
