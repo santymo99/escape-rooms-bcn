@@ -1,4 +1,4 @@
-/* Escape Rooms BCN — mapa interactivo */
+/* GPS Escape — mapa interactivo */
 (() => {
   const CATS = {
     'Terror':          { v: '--c-terror',   label: 'Terror' },
@@ -55,8 +55,8 @@
   /* ---------------- helpers de datos ---------------- */
   const priceOf = r => (r.pmax ?? r.pmin ?? null);
   const DEF_F = { zona: '', players: 0, dif: '', noDif: false };
-  const CAT_IMG = { 'Terror': 'terror', 'Thriller/Misterio': 'misterio', 'Aventura': 'aventura', 'Ciencia ficción': 'scifi', 'Histórico': 'historico', 'Fantasía': 'fantasia', 'Humor': 'humor', 'Clásico': 'clasico' };
-  const catImg = (c, sm) => `img/${CAT_IMG[c] || 'clasico'}${sm ? '-sm' : ''}.webp`;
+  const CAT_IMG = { 'Terror': 'terror', 'Thriller/Misterio': 'thriller', 'Aventura': 'aventura', 'Ciencia ficción': 'scifi', 'Histórico': 'historico', 'Fantasía': 'fantasia', 'Humor': 'humor', 'Clásico': 'clasico' };
+  const catImg = (c, sm) => `img/cat/${CAT_IMG[c] || 'clasico'}${sm ? '-640' : ''}.webp`;
   function fitsGroup(r, n) {
     if (!n) return true;
     if (r.jmax != null && r.jmax < n) return false;
@@ -241,7 +241,7 @@
        </button>`).join('');
     const head = el('div', 'list-head', `
       <div class="hero">
-        <img class="hero-img" src="img/hero.webp" alt="" decoding="async" />
+        <img class="hero-img" src="img/portada.webp" srcset="img/portada-640.webp 640w, img/portada.webp 1280w" sizes="(max-width: 640px) 100vw, 880px" alt="" decoding="async" />
         <div class="hero-txt">
           <h2>El ranking</h2>
           <p>${nTop} salas puntuadas con un único criterio: 50 % reconocimiento verificado del sector (TERPECA 2020-2025, premios 10 Escapes, Escape Room Awards, GibaEscape, OcioTerror, Room Escapers), 25 % reseñas con media bayesiana, 10 % duración y 15 % comodidad para ir en grupo. Cada ficha desglosa su puntuación. Las otras ${nExtra} salas del inventario van debajo, sin número.</p>

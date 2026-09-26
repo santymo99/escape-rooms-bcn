@@ -564,7 +564,7 @@ input[type="range"]::-moz-range-thumb { width: 20px; height: 20px; border-radius
 .card-hole .card-n { background: none; border: 1.5px dashed var(--ink-3); color: var(--ink-3); font-weight: 700; }
 .card-hole .card-title { color: var(--ink-3); }
 
-/* ============ v2 · ESCAPE MAPS (26/09/2026) ============
+/* ============ v2 · GPS ESCAPE (26/09/2026) ============
    Reforma: buscador siempre visible, un solo carril de filtros,
    conmutador flotante Mapa | Ranking, portada del ranking con
    ilustraciones por categoría. Los tokens no cambian.
@@ -576,7 +576,7 @@ input[type="range"]::-moz-range-thumb { width: 20px; height: 20px; border-radius
 [data-v="2"] .brand { text-decoration: none; color: inherit; gap: var(--space-2); }
 [data-v="2"] .brand:hover { color: inherit; }
 [data-v="2"] .logo { width: 36px; height: 36px; filter: drop-shadow(0 0 10px rgba(225, 175, 74, .45)); }
-[data-v="2"] .lg-bulb { fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+[data-v="2"] .lg-line { fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
 [data-v="2"] .lg-fill { fill: currentColor; }
 [data-v="2"] .brand-txt strong { font-size: 1.05rem; letter-spacing: .06em; line-height: 1.05; }
 [data-v="2"] .brand-txt span { font-size: var(--text-xs); }
@@ -629,7 +629,7 @@ input[type="range"]::-moz-range-thumb { width: 20px; height: 20px; border-radius
   position: relative; min-height: clamp(220px, 34vw, 360px); border-radius: var(--r-xl); overflow: hidden;
   background: var(--surface); border: 1px solid var(--line-soft); isolation: isolate;
 }
-[data-v="2"] .hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 70% 50%; z-index: -1; }
+[data-v="2"] .hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 42%; z-index: -1; }
 [data-v="2"] .hero-txt {
   position: absolute; inset: auto 0 0 0; padding: var(--space-6) var(--space-6) var(--space-6);
   background: linear-gradient(to top, rgba(6, 7, 10, .92) 0%, rgba(6, 7, 10, .72) 55%, rgba(6, 7, 10, 0) 100%);
@@ -683,4 +683,15 @@ input[type="range"]::-moz-range-thumb { width: 20px; height: 20px; border-radius
 }
 @media (max-width: 640px) {
   [data-v="2"] .tabbar { left: var(--space-3); transform: none; }
+}
+
+/* ---- correcciones móvil (26/09 tarde): cabecera en dos filas y filtros en dos carriles ---- */
+@media (max-width: 640px) {
+  [data-v="2"] .brand { grid-row: 1; grid-column: 1; }
+  [data-v="2"] .topbar-actions { grid-row: 1; grid-column: 2; }
+  [data-v="2"] .search { grid-row: 2; grid-column: 1 / -1; }
+  [data-v="2"] .filters { flex-wrap: wrap; overflow: visible; row-gap: var(--space-2); }
+  [data-v="2"] .filters-sep { display: none; }
+  [data-v="2"] .chips, [data-v="2"] .chips--f { width: 100%; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  [data-v="2"] .chips::-webkit-scrollbar, [data-v="2"] .chips--f::-webkit-scrollbar { display: none; }
 }
