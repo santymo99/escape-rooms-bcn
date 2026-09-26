@@ -181,6 +181,27 @@ if _os.path.exists(_E3):
         if r['id'] == 'jug-oniric-dia-d' and r.get('estado') != 'Cerrado':
             r['estado'] = 'Cerrado'; r['estado_ev'] = 'Cerrada: confirmado por el usuario el 26/09/2026.'
             log.append("estado Cerrado (usuario 26/09) → jug-oniric-dia-d")
+    # Confirmación del usuario (26/09/2026, noche) de las 8 salas del top con estado null:
+    _OK2 = {'cubick-scubick-doo', 'katharsis-hora-de-las-bestias', 'witching-hour-orient-express', 'la-clau-until-dawn'}
+    _EV2 = {'insomnia-coctel-del-doctor': 'Sigue abierta (reserva con mucha antelación): confirmado por el usuario el 26/09/2026.',
+            'odisea-evermore': 'Abierta: la web solo admite reservas a partir de enero de 2027 (comprobado por el usuario el 26/09/2026).'}
+    _CERR2 = {'kidnapped-in-bcn-el-secuestro': 'Sin posibilidad de reservar: la web dice que están trabajando en Kidnapped in Bcn 2 (comprobado por el usuario el 26/09/2026).',
+              'maximum-refugio-27': 'La sala sigue en la web del local pero no admite reservas (comprobado por el usuario el 26/09/2026).'}
+    for r in rows:
+        if r['id'] in _OK2 and r.get('estado') != 'Abierto':
+            r['estado'] = 'Abierto'; r['estado_ev'] = 'Sigue abierta: confirmado por el usuario el 26/09/2026.'; log.append(f"estado Abierto → {r['id']}")
+        if r['id'] in _EV2 and r.get('estado') != 'Abierto':
+            r['estado'] = 'Abierto'; r['estado_ev'] = _EV2[r['id']]; log.append(f"estado Abierto → {r['id']}")
+        if r['id'] in _CERR2 and r.get('estado') != 'Cerrado':
+            r['estado'] = 'Cerrado'; r['estado_ev'] = _CERR2[r['id']]; log.append(f"estado Cerrado → {r['id']}")
+    # Las cerradas salen del top y entran las siguientes por puntuación (Nathael 53,4 y Game-On 52,6, puntuación
+    # de la edición 1, sin cambios en el encargo 3). Se renumera por puntuación; empate → conserva el orden previo.
+    _ENTRAN = ['cubick-nathael', 'la-clau-game-on']
+    _prev = {r['id']: r['rank'] for r in rows if r.get('rank')}
+    _cand = [r for r in rows if (r.get('rank') or r['id'] in _ENTRAN) and r.get('estado') != 'Cerrado' and r.get('score')]
+    _cand.sort(key=lambda r: (-r['score'], _prev.get(r['id'], 999)))
+    for r in rows: r['rank'] = None
+    for i, r in enumerate(_cand[:100], 1): r['rank'] = i
     # recolocar: d['rank'] = las 100 por puesto; el resto a d['otras']
     _all = rows
     d['rank'] = sorted([r for r in _all if r.get('rank')], key=lambda r: r['rank'])

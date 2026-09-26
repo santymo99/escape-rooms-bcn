@@ -78,9 +78,11 @@ de estado lo hace el usuario a mano. Las páginas publicadas como artefacto de C
   Game-On, Luz verde, Soulbound, Casita Azul, Mutant X-Perience, El Secuestro Cubick, Okiku, Mysterious Room, Roomions,
   Jurassic land, Vieja Carnicería, Llamada Arcana, EllebannA, Epiphany, Moon) y las dos cerradas (Endurance II,
   Forbidden room). Estado confirmado por el usuario el 26/09: Hotel Hello, El orfanato, Vikingos, Zombie Outbreak,
-  Juguetería Maldita, Evasión del campo 14 e IN abiertas; Día D (Oniric) cerrada. Quedan en el top 8 salas con estado
-  `null` (sin confirmar): El Secuestro (Kidnapped), Scubick-Doo, La hora de las bestias, El Tren Maldito, Cóctel del
-  Doctor, Until Dawn, Refugio 27 y Evermore.
+  Juguetería Maldita, Evasión del campo 14 e IN abiertas; Día D (Oniric) cerrada. Las 8 salas del top con estado `null` las confirmó el usuario esa misma noche: Scubick-Doo, La hora de las
+  bestias, El Tren Maldito, Cóctel del Doctor (reserva con mucha antelación), Until Dawn y Evermore (reservas solo desde
+  enero de 2027) abiertas; El Secuestro (Kidnapped in BCN: preparan la parte 2, sin reservas) y Refugio 27 (sin reservas)
+  cerradas → salen del top y entran Nathael (#96) y Game-On (#98), renumerando por puntuación. Top 100 completo, todas
+  con estado Abierto; 225 salas publicadas.
 - Mapa: chip «Solo ranking» en la fila de filtros (solo salas con puesto); la pastilla ya no dice «N puntuadas».
 - Salas con `prec: city` no se pintan; aparecen en la lista como "Ubicación no confirmada".
 - Coordenadas: CartoCiudad (IGN), portal exacto. Nunca estimar.
@@ -169,7 +171,7 @@ Sala Koala, Katharsis) quedan como sin confirmar: sin aviso de cierre no se marc
    netlify.app → gpsescape.es). Activar notificación por correo de Netlify Forms. Seguir la respuesta de Arsys.
 2. Diseño (bloque 3): aplicar Linterna+Neón también a la ficha y al panel de local; página de categoría y de zona
    estáticas para SEO; revisar móvil a 390 px con capturas reales; rendimiento (data.js 450 KB retrasa el mapa 6-8 s).
-3. Encargo 3: HECHO (edición 2, ver arriba). Pendiente: confirmar las 8 salas del top con estado `null`, buscar
+3. Encargo 3: HECHO (edición 2, ver arriba). Pendiente: buscar
    duración/jugadores/precio reales de las marcadas «¿?» en `porque`, y revisar los `premios` de las jugadas.
 4. Ranking (dato): la descripción de las fichas la escribe el usuario; revisar precios sospechosos y los «porque».
 4. Dudas de datos abiertas: El viaje mágico (C2) vs La Biblioteca Mágica; Space Escape vs "Salvar la Galaxia"
