@@ -1,5 +1,5 @@
 # PROYECTO — Web pública de escape rooms de la provincia de Barcelona
-Estado a 26/09/2026. Sustituye a cualquier versión anterior de PROYECTO.md.
+Estado a 26/09/2026 (tarde, tras las imágenes). Sustituye a cualquier versión anterior de PROYECTO.md.
 Léelo entero antes de responder. No reabras decisiones ya tomadas.
 
 ## Qué es
@@ -90,10 +90,37 @@ Vortex/Apophis y las cuatro de Bizarre abiertas por capturas del usuario del 26/
 descartada). "Probablemente cerrados" (Intríngulis, Matetó, Escapelandsp, Barcelona Escape Room L'H, Scap&Go,
 Sala Koala, Katharsis) quedan como sin confirmar: sin aviso de cierre no se marcan Cerrado.
 
+## Portada nueva e imágenes (decidido 26/09)
+- Nombre público: **ESCAPE MAPS**, frase «Encuentra escape rooms». Dominio `escapemaps.es` comprado en Arsys el
+  26/09/2026; pendiente de validación manual (L-V). Cuando llegue, apuntarlo a Netlify. Hasta entonces, nada que hacer.
+- Diseño de portada decidido: mapa a casi toda pantalla, buscador siempre visible, cuatro filtros (Categoría, Zona por
+  comarcas, Nº de jugadores, Dificultad), conmutador Mapa | Ranking abajo, páginas estáticas por categoría y por comarca.
+  La skill `diseno-escape-maps` (cargada en las sesiones de Claude) fija el criterio de diseño: usarla siempre.
+- Imágenes generadas con Higgsfield (modelo gpt_image_2_5, calidad medium, 0,5 créditos/imagen) y aprobadas una a una
+  por el usuario. Subidas al repo el 26/09 (commit 40b8604) SIN enlazarlas todavía: se usan al construir la portada nueva
+  y las páginas de categoría. Rutas: `img/portada.webp` y `img/cat/<slug>.webp` (1280×720) más `-640.webp` (640×360).
+  Slugs: terror, thriller, aventura, scifi, fantasia, historico, humor, clasico. `img/og.jpg` es anterior.
+- Criterio de imagen acordado (aplicar si hay que regenerar alguna): escena de escape room = interior cerrado, sin
+  ventanas ni exteriores, con mecánica de sala visible (candados con sentido, cajas con código, paneles, caja fuerte…),
+  pero sin acumular candados absurdos; dos jugadores (chico y chica, ropa actual salvo Aventura e Histórico con vestuario
+  de época y Ciencia ficción con mono de tripulación) de espaldas o de perfil, concentrados en la pista, sin mirar a
+  cámara; una fuente de luz cálida protagonista; sujeto centrado y bordes tranquilos con viñeteado suave; sin texto.
+  Cada categoría se ve como lo que es (Aventura luminosa, Humor colorida, Fantasía con luz mágica…); solo Terror y
+  Thriller/Misterio juegan con la penumbra. La identidad oscura y el dorado #e1af4a son el marco de la web, no el
+  contenido de las fotos. Las ediciones se hacen sobre la imagen aprobada usándola como referencia (image_references)
+  para no perder el encuadre; el modelo deforma el texto y a veces añade o quita personas: revisar manos y nº de figuras.
+- Job IDs de Higgsfield de las versiones aprobadas (por si hay que reeditar): aventura 467b909e-a497-4493-8f81-023a1dc3452e ·
+  humor b02c63b8-41b0-4951-b10f-2874c432b200 · terror 43bb466a-b364-40a4-ad10-99a508947e20 ·
+  historico 60744788-4deb-4746-9e16-a7042d9c0971 · scifi 96437179-ed39-4be6-ad54-37d5402b5c2f ·
+  fantasia bb20ecb2-14bd-4bf7-a638-f2652fbec569 · thriller bd887945-6a6f-41af-9fc6-e8b95f89ec31 ·
+  clasico 7ebaa980-db62-41dd-8f6f-2281f86f75b2 · portada 99566f9d-acf9-4790-88cf-057560beb1c5.
+- Descarga/conversión: el contenedor de Claude no llega a cloudfront; se hace en `sandbox_exec` con ImageMagick
+  (`convert in.png -gravity center -resize 1280x720^ -extent 1280x720 -strip -quality 82 out.webp`).
+
 ## Pendiente (en orden de valor por hora del usuario; dispone de 5-8 h semanales)
-1. Portada real (`index.html` distinto del mapa) y páginas temáticas de ranking para SEO. Antes, el usuario
-   decide: (a) nombre público y frase de qué es la web; (b) dominio propio (10-15 €/año) o mapsescape.netlify.app;
-   (c) qué páginas temáticas (categoría, municipio, "mejores de terror"…).
+1. Construir la portada nueva (`index.html` distinto del mapa) y las páginas estáticas por categoría y por comarca,
+   con el diseño ya decidido y las imágenes ya subidas (ver sección «Portada nueva e imágenes»). Apuntar escapemaps.es
+   a Netlify cuando Arsys valide el dominio.
 2. Dudas de datos abiertas: El viaje mágico (C2) vs La Biblioteca Mágica; Space Escape vs "Salvar la Galaxia"
    (El Cubo); Escape Food Junior; Cadena Perpetua (URL correcta cadenaperpetuaroom.com, sin revisar);
    salas nuevas de locales mapeados sin confirmar como físicas: The City (Academia de cocina, La lanzadera,
