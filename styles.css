@@ -800,3 +800,9 @@ input[type="range"]::-moz-range-thumb { width: 20px; height: 20px; border-radius
 [data-v="2"] .btn-gold { display: inline-flex; align-items: center; gap: 8px; margin-top: var(--space-2); padding: 11px 18px; border-radius: 999px; text-decoration: none; font-weight: 700; font-size: var(--text-sm); background: var(--gold); color: var(--gold-ink); box-shadow: 0 10px 26px -12px rgba(225, 175, 74, .7); }
 [data-v="2"] .btn-gold:hover { filter: brightness(1.06); }
 [data-v="2"] .list-view { padding-bottom: calc(var(--space-16) + 40px); }
+
+/* ---- marca (wordmark) ---- */
+[data-v="2"] .wm { display: inline-flex; align-items: baseline; gap: .3em; font-family: "Clash Display", sans-serif; font-weight: 700; font-size: 1.32rem; line-height: 1; letter-spacing: 0; }
+[data-v="2"] .wm b { color: var(--gold); font-weight: 700; }
+[data-theme="dark"][data-v="2"] .wm b { text-shadow: 0 0 16px rgba(225, 175, 74, .55); }
+[data-v="2"] .wm span { font-weight: 600; font-size: .8em; letter-spacing: .14em; color: var(--ink); }

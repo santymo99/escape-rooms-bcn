@@ -25,7 +25,9 @@ h1, h2, h3 { font-family: "Clash Display", sans-serif; letter-spacing: -.01em; l
 .p-top.is-solid { background: color-mix(in oklab, var(--bg) 86%, transparent); backdrop-filter: blur(14px); border-color: var(--line-soft); }
 .p-top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-.brand strong { font-family: "Clash Display", sans-serif; font-size: 1.05rem; letter-spacing: .08em; }
+.wm { display: inline-flex; align-items: baseline; gap: .3em; font-family: "Clash Display", sans-serif; font-weight: 700; font-size: 1.38rem; line-height: 1; }
+.wm b { color: var(--gold); font-weight: 700; text-shadow: 0 0 16px rgba(225,175,74,.55); }
+.wm span { font-weight: 600; font-size: .8em; letter-spacing: .14em; color: var(--ink); }
 .logo { width: 36px; height: 36px; color: var(--gold); flex: none; filter: drop-shadow(0 0 10px rgba(225,175,74,.45)); }
 .lg-line { fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
 .lg-fill { fill: currentColor; }
@@ -118,3 +120,17 @@ h1, h2, h3 { font-family: "Clash Display", sans-serif; letter-spacing: -.01em; l
   @keyframes rise { from { opacity: 0; transform: translateY(14px) } to { opacity: 1; transform: none } }
 }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .cat, .cat img, .cta, .btn { transition: none; } }
+
+/* ---- menú Mapas ---- */
+.menu { position: relative; }
+.menu-btn { display: inline-flex; align-items: center; gap: 6px; border: 0; cursor: pointer; font: inherit; font-size: .9rem; padding: 8px 12px 8px 14px; border-radius: 999px; }
+.menu-btn svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; transition: transform .15s var(--ease-out); }
+.menu-btn[aria-expanded="true"] svg { transform: rotate(180deg); }
+.menu-list { position: absolute; right: 0; top: calc(100% + 10px); min-width: 260px; padding: 6px; border-radius: 14px; background: var(--surface); border: 1px solid var(--line); box-shadow: 0 18px 50px -12px rgba(0,0,0,.75); z-index: 50; }
+.menu-list a { display: block; padding: 10px 12px; border-radius: 10px; text-decoration: none; transition: background .15s ease; }
+.menu-list a:hover { background: var(--surface-2); }
+.menu-list a strong { display: block; font-family: "Clash Display", sans-serif; font-size: 1rem; }
+.menu-list a small { display: block; margin-top: 2px; color: var(--ink-3); font-size: .8rem; }
+.menu-soon { display: block; padding: 8px 12px 6px; color: var(--ink-3); font-size: .8rem; border-top: 1px solid var(--line-soft); margin-top: 4px; }
+@media (prefers-reduced-motion: no-preference) { .menu-list { animation: pop .18s var(--ease-out) both; transform-origin: top right; } @keyframes pop { from { opacity: 0; transform: scale(.95) } to { opacity: 1; transform: none } } }
+@media (max-width: 720px) { .p-nav .menu-btn { display: inline-flex; } }

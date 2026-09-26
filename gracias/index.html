@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#090b10" />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230d0e12'/%3E%3Ccircle cx='16' cy='16' r='12' fill='none' stroke='%23e1af4a' stroke-width='2'/%3E%3Cpath d='M16 4.5 18.3 13.7 16 12.7 13.7 13.7ZM27.5 16 18.3 18.3 19.3 16 18.3 13.7ZM16 27.5 13.7 18.3 16 19.3 18.3 18.3ZM4.5 16 13.7 13.7 12.7 16 13.7 18.3Z' fill='%23e1af4a'/%3E%3Ccircle cx='16' cy='16' r='4.6' fill='%23e1af4a'/%3E%3Ccircle cx='16' cy='14.9' r='1.55' fill='%230d0e12'/%3E%3Cpath d='M15.25 15.9 14.55 18.8h2.9l-.7-2.9Z' fill='%230d0e12'/%3E%3C/svg%3E" />
 <link href="https://api.fontshare.com/v2/css?f%5B%5D=satoshi@400,500,700&f%5B%5D=clash-display@600,700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="/portada.css?v=1" />
+<link rel="stylesheet" href="/portada.css?v=2" />
 <style>
   .page { padding: 120px 0 64px; }
   .page h1 { font-size: clamp(2rem, 5vw, 3.2rem); }
@@ -35,7 +35,13 @@
       <circle class="lg-fill" cx="16" cy="16" r="4.6"/>
       <circle class="lg-cut" cx="16" cy="14.9" r="1.55"/>
       <path class="lg-cut" d="M15.25 15.9 14.55 18.8h2.9l-.7-2.9Z"/>
-    </svg><strong>GPS ESCAPE</strong></a><nav class="p-nav" aria-label="Secciones"><a href="/#categorias">Categorías</a><a href="/#como">Cómo puntuamos</a><a class="btn-sm" href="/barcelona/">Abrir el mapa</a></nav></div></header>
+    </svg><strong class="wm"><b>GPS</b><span>ESCAPE</span></strong></a><nav class="p-nav" aria-label="Secciones"><a href="/#categorias">Categorías</a><a href="/#como">Cómo puntuamos</a><div class="menu">
+        <button class="btn-sm menu-btn" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="menu-mapas">Mapas <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5"/></svg></button>
+        <div class="menu-list" id="menu-mapas" hidden>
+          <a href="/barcelona/"><strong>Provincia de Barcelona</strong><small><span data-stat="salas">228</span> salas · <span data-stat="puntuadas">91</span> en el ranking</small></a>
+          <span class="menu-soon">Más zonas, pronto</span>
+        </div>
+      </div></nav></div></header>
 <main class="page">
   <div class="wrap">
     <div class="ok">
@@ -46,5 +52,7 @@
   </div>
 </main>
 <footer class="foot"><div class="wrap foot-bar"><span>© 2026 GPS Escape · Datos revisados a mano, sin estimaciones.</span><nav aria-label="Enlaces"><a href="/">Inicio</a><a href="/barcelona/">Mapa de Barcelona</a></nav></div></footer>
+<script src="/stats.js?v=1"></script>
+<script src="/portada.js?v=1"></script>
 </body>
 </html>
