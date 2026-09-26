@@ -35,6 +35,17 @@ for r in rows:
     # The Hive: portal geocodificado con CartoCiudad
     if r['local'] == 'The Hive Escape Room' and r['prec'] == 'city':
         setpos(r, 41.407412, 2.176952, 'CALLE CASTILLEJOS 287, 08025 Barcelona'); log.append(f"coords The Hive ({r['id']})")
+    # 26/09 (noche): las dos salas «sin ubicar», geocodificadas con CartoCiudad (portal) desde la web oficial de cada local
+    if r['id'] == 'cubick-escapafantasmas' and r['prec'] == 'city':
+        r['dir'] = 'Ronda de Mossèn Jacint Verdaguer, 69, 08302 Mataró'
+        setpos(r, 41.544896, 2.437125, 'RONDA MOSSEN JACINT VERDAGUER 69, 08302 Mataró'); r['prec'] = 'portal'
+        r['web'] = r.get('web') or 'https://mataro.cubickroomescape.es/escapafantasmas/'
+        log.append(f"coords Escapafantasmas ({r['id']}) · mataro.cubickroomescape.es")
+    if r['id'] == 'odisea-la-mansion' and r['prec'] == 'city':
+        r['dir'] = 'Carrer de la Volta, 233, 08224 Terrassa'
+        setpos(r, 41.561593, 1.999472, 'CALLE VOLTA 233, 08224 Terrassa'); r['prec'] = 'portal'
+        r['web'] = r.get('web') or 'https://www.odiseaescape.com/'
+        log.append(f"coords La Mansión Odisea ({r['id']}) · odiseaescape.com")
     # Bizarre: portal geocodificado; Backstab confirmada en bizarrebcn.com
     if r['local'] == 'Bizarre Escape Room' and r['prec'] == 'city':
         setpos(r, 41.372410, 2.168017, 'CALLE BLESA 24, 08004 Barcelona'); r['web'] = r.get('web') or 'https://bizarrebcn.com/'
