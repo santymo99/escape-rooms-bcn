@@ -137,6 +137,60 @@ if os.path.isdir(E2):
         d['otras'].append(rec); rows.append(rec); ids.add(rec['id']); log.append(f"candidata añadida: {rec['local']} / {rec['sala']}")
     d['meta']['total'] = len(rows); d['meta']['n_otras'] = len(d['otras']); d['meta']['generado'] = '2026-09-26'
 
+# ---------- Edición 2 del ranking (26/09/2026, encargo 3): top 100 con las salas jugadas ----------
+# Fuente: encargo3/top100_2026-09-26.jsonl (resultado del encargo 3, revisado por el usuario).
+# Regla fijada el 26/09: Room Escapers = media de las notas de los reseñadores en la reseña de la sala
+# (no el «Score» de la tabla de Barcelona). Los huecos 74 y 78 desaparecen: es una edición nueva.
+import os as _os, re as _re
+_E3 = _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), 'encargo3', 'top100_2026-09-26.jsonl')
+if _os.path.exists(_E3):
+    _top = [json.loads(l) for l in open(_E3, encoding='utf-8') if l.strip()]
+    _byid = {r['id']: r for r in rows}
+    _new = {t['id']: t for t in _top}
+    _URL10 = 'https://10escapes.com/ganadores25/'
+    for r in rows:
+        t = _new.get(r['id'])
+        if not t:
+            if r.get('rank'): log.append(f"ranking ed.2: sale del top 100 → {r['id']} (antes #{r['rank']})")
+            r['rank'] = None
+            continue
+        r['rank'] = t['rank']
+        porque = t['porque']
+        m = _re.search(r'\((#\d+) en 2025, añadido\)', porque)
+        if m:
+            porque = _re.sub(r'\s*\(#\d+ en 2025, añadido\)', '', porque)
+            extra = f"{m.group(1)} en la lista general de 10 Escapes 2025"
+            if '10 Escapes' not in (r.get('premios') or ''):
+                r['premios'] = ((r.get('premios') or '').rstrip('; ') + '; ' + extra).strip('; ')
+            r['fuentes'] = list(dict.fromkeys((r.get('fuentes') or []) + [_URL10]))
+        r['porque'] = porque
+        ms = _re.match(r'Puntuación ([\d.]+)/100', porque)
+        if ms: r['score'] = float(ms.group(1))
+        if t.get('premios'):
+            r['premios'] = t['premios']
+            r['fuentes'] = list(dict.fromkeys(t.get('fuentes') or []))
+        if isinstance(r.get('faltan'), list) and 'premios' in r['faltan'] and r.get('premios'):
+            r['faltan'] = [x for x in r['faltan'] if x != 'premios']
+    # estado confirmado por el usuario el 26/09/2026
+    _OK = {'jug-brutal-hotel-hello', 'jug-fear-factory-el-orfanato', 'jug-unreal-gava-vikingos', 'jug-fear-escape-zombie-outbreak',
+           'witching-hour-jugueteria-maldita', 'cadena-perpetua-evasion-campo-14', 'fear-factory-in'}
+    for r in rows:
+        if r['id'] in _OK and r.get('estado') != 'Abierto':
+            r['estado'] = 'Abierto'; r['estado_ev'] = 'Sigue abierta: confirmado por el usuario el 26/09/2026.'
+            log.append(f"estado Abierto (usuario 26/09) → {r['id']}")
+        if r['id'] == 'jug-oniric-dia-d' and r.get('estado') != 'Cerrado':
+            r['estado'] = 'Cerrado'; r['estado_ev'] = 'Cerrada: confirmado por el usuario el 26/09/2026.'
+            log.append("estado Cerrado (usuario 26/09) → jug-oniric-dia-d")
+    # recolocar: d['rank'] = las 100 por puesto; el resto a d['otras']
+    _all = rows
+    d['rank'] = sorted([r for r in _all if r.get('rank')], key=lambda r: r['rank'])
+    d['otras'] = [r for r in _all if not r.get('rank')]
+    rows = d['rank'] + d['otras']
+    d['meta']['n_rank'] = len(d['rank']); d['meta']['n_otras'] = len(d['otras']); d['meta']['total'] = len(rows)
+    d['meta']['edicion'] = '2 (26/09/2026)'
+    assert len(d['rank']) == 100 and [r['rank'] for r in d['rank']] == list(range(1, 101)), 'ranking ed.2 incompleto'
+    log.append(f"ranking ed.2 aplicado: {len(d['rank'])} puestos")
+
 # ---------- Comarca (asignación oficial de la Generalitat; geografía, no dato de sala) ----------
 COMARCA = {
  'Barcelona':'Barcelonès','Badalona':'Barcelonès',"L'Hospitalet de Llobregat":'Barcelonès','Santa Coloma de Gramenet':'Barcelonès',

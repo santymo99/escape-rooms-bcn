@@ -1,5 +1,5 @@
 # PROYECTO — Web pública de escape rooms de la provincia de Barcelona
-Estado a 26/09/2026 (noche). Sustituye a cualquier versión anterior de PROYECTO.md.
+Estado a 26/09/2026 (noche, edición 2 del ranking) (noche). Sustituye a cualquier versión anterior de PROYECTO.md.
 Léelo entero antes de responder. No reabras decisiones ya tomadas.
 
 ## Qué es
@@ -66,10 +66,22 @@ de estado lo hace el usuario a mano. Las páginas publicadas como artefacto de C
 - Ranking: es NUESTRO y **su criterio no se publica**: ni pesos, ni fórmula, ni fuentes ponderadas en ninguna pantalla
   (decisión del 26/09). La web solo dice que las salas se revisan a mano y que hay N salas ordenadas; la ficha muestra
   «Qué cuenta para su puesto N» en prosa (generado desde el campo `porque`, sin cifras). Internamente la fórmula sigue
-  por definir (pendiente 6). Hasta la próxima edición no se renumera ni se mete nadie en un hueco: una sala cerrada
-  con puesto se muestra como "Puesto vacante" (tarjeta gris `.card-hole`, solo con el ranking completo visible).
-  Hoy los huecos son 74 (Endurance II) y 78 (Forbidden room). El 65 volvió a ocuparlo Refugio 27 (sin confirmar).
-  Las salas nuevas entran en `otras`, sin puesto, hasta que haya fórmula.
+  por definir (pendiente 6). Entre ediciones no se renumera ni se mete nadie en un hueco: una sala cerrada con puesto
+  se muestra como "Puesto vacante" (tarjeta gris `.card-hole`). Las salas nuevas entran en `otras`, sin puesto.
+- **Edición 2 del ranking (26/09/2026, encargo 3): top 100 cerrado, sin huecos.** Incluye las 16 salas jugadas por el
+  usuario que tenían avales (Jurásico #1, Outline #3, Exodus #4, 11S #8…). Fuente: `encargo3/top100_2026-09-26.jsonl`
+  (id, rank, porque, premios, fuentes), aplicado por `fix_data.py`. Reglas fijadas ese día: Room Escapers = media de
+  las notas de los reseñadores en la reseña de la sala (NO el «Score» de la tabla de Barcelona, que es otro número);
+  lista general de 10 Escapes 2025 sumada a las 22 salas a las que faltaba; TERPECA nominadas 2025 = 6 + nº de
+  nominaciones; sin dato de duración/jugadores/precio se aplica el valor medio de la fórmula (marcado «¿?» en `porque`;
+  son 1-3 puntos y no cambia el orden, pero conviene buscar el dato real). Salieron 16 de la edición 1 (Nathael,
+  Game-On, Luz verde, Soulbound, Casita Azul, Mutant X-Perience, El Secuestro Cubick, Okiku, Mysterious Room, Roomions,
+  Jurassic land, Vieja Carnicería, Llamada Arcana, EllebannA, Epiphany, Moon) y las dos cerradas (Endurance II,
+  Forbidden room). Estado confirmado por el usuario el 26/09: Hotel Hello, El orfanato, Vikingos, Zombie Outbreak,
+  Juguetería Maldita, Evasión del campo 14 e IN abiertas; Día D (Oniric) cerrada. Quedan en el top 8 salas con estado
+  `null` (sin confirmar): El Secuestro (Kidnapped), Scubick-Doo, La hora de las bestias, El Tren Maldito, Cóctel del
+  Doctor, Until Dawn, Refugio 27 y Evermore.
+- Mapa: chip «Solo ranking» en la fila de filtros (solo salas con puesto); la pastilla ya no dice «N puntuadas».
 - Salas con `prec: city` no se pintan; aparecen en la lista como "Ubicación no confirmada".
 - Coordenadas: CartoCiudad (IGN), portal exacto. Nunca estimar.
 - Precio por persona de las candidatas: precio de grupo de ERL dividido entre jugadores máx.; `ptxt` lo dice.
@@ -157,11 +169,8 @@ Sala Koala, Katharsis) quedan como sin confirmar: sin aviso de cierre no se marc
    netlify.app → gpsescape.es). Activar notificación por correo de Netlify Forms. Seguir la respuesta de Arsys.
 2. Diseño (bloque 3): aplicar Linterna+Neón también a la ficha y al panel de local; página de categoría y de zona
    estáticas para SEO; revisar móvil a 390 px con capturas reales; rendimiento (data.js 450 KB retrasa el mapa 6-8 s).
-3. Encargo 3 · completar el top 100 (puestos 92-100): el usuario quiere 100 salas puntuadas. NO se pueden asignar
-   puestos sin datos. Prompt preparado con los 91 desgloses y las 137 candidatas para que una IA busque avales
-   verificables y proponga 9 con el mismo criterio: https://d2ol7oe51mr4n9.cloudfront.net/user_3IxMv0DBoTGoMxxItIPCGmfMJYN/38f48bb0-d92c-4653-9b48-375bb0dfa8f5.md
-   El resultado (JSON con id, rank, porque, premios, fuentes) se aplica vía fix_data.py; el usuario aprueba antes.
-   El enlace de la portada dice «Ver el ranking»; pasará a «Ver top 100» cuando sean 100.
+3. Encargo 3: HECHO (edición 2, ver arriba). Pendiente: confirmar las 8 salas del top con estado `null`, buscar
+   duración/jugadores/precio reales de las marcadas «¿?» en `porque`, y revisar los `premios` de las jugadas.
 4. Ranking (dato): la descripción de las fichas la escribe el usuario; revisar precios sospechosos y los «porque».
 4. Dudas de datos abiertas: El viaje mágico (C2) vs La Biblioteca Mágica; Space Escape vs "Salvar la Galaxia"
    (El Cubo); Escape Food Junior; Cadena Perpetua (URL correcta cadenaperpetuaroom.com, sin revisar);
