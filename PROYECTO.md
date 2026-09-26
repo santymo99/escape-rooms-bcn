@@ -157,7 +157,12 @@ Sala Koala, Katharsis) quedan como sin confirmar: sin aviso de cierre no se marc
    netlify.app → gpsescape.es). Activar notificación por correo de Netlify Forms. Seguir la respuesta de Arsys.
 2. Diseño (bloque 3): aplicar Linterna+Neón también a la ficha y al panel de local; página de categoría y de zona
    estáticas para SEO; revisar móvil a 390 px con capturas reales; rendimiento (data.js 450 KB retrasa el mapa 6-8 s).
-3. Ranking (dato): la descripción de las fichas la escribe el usuario; revisar precios sospechosos y los «porque».
+3. Encargo 3 · completar el top 100 (puestos 92-100): el usuario quiere 100 salas puntuadas. NO se pueden asignar
+   puestos sin datos. Prompt preparado con los 91 desgloses y las 137 candidatas para que una IA busque avales
+   verificables y proponga 9 con el mismo criterio: https://d2ol7oe51mr4n9.cloudfront.net/user_3IxMv0DBoTGoMxxItIPCGmfMJYN/38f48bb0-d92c-4653-9b48-375bb0dfa8f5.md
+   El resultado (JSON con id, rank, porque, premios, fuentes) se aplica vía fix_data.py; el usuario aprueba antes.
+   El enlace de la portada dice «Ver el ranking»; pasará a «Ver top 100» cuando sean 100.
+4. Ranking (dato): la descripción de las fichas la escribe el usuario; revisar precios sospechosos y los «porque».
 4. Dudas de datos abiertas: El viaje mágico (C2) vs La Biblioteca Mágica; Space Escape vs "Salvar la Galaxia"
    (El Cubo); Escape Food Junior; Cadena Perpetua (URL correcta cadenaperpetuaroom.com, sin revisar);
    salas nuevas de locales mapeados sin confirmar como físicas: The City (Academia de cocina, La lanzadera,
