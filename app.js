@@ -245,7 +245,7 @@
         <img class="hero-img" src="/img/portada.webp" srcset="/img/portada-640.webp 640w, /img/portada.webp 1280w" sizes="(max-width: 640px) 100vw, 880px" alt="" decoding="async" />
         <div class="hero-txt">
           <h2>El ranking</h2>
-          <p>${nTop} salas puntuadas con un único criterio: 50 % reconocimiento verificado del sector (TERPECA 2020-2025, premios 10 Escapes, Escape Room Awards, GibaEscape, OcioTerror, Room Escapers), 25 % reseñas con media bayesiana, 10 % duración y 15 % comodidad para ir en grupo. Cada ficha desglosa su puntuación. Las otras ${nExtra} salas del inventario van debajo, sin número.</p>
+          <p>Las ${nTop} salas más recomendadas de la provincia, ordenadas de la 1 a la ${nTop}. Las otras ${nExtra} del inventario van debajo, sin número.</p>
         </div>
       </div>
       <div class="cat-grid" id="catGrid">${tiles}</div>`);
