@@ -29,7 +29,8 @@
 
   function zonaLabel(r) {
     if (!r.zona) return '';
-    const z = r.zona.replace(r.municipio, '').replace(/^[\s,(–-]+|[\s,)–-]+$/g, '').trim();
+    let z = r.zona.replace(r.municipio, '').replace(/^[\s,(–-]+|[\s,–-]+$/g, '').trim();
+    if ((z.match(/\)/g) || []).length > (z.match(/\(/g) || []).length) z = z.replace(/\)+$/, '').trim(); // solo el paréntesis que sobra
     return z && z.toLowerCase() !== (r.municipio || '').toLowerCase() ? z : '';
   }
 
@@ -105,8 +106,8 @@
       center: ZONE.center, zoom: ZONE.zoom, minZoom: 7, maxZoom: 18,
       attributionControl: { compact: true }
     });
-    map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'bottom-left');
-    map.addControl(new maplibregl.GeolocateControl({ positionOptions: { enableHighAccuracy: true }, trackUserLocation: true }), 'bottom-left');
+    map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right');
+    map.addControl(new maplibregl.GeolocateControl({ positionOptions: { enableHighAccuracy: true }, trackUserLocation: true }), 'top-right');
 
     // control propio: encuadra todas las salas visibles (varias añadidas quedan lejos del centro)
     class FitAll {
@@ -124,12 +125,12 @@
       }
       onRemove() { this._c.remove(); }
     }
-    map.addControl(new FitAll(), 'bottom-left');
+    map.addControl(new FitAll(), 'top-right');
     state.map = map;
     // los marcadores son elementos HTML y no dependen del estilo: se pintan ya, mientras llegan las teselas
     $('#sk')?.remove(); buildMarkers();
-    map.on('load', () => { $('#sk')?.remove(); buildMarkers(); });
-    map.once('idle', loadAds);
+    map.on('load', () => { $('#sk')?.remove(); buildMarkers(); $('.maplibregl-ctrl-attrib')?.classList.remove('maplibregl-compact-show'); });
+    map.once('idle', () => { $('.maplibregl-ctrl-attrib')?.classList.remove('maplibregl-compact-show'); loadAds(); });
   }
 
   function fitAll() {
@@ -253,6 +254,7 @@
     const done = visible.filter(r => !r.rank).sort((a, b) => a.sala.localeCompare(b.sala, 'es'));
 
     const nTop = state.rooms.filter(r => r.rank).length;
+    const nVac = state.data.rank.filter(r => r.rank && r.estado === 'Cerrado').length;
     const nExtra = state.rooms.filter(r => !r.rank).length;
     const counts = {}; state.rooms.forEach(r => counts[r.cat] = (counts[r.cat] || 0) + 1);
     const tiles = Object.keys(CATS).filter(k => counts[k]).sort((a, b) => counts[b] - counts[a]).map(k =>
@@ -265,7 +267,7 @@
       <div class="rk-head">
         <div class="rk-title">
           <h2>El ranking</h2>
-          <p>Las ${nTop} salas más recomendadas de la provincia, ordenadas. Las otras ${nExtra} del inventario van debajo, sin número.</p>
+          <p>El top ${nTop + nVac} de la provincia, revisado a mano${nVac ? ` (${nVac === 1 ? 'un puesto vacante' : `${nVac} puestos vacantes`} hasta la próxima edición)` : ''}. Las otras ${nExtra} salas del inventario van debajo, sin número.</p>
         </div>
         <div class="played${nDone ? ' has-some' : ''}">
           <div class="played-txt">
@@ -321,7 +323,7 @@
           ${r.jmin != null ? pill(`${r.jmin}-${r.jmax} jug.`) : ''}
           ${r.dur ? pill(`${r.dur} min`) : ''}
           ${price ? pill(price) : ''}
-          ${r.dif ? pill(r.dif) : ''}
+          ${r.dif ? pill(r.dif, 'pill--dif') : ''}
           ${r.rpond && r.rn ? pill(`★ ${String(r.rpond).replace('.', ',')} (${nf(r.rn)})`) : ''}
           ${r.premios ? pill('Premiada', 'pill--gold') : ''}
           ${isDone(r) ? pill('✓ Jugada', 'pill--done') : ''}
@@ -376,31 +378,79 @@
     openSheet('#sheet');
   }
 
+  const priceNum = n => String(n).replace('.', ',');
+  const gmapsOf = (dir, local, muni) => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent((dir || `${local} ${muni}`) + ', España')}`;
+  const noUrls = t => String(t || '').replace(/\s*\(?https?:\/\/[^\s)]+\)?/g, '').replace(/:\s*(?=[.;,()]|$)/g, ' ').replace(/\s+([.,;)])/g, '$1').replace(/\s{2,}/g, ' ').trim();
+
   function groupHTML(g, rooms) {
     const host = u => { try { return new URL(u).hostname.replace(/^www\./, ''); } catch (e) { return u; } };
     const hidden = g.rooms.length - rooms.length;
     const cats = [...new Set(rooms.map(r => r.cat))];
     const zl = zonaLabel(rooms[0]);
+    const ranked = rooms.filter(r => r.rank).map(r => r.rank);
+    // cifras de resumen: solo si todas las salas visibles tienen el dato (nada se completa ni se estima)
+    const jug = rooms.every(r => r.jmin != null && r.jmax != null)
+      ? [Math.min(...rooms.map(r => r.jmin)), Math.max(...rooms.map(r => r.jmax))] : null;
+    const pp = rooms.every(r => r.pmin != null) ? [Math.min(...rooms.map(r => r.pmin)), Math.max(...rooms.map(r => r.pmin))] : null;
+    const facts = [
+      `<span><b>${rooms.length}</b> ${rooms.length === 1 ? 'sala' : 'salas'}</span>`,
+      ranked.length ? `<span>Mejor puesto <b>nº ${Math.min(...ranked)}</b></span>` : '',
+      jug ? `<span><b>${jug[0] === jug[1] ? jug[0] : `${jug[0]}-${jug[1]}`}</b> jugadores</span>` : '',
+      pp ? `<span><b>${pp[0] === pp[1] ? priceNum(pp[0]) : `${priceNum(pp[0])}-${priceNum(pp[1])}`} €</b> por persona</span>` : ''
+    ].filter(Boolean).join('');
     return `
-      <div class="d-eyebrow">${pill(`${g.rooms.length} ${g.rooms.length === 1 ? 'sala' : 'salas'}`, 'pill--gold')}${cats.map(c => `<span class="pill pill--cat" style="--mk:${catVar(c)}">${esc(c)}</span>`).join('')}</div>
+      <div class="d-eyebrow">${cats.map(c => `<span class="pill pill--cat" style="--mk:${catVar(c)}">${esc(c)}</span>`).join('')}</div>
       <h2 class="d-title">${esc(g.local)}</h2>
       <div class="d-local">${esc(g.municipio)}${zl ? ` · ${esc(zl)}` : ''}</div>
-      ${g.dir ? `<p class="d-addr">${esc(g.dir)}</p>` : ''}
-      ${g.web ? `<p class="d-web">Web del local: <a href="${esc(g.web)}" target="_blank" rel="noopener">${esc(host(g.web))}</a></p>` : ''}
+      <p class="g-facts">${facts}</p>
+      ${g.dir ? `<p class="d-addr g-addr">${esc(g.dir)}</p>` : ''}
+      <div class="d-actions g-actions">
+        ${g.web ? `<a class="btn btn-primary" href="${esc(g.web)}" target="_blank" rel="noopener">Web del local <span class="g-host">${esc(host(g.web))}</span></a>` : ''}
+        <a class="btn" href="${esc(gmapsOf(g.dir, g.local, g.municipio))}" target="_blank" rel="noopener">Cómo llegar</a>
+      </div>
+      <h3 class="g-h">Sus salas</h3>
       <div class="g-list" id="gList"></div>
       ${hidden ? `<p class="d-gaps">${hidden} ${hidden === 1 ? 'sala más de este local no cumple' : 'salas más de este local no cumplen'} los filtros activos.</p>` : ''}`;
+  }
+  function gRow(r) {
+    const b = el('button', 'g-row' + (!r.rank ? ' is-plain' : '') + (isDone(r) ? ' is-done' : ''));
+    b.type = 'button';
+    b.style.setProperty('--mk', catVar(r.cat));
+    const meta = [
+      `<span class="g-cat">${esc(r.cat || '')}</span>`,
+      r.jmin != null ? `${r.jmin}-${r.jmax} jug.` : '',
+      r.dur ? `${r.dur} min` : '',
+      r.pmin != null ? `${fmtPrice(r)}/pers.` : '',
+      r.dif || ''
+    ].filter(Boolean).map(t => t.startsWith('<') ? t : `<span class="g-m">${t}</span>`).join(' <i aria-hidden="true">·</i> ');
+    const flags = [
+      r.estado && r.estado !== 'Abierto' ? `<span class="pill pill--warn">${esc(r.estado)}</span>` : '',
+      r.premios ? '<span class="pill pill--gold">Premiada</span>' : '',
+      isDone(r) ? '<span class="pill pill--done">✓ Jugada</span>' : ''
+    ].join('');
+    b.innerHTML = `<span class="g-n">${r.rank || '·'}</span>
+      <span class="g-main"><strong>${esc(r.sala)}</strong><span class="g-meta">${meta}</span>${flags ? `<span class="g-flags">${flags}</span>` : ''}</span>
+      <svg class="g-go" viewBox="0 0 20 20" aria-hidden="true"><path d="M8 5l5 5-5 5"/></svg>`;
+    b.setAttribute('aria-label', `${r.sala}${r.rank ? `, puesto ${r.rank}` : ''}: ver la sala`);
+    return b;
   }
   function bindGroupCards(g) {
     const box = $('#gList'); if (!box) return;
     const rooms = g.rooms.filter(r => matches(r));
     const ranked = rooms.filter(r => r.rank).sort((a, b) => a.rank - b.rank);
     const rest = rooms.filter(r => !r.rank).sort((a, b) => a.sala.localeCompare(b.sala, 'es'));
-    [...ranked, ...rest].forEach(r => { const c = card(r); c.onclick = () => select(r.id, false); box.appendChild(c); });
+    [...ranked, ...rest].forEach(r => { const c = gRow(r); c.onclick = () => select(r.id, false); box.appendChild(c); });
   }
 
   function cell(dt, dd, small) {
     if (dd == null || dd === '') return '';
     return `<div class="d-cell"><dt>${esc(dt)}</dt><dd>${esc(dd)}${small ? `<small>${esc(small)}</small>` : ''}</dd></div>`;
+  }
+
+  function priceSmall(r) {
+    if (!r.p4n) return r.ptxt || null;
+    const src = (String(r.ptxt || '').match(/\(([^()]*)\)\s*$/) || [])[1];
+    return `grupo de ${r.p4n}: ${priceNum(Math.round(r.pmin * r.p4n * 100) / 100)} € en total${src ? ` · ${src}` : ''}`;
   }
 
   function detailHTML(r) {
@@ -413,15 +463,15 @@
       ? `nota ponderada sobre ${nf(r.rn)} reseñas${fichaLocal ? ' de la ficha del local en Google' : ' de su ficha en Google'}${r.robs ? ` (media ${String(Number(r.robs).toFixed(1)).replace('.', ',')})` : ''}`
       : null;
     const host = u => { try { return new URL(u).hostname.replace(/^www\./, ''); } catch (e) { return u; } };
-    const gmaps = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent((r.dir || `${r.local} ${r.municipio}`) + ', España')}`;
+    const gmaps = gmapsOf(r.dir, r.local, r.municipio);
     const cells = [
-      r.pmin != null ? cell(r.p4n ? `Precio p.p. (grupo de ${r.p4n})` : 'Precio p.p.', fmtPrice(r), r.ptxt) : cell('Precio', r.ptxt || null),
+      r.pmin != null ? cell('Precio por persona', fmtPrice(r), priceSmall(r)) : cell('Precio', r.ptxt || null),
       cell('Jugadores', r.jmin != null ? `${r.jmin}-${r.jmax}` : null),
       cell('Duración', r.dur ? `${r.dur} min` : null),
       cell('Dificultad', dif, difSmall),
       cell('Valoración', rating, ratingSmall),
       cell('Estado', r.estado === 'Abierto' ? 'En funcionamiento' : (r.estado && r.estado !== 'n.a.' ? r.estado : null),
-           r.estado === 'Abierto' ? (r.estado_ev || 'reservas activas en su web') : null),
+           r.estado === 'Abierto' ? (noUrls(r.estado_ev) || 'reservas activas en su web') : null),
       cell('Año', r.anio ? `${r.anio}${r.anio_aprox ? ' (aprox.)' : ''}` : null),
       cell('Actores', r.actores === true ? 'Sí, en directo' : (r.actores === false ? 'No' : null)),
       cell('Idiomas', r.idiomas)
