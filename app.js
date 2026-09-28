@@ -334,6 +334,7 @@
 
   function fmtPrice(r) {
     const f = n => `${String(n).replace('.', ',')} €`;
+    if (r.p4n) return f(r.pmin);  // precio por persona para un grupo de 4 (o el tamaño permitido más cercano)
     if (r.pmin != null && r.pmax != null && r.pmax !== r.pmin) return `${f(r.pmin)}-${f(r.pmax)}`;
     return f(r.pmin ?? r.pmax);
   }
@@ -414,7 +415,7 @@
     const host = u => { try { return new URL(u).hostname.replace(/^www\./, ''); } catch (e) { return u; } };
     const gmaps = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent((r.dir || `${r.local} ${r.municipio}`) + ', España')}`;
     const cells = [
-      cell('Precio p.p.', r.pmin != null ? fmtPrice(r) : null, r.ptxt),
+      r.pmin != null ? cell(r.p4n ? `Precio p.p. (grupo de ${r.p4n})` : 'Precio p.p.', fmtPrice(r), r.ptxt) : cell('Precio', r.ptxt || null),
       cell('Jugadores', r.jmin != null ? `${r.jmin}-${r.jmax}` : null),
       cell('Duración', r.dur ? `${r.dur} min` : null),
       cell('Dificultad', dif, difSmall),
