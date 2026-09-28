@@ -129,7 +129,7 @@
     // los marcadores son elementos HTML y no dependen del estilo: se pintan ya, mientras llegan las teselas
     $('#sk')?.remove(); buildMarkers();
     map.on('load', () => { $('#sk')?.remove(); buildMarkers(); $('.maplibregl-ctrl-attrib')?.classList.remove('maplibregl-compact-show'); });
-    map.once('idle', loadAds);
+    map.once('idle', () => { $('.maplibregl-ctrl-attrib')?.classList.remove('maplibregl-compact-show'); loadAds(); });
   }
 
   function fitAll() {
@@ -421,7 +421,7 @@
       r.dur ? `${r.dur} min` : '',
       r.pmin != null ? `${fmtPrice(r)}/pers.` : '',
       r.dif || ''
-    ].filter(Boolean).join('<i aria-hidden="true">·</i>');
+    ].filter(Boolean).map(t => t.startsWith('<') ? t : `<span class="g-m">${t}</span>`).join('<i aria-hidden="true">·</i>');
     const flags = [
       r.estado && r.estado !== 'Abierto' ? `<span class="pill pill--warn">${esc(r.estado)}</span>` : '',
       r.premios ? '<span class="pill pill--gold">Premiada</span>' : '',
