@@ -1,0 +1,7 @@
+# Dominio principal: gpsescape.es. El .com y el subdominio de Netlify redirigen (26/09/2026)
+https://gpsescape.com/* https://gpsescape.es/:splat 301!
+https://www.gpsescape.com/* https://gpsescape.es/:splat 301!
+https://mapsescape.netlify.app/* https://gpsescape.es/:splat 301!
+
+/mapa.html  /barcelona/  301
+/mapa       /barcelona/  301

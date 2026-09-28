@@ -1,0 +1,2 @@
+/* generado por build_pages.py — no editar a mano */
+window.GPS_STATS = {"salas": 316, "puntuadas": 150, "municipios": 46, "provincias": 2, "cats": {"Terror": 69, "Aventura": 67, "Histórico": 24, "Ciencia ficción": 37, "Thriller/Misterio": 78, "Fantasía": 34, "Humor": 7}, "barcelona.salas": 228, "barcelona.puntuadas": 100, "barcelona.municipios": 37, "valencia.salas": 88, "valencia.puntuadas": 50, "valencia.municipios": 9};

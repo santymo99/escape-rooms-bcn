@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://gpsescape.es/sitemap.xml
