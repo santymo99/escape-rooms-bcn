@@ -714,7 +714,7 @@
     const qdif = QF.find(x => x.key === 'dif');
     qdif.hint = `${sinDif} de las ${state.rooms.length} salas no publican dificultad; puedes añadirlas a la vista con la última opción.`;
     const niveles = new Set(state.rooms.map(r => r.dif).filter(Boolean));
-    qdif.opts = [['', 'Cualquiera'], ...['Baja', 'Fácil', 'Media', 'Media-Alta', 'Alta', 'Muy alta'].filter(v => niveles.has(v)).map(v => [v, v])];
+    qdif.opts = [['', 'Cualquiera'], ...['Baja', 'Fácil', 'Media-Baja', 'Media', 'Media-Alta', 'Alta', 'Muy alta'].filter(v => niveles.has(v)).map(v => [v, v])];
     const qz = QF.find(x => x.key === 'zona');
     const zc = {}; state.rooms.forEach(r => { if (r.comarca) zc[r.comarca] = (zc[r.comarca] || 0) + 1; });
     qz.opts = [['', 'Toda la provincia'], ...Object.keys(zc).sort((a, b) => zc[b] - zc[a]).map(z => [z, z])];
