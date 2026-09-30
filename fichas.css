@@ -158,3 +158,5 @@
 .op-when-in { display: grid; grid-template-columns: 1.4fr 1fr; gap: 8px; }
 .op-when select { width: 100%; font: inherit; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: var(--r-md); padding: 10px 12px; min-height: 44px; }
 .op-when select:focus { outline: 2px solid var(--gold); outline-offset: 1px; border-color: var(--gold); }
+
+.c-tag { display: inline-block; margin-top: 4px; font-size: .72rem; font-weight: 600; letter-spacing: .02em; color: var(--gold) !important; }
