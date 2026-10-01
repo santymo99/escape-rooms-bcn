@@ -30,6 +30,7 @@
   --c-thriller: #c664a8;
   --c-atraco:   #b9a624;
   --c-humor:    #dabc43;
+  --c-infantil: #d9578f;
   --c-clasico:  #95a0ab;
 }
 
@@ -87,6 +88,7 @@
     --c-thriller: oklch(64% .15 340);
     --c-atraco:   oklch(72% .14 100);
     --c-humor:    oklch(80% .14 95);
+    --c-infantil: oklch(72% .15 355);
     --c-clasico:  oklch(70% .02 250);
   }
   [data-theme="dark"] {

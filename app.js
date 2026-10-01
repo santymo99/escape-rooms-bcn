@@ -8,6 +8,7 @@
     'Histórico':       { v: '--c-historico',label: 'Histórico' },
     'Fantasía':        { v: '--c-fantasia', label: 'Fantasía' },
     'Humor':           { v: '--c-humor',    label: 'Humor' },
+    'Infantil':        { v: '--c-infantil', label: 'Infantil' },
     'Clásico':         { v: '--c-clasico',  label: 'Clásico' }
   };
   // zona del mapa: la define cada página (/barcelona/, /valencia/…) antes de cargar app.js
@@ -67,7 +68,7 @@
   /* ---------------- helpers de datos ---------------- */
   const priceOf = r => (r.pmax ?? r.pmin ?? null);
   const DEF_F = { zona: '', players: 0, dif: '', noDif: false, rank: false };
-  const CAT_IMG = { 'Terror': 'terror', 'Thriller/Misterio': 'thriller', 'Aventura': 'aventura', 'Ciencia ficción': 'scifi', 'Histórico': 'historico', 'Fantasía': 'fantasia', 'Humor': 'humor', 'Clásico': 'clasico' };
+  const CAT_IMG = { 'Terror': 'terror', 'Thriller/Misterio': 'thriller', 'Aventura': 'aventura', 'Ciencia ficción': 'scifi', 'Histórico': 'historico', 'Fantasía': 'fantasia', 'Humor': 'humor', 'Infantil': 'infantil', 'Clásico': 'clasico' };
   const catImg = (c, sm) => `/img/cat/${CAT_IMG[c] || 'clasico'}${sm ? '-640' : ''}.webp`;
   function fitsGroup(r, n) {
     if (!n) return true;
