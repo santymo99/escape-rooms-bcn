@@ -11,6 +11,16 @@
     document.addEventListener('click', function (e) { if (!menu.contains(e.target)) close(); });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
   });
+  // desplegable de provincias de la portada (03/10): se cierra al tocar fuera o con Escape
+  document.querySelectorAll('details.zonas').forEach(function (d) {
+    document.addEventListener('click', function (e) { if (d.open && !d.contains(e.target)) d.open = false; });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && d.open) { d.open = false; d.querySelector('summary').focus(); } });
+    // si la lista no cabe por debajo, se desplaza la página lo justo para verla entera
+    d.addEventListener('toggle', function () {
+      if (!d.open) return; var l = d.querySelector('.zonas-list'); if (!l) return;
+      var b = l.getBoundingClientRect(); if (b.bottom > innerHeight - 8) scrollBy({ top: b.bottom - innerHeight + 16, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    });
+  });
   // Linterna (03/10): el halo de la cabecera y la luz del héroe siguen al ratón. Lo mueve el propio usuario, así que se
   // mantiene también con «movimiento reducido»; en pantallas táctiles no se activa.
   if (window.matchMedia && matchMedia('(hover: hover)').matches) {

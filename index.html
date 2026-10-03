@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>GPS Escape · Escape rooms en Barcelona, Valencia, Madrid y Alicante: mapas, rankings y fichas verificadas</title>
-<meta name="description" content="Mapa y ranking de escape rooms con datos verificados sala a sala: premios, reseñas contrastadas, dificultad, jugadores y estado real, en las provincias de Barcelona, Valencia, Madrid y Alicante." />
+<title>GPS Escape · Escape rooms en tu provincia: mapas, rankings y fichas verificadas</title>
+<meta name="description" content="Mapa y ranking de escape rooms con datos verificados sala a sala: premios, reseñas contrastadas, dificultad, jugadores y estado real, provincia a provincia." />
 <link rel="canonical" href="https://gpsescape.es/" />
 <meta property="og:title" content="GPS Escape · Busca escape rooms en tu provincia" />
-<meta property="og:description" content="Elige tu mapa: escape rooms de Barcelona, Valencia, Madrid y Alicante con datos verificados sala a sala." />
+<meta property="og:description" content="Elige tu provincia: escape rooms con datos verificados sala a sala, mapas y rankings propios." />
 <meta property="og:image" content="https://gpsescape.es/img/og.jpg" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary_large_image" />
@@ -19,9 +19,10 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
 <link href="https://api.fontshare.com/v2/css?f%5B%5D=satoshi@400,500,700&display=swap" rel="stylesheet" />
-<link rel="preload" as="image" href="/img/portada.webp" imagesrcset="/img/portada-640.webp 640w, /img/portada.webp 1280w" imagesizes="100vw" />
+<link rel="preload" as="image" media="(min-width: 641px)" href="/img/portada.webp" imagesrcset="/img/portada-640.webp 640w, /img/portada.webp 1280w" imagesizes="100vw" />
+<link rel="preload" as="image" media="(max-width: 640px)" href="/img/portada-movil.webp" imagesrcset="/img/portada-movil-480.webp 480w, /img/portada-movil.webp 688w" imagesizes="100vw" />
 <link rel="preload" href="/fonts/michroma-latin.woff2" as="font" type="font/woff2" crossorigin />
-<link rel="stylesheet" href="/portada.css?v=16" />
+<link rel="stylesheet" href="/portada.css?v=17" />
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1814224275088721" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -61,50 +62,36 @@
 
 <main>
   <section class="hero" id="mapas" aria-labelledby="h1">
-    <img class="hero-img" src="/img/portada.webp" srcset="/img/portada-640.webp 640w, /img/portada.webp 1280w" sizes="100vw" alt="" fetchpriority="high" />
-    <div class="hero-glow" aria-hidden="true"></div><div class="hero-dust" aria-hidden="true"></div><div class="hero-torch" aria-hidden="true"></div>
+    <div class="hero-bg" aria-hidden="true">
+      <picture>
+        <source media="(max-width: 640px)" srcset="/img/portada-movil-480.webp 480w, /img/portada-movil.webp 688w" sizes="100vw" />
+        <img class="hero-img" src="/img/portada.webp" srcset="/img/portada-640.webp 640w, /img/portada.webp 1280w" sizes="100vw" alt="" fetchpriority="high" />
+      </picture>
+      <div class="hero-glow"></div><div class="hero-dust"></div><div class="hero-torch"></div>
+    </div>
     <div class="wrap"><div class="hero-in">
       <p class="eyebrow">Escape rooms verificados sala a sala</p>
       <h1 id="h1">Busca escape rooms en tu provincia</h1>
       <p class="lead">Compara salas por categoría, dificultad, premios y reseñas. Marca las que ya has jugado para descubrir las que te quedan.</p>
-      <!-- zonas --><div class="ctas">
-        <a class="cta" href="/barcelona/">
-          <span class="cta-txt">
-            <strong>Provincia de Barcelona</strong>
-            <small><span data-stat="barcelona.salas">216</span> salas en <span data-stat="barcelona.municipios">33</span> municipios</small>
-          </span>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </a>
-        <a class="cta" href="/valencia/">
-          <span class="cta-txt">
-            <strong>Provincia de Valencia</strong>
-            <small><span data-stat="valencia.salas">79</span> salas en <span data-stat="valencia.municipios">7</span> municipios</small>
-          </span>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </a>
-        <a class="cta" href="/madrid/">
-          <span class="cta-txt">
-            <strong>Provincia de Madrid</strong>
-            <small><span data-stat="madrid.salas">220</span> salas en <span data-stat="madrid.municipios">20</span> municipios</small>
-          </span>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </a>
-        <a class="cta" href="/alicante/">
-          <span class="cta-txt">
-            <strong>Provincia de Alicante</strong>
-            <small><span data-stat="alicante.salas">54</span> salas en <span data-stat="alicante.municipios">8</span> municipios</small>
-          </span>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </a>
-        <a class="cta" href="/pais-vasco/">
-          <span class="cta-txt">
-            <strong>País Vasco</strong>
-            <small class="cta-sub">Bizkaia, Gipuzkoa y Álava</small>
-            <small><span data-stat="pais-vasco.salas">71</span> salas en <span data-stat="pais-vasco.municipios">6</span> municipios</small>
-          </span>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </a>
-      </div><!-- /zonas -->
+      <!-- zonas --><details class="zonas">
+        <summary class="cta zonas-btn">
+          <span class="cta-txt"><strong>Elige tu provincia</strong>
+            <small><span data-stat="provincias">5</span> zonas y <span data-stat="salas">640</span> salas abiertas</small></span>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5"/></svg>
+        </summary>
+        <ul class="zonas-list">
+          <li><a href="/alicante/"><strong>Alicante</strong>
+            <small>Comunitat Valenciana · <span data-stat="alicante.salas">54</span> salas en <span data-stat="alicante.municipios">8</span> municipios</small></a></li>
+          <li><a href="/barcelona/"><strong>Barcelona</strong>
+            <small>Cataluña · <span data-stat="barcelona.salas">216</span> salas en <span data-stat="barcelona.municipios">33</span> municipios</small></a></li>
+          <li><a href="/madrid/"><strong>Madrid</strong>
+            <small>Comunidad de Madrid · <span data-stat="madrid.salas">220</span> salas en <span data-stat="madrid.municipios">20</span> municipios</small></a></li>
+          <li><a href="/pais-vasco/"><strong>País Vasco</strong>
+            <small>Bizkaia, Gipuzkoa y Álava · <span data-stat="pais-vasco.salas">71</span> salas en <span data-stat="pais-vasco.municipios">6</span> municipios</small></a></li>
+          <li><a href="/valencia/"><strong>Valencia</strong>
+            <small>Comunitat Valenciana · <span data-stat="valencia.salas">79</span> salas en <span data-stat="valencia.municipios">7</span> municipios</small></a></li>
+        </ul>
+      </details><!-- /zonas -->
     </div></div>
   </section>
 
@@ -164,6 +151,6 @@
 </footer>
 
 <script src="/stats.js?v=2"></script>
-<script src="/portada.js?v=3"></script>
+<script src="/portada.js?v=4"></script>
 </body>
 </html>
