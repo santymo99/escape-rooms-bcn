@@ -22,7 +22,7 @@
   --gold-soft: rgba(225, 175, 74, .14);
   --gold-ink: #2b1c00;
 
-  --c-terror:  #da4149;
+  --c-terror:  #e3525a;
   --c-aventura: #61b565;
   --c-misterio: #5aa3ec;
   --c-scifi:    #00c4c4;
@@ -80,7 +80,7 @@
     --gold: oklch(78% .13 82);
     --gold-soft: oklch(78% .13 82 / .14);
     --gold-ink: oklch(24% .05 82);
-    --c-terror:  oklch(60% .19 22);
+    --c-terror:  #e3525a;
     --c-aventura: oklch(70% .14 145);
     --c-misterio: oklch(70% .13 250);
     --c-scifi:    oklch(74% .13 195);
