@@ -267,3 +267,9 @@ h1, h2, h3 { font-family: Michroma, sans-serif; font-weight: 400; letter-spacing
   .zonas { width: 100%; }
   .zonas-list { width: 100%; }
 }
+
+/* 03/10 · menú de la cabecera legible sobre la foto: velo oscuro en la parte de arriba del héroe y sombra en los enlaces */
+.hero-bg::after { content: ""; position: absolute; inset: 0 0 auto; height: 180px; z-index: -1; pointer-events: none;
+  background: linear-gradient(to bottom, rgba(6,7,10,.78) 0%, rgba(6,7,10,.45) 45%, rgba(6,7,10,0) 100%); }
+.p-top:not(.is-solid) .p-nav a:not(.btn-sm) { color: var(--ink); text-shadow: 0 1px 2px rgba(0,0,0,.9), 0 0 14px rgba(0,0,0,.75); }
+.p-top:not(.is-solid) .wm span { text-shadow: 0 1px 2px rgba(0,0,0,.9), 0 0 14px rgba(0,0,0,.6); }
