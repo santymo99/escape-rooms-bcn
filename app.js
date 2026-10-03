@@ -13,6 +13,8 @@
   };
   // zona del mapa: la define cada página (/barcelona/, /valencia/…) antes de cargar app.js
   const ZONE = Object.assign({ slug: 'barcelona', nombre: 'Barcelona', center: [2.168, 41.404], zoom: 10.6 }, window.GPS_ZONE || {});
+  // Zonas que no son una provincia (País Vasco) traen sus propios textos en GPS_ZONE: de, delTop, toda, zonaHint.
+  const Z_DE = ZONE.de || `de la provincia de ${ZONE.nombre}`, Z_TOP = ZONE.delTop || 'de la provincia', Z_TODA = ZONE.toda || 'Toda la provincia';
   const catVar = c => `var(${(CATS[c] || CATS['Clásico']).v})`;
 
   const $ = s => document.querySelector(s);
@@ -268,7 +270,7 @@
       <div class="rk-head">
         <div class="rk-title">
           <h2>El ranking</h2>
-          <p>El top ${nTop + nVac} de la provincia, revisado a mano${nVac ? ` (${nVac === 1 ? 'un puesto vacante' : `${nVac} puestos vacantes`} hasta la próxima edición)` : ''}. Las otras ${nExtra} salas del inventario van debajo, sin número.</p>
+          <p>El top ${nTop + nVac} ${Z_TOP}, revisado a mano${nVac ? ` (${nVac === 1 ? 'un puesto vacante' : `${nVac} puestos vacantes`} hasta la próxima edición)` : ''}. Las otras ${nExtra} salas del inventario van debajo, sin número.</p>
         </div>
         <div class="played${nDone ? ' has-some' : ''}">
           <div class="played-txt">
@@ -570,8 +572,8 @@
   /* ------------- filtros rápidos (segunda fila) ------------- */
   const QF = [
     {
-      key: 'zona', label: 'Zona', hint: 'Comarca del local.',
-      opts: [['', 'Toda la provincia']], short: v => v
+      key: 'zona', label: 'Zona', hint: ZONE.zonaHint || 'Comarca del local.',
+      opts: [['', Z_TODA]], short: v => v
     },
     {
       key: 'players', label: 'Jugadores', hint: 'Solo salas donde ese grupo entra dentro del mínimo y el máximo.',
@@ -675,7 +677,7 @@
     state.rooms.forEach(r => counts[r.cat] = (counts[r.cat] || 0) + 1);
     $('#legendCats').innerHTML = Object.keys(CATS).filter(k => counts[k])
       .map(k => `<div class="lg-item"><span class="lg-swatch" style="background:${catVar(k)}"></span>${esc(CATS[k].label)} (${counts[k]})</div>`).join('');
-    $('#legendNote').textContent = `Datos contrastados el ${meta.generado} sobre un inventario de ${state.rooms.length} salas físicas abiertas o por confirmar de la provincia de ${ZONE.nombre} (sin VR, sin online y sin juegos al aire libre). Cada marcador es un local: el número es el mejor puesto de sus salas y la cifra pequeña, cuántas salas tiene. Las coordenadas se han verificado portal a portal con el geocodificador oficial de CartoCiudad (IGN); las salas cuya dirección no está confirmada no se pintan en el mapa y aparecen en la lista como «Ubicación no confirmada».`;
+    $('#legendNote').textContent = `Datos contrastados el ${meta.generado} sobre un inventario de ${state.rooms.length} salas físicas abiertas o por confirmar ${Z_DE} (sin VR, sin online y sin juegos al aire libre). Cada marcador es un local: el número es el mejor puesto de sus salas y la cifra pequeña, cuántas salas tiene. Las coordenadas se han verificado portal a portal con el geocodificador oficial de CartoCiudad (IGN); las salas cuya dirección no está confirmada no se pintan en el mapa y aparecen en la lista como «Ubicación no confirmada».`;
   }
 
   // AdSense se carga cuando el mapa ya está pintado (o a los 4 s como tarde), para no competir con él al arrancar
@@ -710,7 +712,7 @@
     qdif.opts = [['', 'Cualquiera'], ...['Baja', 'Fácil', 'Media-Baja', 'Media', 'Media-Alta', 'Alta', 'Muy alta'].filter(v => niveles.has(v)).map(v => [v, v])];
     const qz = QF.find(x => x.key === 'zona');
     const zc = {}; state.rooms.forEach(r => { if (r.comarca) zc[r.comarca] = (zc[r.comarca] || 0) + 1; });
-    qz.opts = [['', 'Toda la provincia'], ...Object.keys(zc).sort((a, b) => zc[b] - zc[a]).map(z => [z, z])];
+    qz.opts = [['', Z_TODA], ...Object.keys(zc).sort((a, b) => zc[b] - zc[a]).map(z => [z, z])];
     buildChips(); buildQChips(); buildLegend(d.meta); applyTheme();
     render(); // el ranking no depende del mapa: si las teselas fallan, la lista sigue estando
     // ?sala=<id> desde las fichas estáticas: abre la sala y centra el mapa
