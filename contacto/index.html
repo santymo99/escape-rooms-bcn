@@ -11,9 +11,8 @@
   <link rel="icon" href="/favicon-96.png" sizes="96x96" type="image/png" />
   <link rel="icon" href="/favicon-192.png" sizes="192x192" type="image/png" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-<link href="https://fonts.googleapis.com/css2?family=Michroma&display=swap" rel="stylesheet" />
 <link href="https://api.fontshare.com/v2/css?f%5B%5D=satoshi@400,500,700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="/portada.css?v=14" />
+<link rel="stylesheet" href="/portada.css?v=15" />
 <style>
   .page { padding: 120px 0 64px; }
   .page h1 { font-size: clamp(2rem, 5vw, 3.2rem); }
@@ -28,6 +27,9 @@
   select { appearance: none; background-image: linear-gradient(45deg, transparent 50%, var(--ink-3) 50%), linear-gradient(135deg, var(--ink-3) 50%, transparent 50%); background-position: calc(100% - 20px) 50%, calc(100% - 14px) 50%; background-size: 6px 6px; background-repeat: no-repeat; }
   textarea { min-height: 110px; resize: vertical; }
   .hp { position: absolute; left: -9999px; }
+  .consent { display: flex; gap: 10px; align-items: flex-start; font-size: .92rem; color: var(--ink-2); margin: 6px 0 2px; }
+  .consent input { width: 20px; height: 20px; margin-top: 2px; flex: none; accent-color: var(--gold); }
+  .consent a { color: var(--gold); }
   .hint { color: var(--ink-3); font-size: .85rem; margin: 0; }
   .ok { padding: 28px; background: var(--surface); border: 1px solid var(--line-soft); border-radius: var(--r-lg); max-width: 560px; }
 </style>
@@ -66,7 +68,7 @@
       <input type="hidden" name="_next" value="https://gpsescape.es/gracias/" />
       <input type="hidden" name="_captcha" value="false" />
       <input type="hidden" name="_template" value="table" />
-      <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" />
+      <div class="hp" aria-hidden="true"><label>No rellenes este campo <input type="text" name="_honey" tabindex="-1" autocomplete="off" /></label></div>
       <div class="f2">
         <label>Nombre de la sala <input name="sala" required autocomplete="off" /></label>
         <label>Local o empresa <input name="local" required autocomplete="organization" /></label>
@@ -94,7 +96,8 @@
       <label>Tu correo <small>(opcional, solo para preguntarte si hace falta)</small> <input name="email" type="email" autocomplete="email" /></label>
       <label>Comentarios <small>(opcional)</small> <textarea name="comentarios"></textarea></label>
       <div><button class="btn" type="submit">Enviar propuesta <span aria-hidden="true">→</span></button></div>
-      <p class="hint">Solo usamos estos datos para revisar la sala. No hay boletines ni cesiones a terceros.</p>
+      <label class="consent"><input type="checkbox" name="acepto_privacidad" value="sí" required /> <span>He leído la <a href="/privacidad/">política de privacidad</a> y acepto que se usen estos datos para revisar la sala.</span></label>
+      <p class="hint"><strong>Protección de datos.</strong> Responsable: Santiago Morales Ferrín. Finalidad: revisar la sala que propones y, si dejas tu correo, preguntarte algún dato. Base: tu consentimiento. Destinatarios: FormSubmit, que recibe el envío. Derechos: acceso, rectificación, supresión y los demás que recoge la <a href="/privacidad/">política de privacidad</a>, en hola@gpsescape.es. No hay boletines ni cesiones a terceros.</p>
     </form>
   </div>
 </main>

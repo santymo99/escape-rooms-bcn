@@ -1,11 +1,12 @@
 /* ============ GPS ESCAPE · portada (26/09/2026) ============
    Página estática independiente del mapa. Solo tema oscuro:
    la portada es la «sala en penumbra»; el conmutador vive en el mapa. */
+@font-face { font-family: Michroma; font-style: normal; font-weight: 400; font-display: swap; src: url(/fonts/michroma-latin.woff2) format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
 :root {
   --bg: #090b10; --bg-2: #11141a; --surface: #171b22; --surface-2: #20242c;
   --line: #2f333b; --line-soft: #23262d; --ink: #eff2f7; --ink-2: #b4b7bf; --ink-3: #82868f;
   --gold: #e1af4a; --gold-soft: rgba(225,175,74,.14); --gold-ink: #2b1c00;
-  --c-terror: #da4149; --c-aventura: #61b565; --c-misterio: #5aa3ec; --c-scifi: #00c4c4;
+  --c-terror: #e3525a; --c-aventura: #61b565; --c-misterio: #5aa3ec; --c-scifi: #00c4c4;
   --c-historico: #d69459; --c-fantasia: #b07be6; --c-humor: #dabc43; --c-infantil: #d9578f; --c-clasico: #95a0ab;
   --r-md: 12px; --r-lg: 18px; --r-xl: 26px;
   --ease-out: cubic-bezier(.23, 1, .32, 1);
@@ -178,3 +179,49 @@ h1, h2, h3 { font-family: Michroma, sans-serif; font-weight: 400; letter-spacing
   .cta-txt small { margin-top: 2px; font-size: .74rem; }
   .cta svg { width: 20px; height: 20px; }
 }
+
+/* ---- portada viva (03/10): luz de la bóveda, polvo en el haz y acercamiento lento. Solo transform y opacity. ---- */
+.hero-glow { position: absolute; inset: 0; z-index: -2; pointer-events: none;
+  background: radial-gradient(30% 36% at 57% 36%, rgba(255, 199, 118, .34), rgba(225, 175, 74, .10) 48%, transparent 72%);
+  mix-blend-mode: screen; opacity: .8; }
+.hero-dust { position: absolute; inset: 0; z-index: -1; pointer-events: none; overflow: hidden;
+  -webkit-mask-image: radial-gradient(34% 58% at 57% 42%, #000 0%, rgba(0,0,0,.6) 45%, transparent 78%);
+          mask-image: radial-gradient(34% 58% at 57% 42%, #000 0%, rgba(0,0,0,.6) 45%, transparent 78%); }
+.hero-dust::before, .hero-dust::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 160%; background-repeat: repeat; }
+.hero-dust::before { background-size: 320px 280px; opacity: .9; background-image:
+    radial-gradient(1.3px 1.3px at 43% 21%, rgba(255,226,170,0.47), transparent 70%),
+    radial-gradient(1.3px 1.3px at 70% 14%, rgba(255,226,170,0.48), transparent 70%),
+    radial-gradient(1.0px 1.0px at 66% 29%, rgba(255,226,170,0.65), transparent 70%),
+    radial-gradient(1.1px 1.1px at 10% 32%, rgba(255,226,170,0.64), transparent 70%),
+    radial-gradient(1.8px 1.8px at 74% 17%, rgba(255,226,170,0.73), transparent 70%),
+    radial-gradient(1.5px 1.5px at 76% 9%, rgba(255,226,170,0.63), transparent 70%),
+    radial-gradient(1.4px 1.4px at 30% 7%, rgba(255,226,170,0.51), transparent 70%),
+    radial-gradient(1.4px 1.4px at 55% 20%, rgba(255,226,170,0.71), transparent 70%),
+    radial-gradient(1.1px 1.1px at 73% 89%, rgba(255,226,170,0.71), transparent 70%),
+    radial-gradient(1.3px 1.3px at 83% 26%, rgba(255,226,170,0.7), transparent 70%),
+    radial-gradient(1.0px 1.0px at 10% 74%, rgba(255,226,170,0.54), transparent 70%),
+    radial-gradient(1.3px 1.3px at 89% 70%, rgba(255,226,170,0.59), transparent 70%),
+    radial-gradient(1.3px 1.3px at 76% 60%, rgba(255,226,170,0.56), transparent 70%),
+    radial-gradient(1.6px 1.6px at 25% 91%, rgba(255,226,170,0.49), transparent 70%); }
+.hero-dust::after { background-size: 560px 480px; opacity: .6; background-image:
+    radial-gradient(2.6px 2.6px at 40% 69%, rgba(255,226,170,0.35), transparent 70%),
+    radial-gradient(2.7px 2.7px at 59% 38%, rgba(255,226,170,0.27), transparent 70%),
+    radial-gradient(2.2px 2.2px at 67% 55%, rgba(255,226,170,0.35), transparent 70%),
+    radial-gradient(2.0px 2.0px at 64% 55%, rgba(255,226,170,0.45), transparent 70%),
+    radial-gradient(2.9px 2.9px at 73% 75%, rgba(255,226,170,0.5), transparent 70%),
+    radial-gradient(2.4px 2.4px at 45% 90%, rgba(255,226,170,0.4), transparent 70%),
+    radial-gradient(3.0px 3.0px at 60% 10%, rgba(255,226,170,0.53), transparent 70%),
+    radial-gradient(2.8px 2.8px at 62% 91%, rgba(255,226,170,0.27), transparent 70%); }
+@media (prefers-reduced-motion: no-preference) {
+  .hero-img { animation: kb 34s ease-in-out infinite alternate; transform-origin: 58% 38%; will-change: transform; }
+  .hero-glow { animation: bulb 1.8s linear both, breathe 7s ease-in-out 1.8s infinite alternate; }
+  .hero-dust::before { animation: drift 30s linear infinite; will-change: transform; }
+  .hero-dust::after { animation: drift2 46s linear infinite; will-change: transform; }
+  @keyframes kb { from { transform: scale(1.02) } to { transform: scale(1.1) translate3d(-1.2%, -.8%, 0) } }
+  @keyframes bulb { 0% { opacity: 0 } 7% { opacity: .9 } 10% { opacity: .2 } 16% { opacity: .85 } 30% { opacity: .35 } 36% { opacity: .8 } 100% { opacity: .8 } }
+  @keyframes breathe { from { opacity: .8 } to { opacity: .62 } }
+  @keyframes drift { from { transform: translate3d(0, 0, 0) } to { transform: translate3d(0, -280px, 0) } }
+  @keyframes drift2 { from { transform: translate3d(0, 0, 0) } to { transform: translate3d(0, -480px, 0) } }
+}
+@media (max-width: 640px) { .hero-dust::after { display: none; } }
+@media (prefers-reduced-motion: reduce) { .hero-dust { display: none; } }

@@ -325,7 +325,6 @@
           ${r.dur ? pill(`${r.dur} min`) : ''}
           ${price ? pill(price) : ''}
           ${r.dif ? pill(r.dif, 'pill--dif') : ''}
-          ${r.rpond && r.rn ? pill(`★ ${String(r.rpond).replace('.', ',')} (${nf(r.rn)})`) : ''}
           ${r.premios ? pill('Premiada', 'pill--gold') : ''}
           ${isDone(r) ? pill('✓ Jugada', 'pill--done') : ''}
           ${!hasPos(r) ? pill('Ubicación no confirmada', 'pill--warn') : ''}
@@ -458,11 +457,6 @@
     const dif = r.dif || null;
     const difSmall = [r.dif_raw && r.dif_raw !== r.dif ? `publicada como «${r.dif_raw}»` : '',
                       r.edad ? `edad ${r.edad}` : ''].filter(Boolean).join(' · ');
-    const rating = r.rpond ? `★ ${String(r.rpond).replace('.', ',')} / 5` : null;
-    const fichaLocal = /ficha del local/i.test(String(r.rating_src || ''));
-    const ratingSmall = r.rmodo === 'ponderado'
-      ? `nota ponderada sobre ${nf(r.rn)} reseñas${fichaLocal ? ' de la ficha del local en Google' : ' de su ficha en Google'}${r.robs ? ` (media ${String(Number(r.robs).toFixed(1)).replace('.', ',')})` : ''}`
-      : null;
     const host = u => { try { return new URL(u).hostname.replace(/^www\./, ''); } catch (e) { return u; } };
     const gmaps = gmapsOf(r.dir, r.local, r.municipio);
     const cells = [
@@ -470,7 +464,6 @@
       cell('Jugadores', r.jmin != null ? `${r.jmin}-${r.jmax}` : null),
       cell('Duración', r.dur ? `${r.dur} min` : null),
       cell('Dificultad', dif, difSmall),
-      cell('Valoración', rating, ratingSmall),
       cell('Estado', r.estado === 'Abierto' ? 'En funcionamiento' : (r.estado && r.estado !== 'n.a.' ? r.estado : null),
            r.estado === 'Abierto' ? (noUrls(r.estado_ev) || 'reservas activas en su web') : null),
       cell('Actores', r.actores === true ? 'Sí, en directo' : (r.actores === false ? 'No' : null)),

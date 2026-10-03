@@ -18,10 +18,10 @@
   <link rel="icon" href="/favicon-192.png" sizes="192x192" type="image/png" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Michroma&display=swap" rel="stylesheet" />
 <link href="https://api.fontshare.com/v2/css?f%5B%5D=satoshi@400,500,700&display=swap" rel="stylesheet" />
 <link rel="preload" as="image" href="/img/portada.webp" imagesrcset="/img/portada-640.webp 640w, /img/portada.webp 1280w" imagesizes="100vw" />
-<link rel="stylesheet" href="/portada.css?v=14" />
+<link rel="preload" href="/fonts/michroma-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="/portada.css?v=15" />
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1814224275088721" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -61,6 +61,7 @@
 <main>
   <section class="hero" id="mapas" aria-labelledby="h1">
     <img class="hero-img" src="/img/portada.webp" srcset="/img/portada-640.webp 640w, /img/portada.webp 1280w" sizes="100vw" alt="" fetchpriority="high" />
+    <div class="hero-glow" aria-hidden="true"></div><div class="hero-dust" aria-hidden="true"></div>
     <div class="wrap"><div class="hero-in">
       <p class="eyebrow">Escape rooms verificados sala a sala</p>
       <h1 id="h1">Busca escape rooms en tu provincia</h1>
@@ -123,13 +124,13 @@
     <div class="wrap como">
       <div>
         <h2 id="h-como">Cómo puntuamos</h2>
-        <p style="margin-top:14px">Aquí no hay un algoritmo que ordene las salas solo. Las miramos una a una: qué premios y menciones han recibido en el sector (TERPECA, Escape Room Awards, GibaEscape y otros), qué dicen las reseñas públicas y si el local sigue abriendo de verdad.</p>
+        <p style="margin-top:14px">El orden lo calculamos con criterios propios y lo revisamos sala a sala. Lo que más pesa son los premios y menciones del sector (TERPECA, Escape Room Awards, GibaEscape y otros); las reseñas públicas matizan, y la experiencia que ofrece la sala (duración, tamaño de grupo, actores) suma algo menos. Antes de entrar, comprobamos que el local sigue abriendo de verdad.</p>
         <p>Con las reseñas hay truco: tres opiniones entusiastas no valen lo mismo que trescientas, así que la nota se corrige según el volumen antes de compararla. Y solo entra en el ranking una sala con reconocimiento de fuera; las demás siguen en el mapa, sin número, con lo que hemos podido confirmar de ellas.</p>
         <p>Lo que no sabemos lo dejamos en blanco. <strong>Preferimos un hueco a un dato inventado.</strong></p>
-        <p>Cuando una sala cierra la quitamos del mapa, pero su puesto se queda vacío hasta la próxima revisión: nadie sube de golpe sin que haya pasado nada.</p>
+        <p>Cuando una sala del ranking cierra, la quitamos del mapa y las que estaban por debajo suben un puesto, para que el ranking esté siempre completo. Las salas nuevas entran sin número hasta la siguiente revisión.</p>
       </div>
       <div class="stats" aria-label="Cifras de los mapas">
-        <div class="stat"><b data-stat="salas">212</b><span>salas abiertas o en revisión</span></div>
+        <div class="stat"><b data-stat="salas">212</b><span>salas abiertas</span></div>
         <div class="stat"><b data-stat="puntuadas">100</b><span>salas en el ranking</span></div>
         <div class="stat"><b>8</b><span>categorías</span></div>
         <div class="stat"><b data-stat="municipios">35</b><span>municipios en <b class="stat-in" data-stat="provincias">2</b> provincias</span></div>
