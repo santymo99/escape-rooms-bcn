@@ -212,16 +212,31 @@ h1, h2, h3 { font-family: Michroma, sans-serif; font-weight: 400; letter-spacing
     radial-gradient(2.4px 2.4px at 45% 90%, rgba(255,226,170,0.4), transparent 70%),
     radial-gradient(3.0px 3.0px at 60% 10%, rgba(255,226,170,0.53), transparent 70%),
     radial-gradient(2.8px 2.8px at 62% 91%, rgba(255,226,170,0.27), transparent 70%); }
+@keyframes kb { from { transform: scale(1.02) } to { transform: scale(1.1) translate3d(-1.2%, -.8%, 0) } }
+@keyframes bulb { 0% { opacity: 0 } 7% { opacity: .9 } 10% { opacity: .2 } 16% { opacity: .85 } 30% { opacity: .35 } 36% { opacity: .8 } 100% { opacity: .8 } }
+@keyframes breathe { from { opacity: .8 } to { opacity: .62 } }
+@keyframes drift { from { transform: translate3d(0, 0, 0) } to { transform: translate3d(0, -280px, 0) } }
+@keyframes drift2 { from { transform: translate3d(0, 0, 0) } to { transform: translate3d(0, -480px, 0) } }
 @media (prefers-reduced-motion: no-preference) {
   .hero-img { animation: kb 34s ease-in-out infinite alternate; transform-origin: 58% 38%; will-change: transform; }
   .hero-glow { animation: bulb 1.8s linear both, breathe 7s ease-in-out 1.8s infinite alternate; }
   .hero-dust::before { animation: drift 30s linear infinite; will-change: transform; }
   .hero-dust::after { animation: drift2 46s linear infinite; will-change: transform; }
-  @keyframes kb { from { transform: scale(1.02) } to { transform: scale(1.1) translate3d(-1.2%, -.8%, 0) } }
-  @keyframes bulb { 0% { opacity: 0 } 7% { opacity: .9 } 10% { opacity: .2 } 16% { opacity: .85 } 30% { opacity: .35 } 36% { opacity: .8 } 100% { opacity: .8 } }
-  @keyframes breathe { from { opacity: .8 } to { opacity: .62 } }
-  @keyframes drift { from { transform: translate3d(0, 0, 0) } to { transform: translate3d(0, -280px, 0) } }
-  @keyframes drift2 { from { transform: translate3d(0, 0, 0) } to { transform: translate3d(0, -480px, 0) } }
+}
+/* Movimiento reducido (decisión del usuario, 03/10, opción B): sin acercamiento ni parpadeo, pero la luz respira y el
+   polvo sube muy despacio. */
+@media (prefers-reduced-motion: reduce) {
+  .hero-glow { animation: breathe 9s ease-in-out infinite alternate; }
+  .hero-dust::before { animation: drift 70s linear infinite; }
+  .hero-dust::after { animation: drift2 110s linear infinite; }
 }
 @media (max-width: 640px) { .hero-dust::after { display: none; } }
-@media (prefers-reduced-motion: reduce) { .hero-dust { display: none; } }
+
+/* ---- linterna (03/10): halo dorado que sigue al puntero en la cabecera y luz en el héroe (solo con ratón) ---- */
+.p-top::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: radial-gradient(260px 90px at var(--mx, 18%) 50%, rgba(225, 175, 74, .24), rgba(225, 175, 74, .06) 55%, transparent 75%); }
+.hero-torch { position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: 0; transition: opacity .4s var(--ease-out);
+  background: radial-gradient(240px 240px at var(--hx, 50%) var(--hy, 50%), rgba(255, 206, 130, .22), rgba(225, 175, 74, .07) 50%, transparent 72%);
+  mix-blend-mode: screen; }
+.hero.is-lit .hero-torch { opacity: 1; }
+@media (hover: none) { .p-top::before, .hero-torch { display: none; } }

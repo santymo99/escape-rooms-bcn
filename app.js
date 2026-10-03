@@ -723,8 +723,9 @@
     $('#sk').innerHTML = '<div class="sk-inner">No se han podido cargar los datos. Recarga la página.</div>';
   });
 
-  // Linterna: el halo de la cabecera sigue al puntero (solo con ratón; en táctil queda fijo)
-  if (matchMedia('(hover: hover) and (prefers-reduced-motion: no-preference)').matches) {
+  // Linterna: el halo de la cabecera sigue al puntero (solo con ratón; en táctil queda fijo). 03/10: también con
+  // «movimiento reducido», porque lo mueve el propio usuario.
+  if (matchMedia('(hover: hover)').matches) {
     const tb = document.querySelector('.topbar');
     tb.addEventListener('pointermove', e => { const b = tb.getBoundingClientRect(); tb.style.setProperty('--mx', `${((e.clientX - b.left) / b.width * 100).toFixed(1)}%`); }, { passive: true });
   }

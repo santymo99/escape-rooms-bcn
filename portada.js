@@ -11,6 +11,22 @@
     document.addEventListener('click', function (e) { if (!menu.contains(e.target)) close(); });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
   });
+  // Linterna (03/10): el halo de la cabecera y la luz del héroe siguen al ratón. Lo mueve el propio usuario, así que se
+  // mantiene también con «movimiento reducido»; en pantallas táctiles no se activa.
+  if (window.matchMedia && matchMedia('(hover: hover)').matches) {
+    var hdr = document.getElementById('top'), hero = document.querySelector('.hero'), raf = 0, ev = null;
+    var paint = function () {
+      raf = 0; var e = ev;
+      if (hdr) { var b = hdr.getBoundingClientRect(); hdr.style.setProperty('--mx', ((e.clientX - b.left) / b.width * 100).toFixed(1) + '%'); }
+      if (hero) {
+        var h = hero.getBoundingClientRect(), dentro = e.clientY >= h.top && e.clientY <= h.bottom;
+        hero.classList.toggle('is-lit', dentro);
+        if (dentro) { hero.style.setProperty('--hx', (e.clientX - h.left) + 'px'); hero.style.setProperty('--hy', (e.clientY - h.top) + 'px'); }
+      }
+    };
+    addEventListener('pointermove', function (e) { ev = e; if (!raf) raf = requestAnimationFrame(paint); }, { passive: true });
+    document.documentElement.addEventListener('pointerleave', function () { if (hero) hero.classList.remove('is-lit'); });
+  }
   var top = document.getElementById('top');
   if (!top) return;
   var onScroll = function () { top.classList.toggle('is-solid', scrollY > 24); };
