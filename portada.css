@@ -61,12 +61,11 @@ h1, h2, h3 { font-family: Michroma, sans-serif; font-weight: 400; letter-spacing
 .cta:active { transform: scale(.985); }
 .cta-txt { flex: 1; min-width: 0; }
 .cta-txt strong { display: block; font-family: Michroma, sans-serif; font-weight: 400; font-size: .95rem; letter-spacing: .02em; line-height: 1.2; }
-.cta-txt small { display: block; margin-top: 3px; font-size: .8rem; font-weight: 600; opacity: .8; }
+.cta-txt small { display: block; margin-top: 3px; font-size: .8rem; font-weight: 700; opacity: .8; }
 .cta svg { width: 24px; height: 24px; flex: none; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; transition: transform .2s var(--ease-out); }
 .cta:hover svg { transform: translateX(4px); }
 .soon { margin: 16px 0 0; color: var(--ink-3); font-size: .9rem; }
-.hero-scroll { position: absolute; right: 24px; bottom: 24px; color: var(--ink-3); font-size: .75rem; letter-spacing: .12em; text-transform: uppercase; writing-mode: vertical-rl; }
-@media (max-width: 720px) { .hero-scroll { display: none; } .hero .wrap { padding-top: 96px; padding-bottom: 40px; } }
+@media (max-width: 720px) { .hero .wrap { padding-top: 96px; padding-bottom: 40px; } }
 
 /* ---- secciones ---- */
 .sec { padding: 72px 0; }
@@ -90,7 +89,7 @@ h1, h2, h3 { font-family: Michroma, sans-serif; font-weight: 400; letter-spacing
 .cat-txt { position: absolute; left: 14px; right: 14px; bottom: 12px; }
 .cat-txt .dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: var(--c); box-shadow: 0 0 0 3px color-mix(in oklab, var(--c) 30%, transparent); margin-bottom: 8px; }
 .cat-txt strong { display: block; font-family: Michroma, sans-serif; font-size: clamp(.78rem, 1.2vw, .95rem); line-height: 1.25; }
-.cat-txt small { display: block; margin-top: 3px; color: var(--ink-2); font-size: .82rem; font-weight: 600; }
+.cat-txt small { display: block; margin-top: 3px; color: var(--ink-2); font-size: .82rem; font-weight: 700; }
 
 /* cómo puntuamos */
 .como { display: grid; grid-template-columns: 1.2fr .8fr; gap: 40px; align-items: start; }
@@ -141,7 +140,7 @@ h1, h2, h3 { font-family: Michroma, sans-serif; font-weight: 400; letter-spacing
 /* móvil: el botón «Mapas» pasa a «Menú» y el desplegable lista todas las secciones */
 .mb-mob { display: none; }
 .menu-secs { display: none; margin-top: 4px; padding-top: 4px; border-top: 1px solid var(--line-soft); }
-.menu-secs a { font-weight: 600; font-size: .95rem; padding: 11px 12px; color: var(--ink); }
+.menu-secs a { font-weight: 700; font-size: .95rem; padding: 11px 12px; color: var(--ink); }
 @media (max-width: 720px) {
   .mb-desk { display: none; } .mb-mob { display: inline; }
   .menu-secs { display: grid; }
