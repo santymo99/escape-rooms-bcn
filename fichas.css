@@ -22,6 +22,7 @@
 .fact dt { font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); margin: 0 0 4px; }
 .fact dd { margin: 0; font-weight: 700; color: var(--ink); } .fact dd a { color: var(--c); text-decoration: none; }
 .note { color: var(--ink-3); font-size: .85rem; margin: 6px 0 0; }
+.aviso-ubic { margin: 10px 0 0; padding: 8px 12px; border-left: 3px solid var(--gold); background: var(--gold-soft); border-radius: 6px; font-size: .92rem; }
 .actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 22px 0 8px; }
 .btn--ghost { background: transparent; color: var(--ink); border: 1px solid var(--line); box-shadow: none; }
 .btn--ghost:hover { border-color: var(--gold); color: var(--gold); }

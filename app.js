@@ -493,6 +493,7 @@
         <h3>Ubicación</h3>
         <p class="d-addr">${esc(r.dir || 'Dirección exacta no publicada por el local')}</p>
         ${r.prec === 'city' ? `<p class="d-prec">Ubicación pendiente de confirmar: no aparece en el mapa.</p>` : ''}
+        ${r.ubic_nota ? `<p class="d-prec d-aviso">${esc(r.ubic_nota)}</p>` : ''}
       </div>
       <div class="d-actions">
         ${r.web_sala ? `<a class="btn btn-primary" href="${esc(r.web_sala)}" target="_blank" rel="noopener">Reservar esta sala</a>`
