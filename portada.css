@@ -672,3 +672,7 @@ h1, h2, h3 { font-family: Michroma, sans-serif; font-weight: 400; letter-spacing
   .pp-sello.is-on { animation: pp-stamp .45s cubic-bezier(.2,1.4,.4,1) both; animation-delay: calc(var(--d, 0) * 1ms + 200ms); }
   @keyframes pp-stamp { from { transform: rotate(-8deg) scale(1.6); opacity: 0; } }
 }
+
+/* 05/10: el desplegable de provincias abierto quedaba por debajo de «¿No sabéis cuál elegir?» (cada hijo de .hero-in
+   anima opacidad y crea su propio contexto de apilamiento; el posterior pintaba encima). El desplegable va siempre delante. */
+.t-hero .zonas { z-index: 40; }
