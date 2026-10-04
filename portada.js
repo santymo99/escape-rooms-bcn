@@ -51,3 +51,9 @@
   var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } }); }, { rootMargin: '0px 0px -8% 0px' });
   document.querySelectorAll('.t-rise').forEach(function (el, i) { el.style.transitionDelay = (i % 4) * 70 + 'ms'; io.observe(el); });
 })();
+// 04/10: barra fija de reserva de las fichas (móvil): aparece cuando los botones de la ficha quedan por encima de la pantalla.
+(function () {
+  var bar = document.querySelector('.f-sticky'), act = document.querySelector('.ficha > .actions');
+  if (!bar || !act || !('IntersectionObserver' in window)) return;
+  new IntersectionObserver(function (es) { var e = es[0]; bar.classList.toggle('is-on', !e.isIntersecting && e.boundingClientRect.top < 0); }).observe(act);
+})();
