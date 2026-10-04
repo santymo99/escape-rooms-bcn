@@ -104,3 +104,34 @@
 .t-io .t-rise { opacity: 0; transform: translateY(32px); transition: opacity .7s var(--ease-out), transform .7s var(--ease-out); }
 .t-io .t-rise.is-in { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) { .t-io .t-rise { transform: none; } }
+
+/* ---- 04/10, cambios pedidos: contenido más abajo para no tapar la imagen, emblema junto a la marca ---- */
+.hero.t-hero { align-items: end; }
+.t-hero .wrap { padding: 110px 0 clamp(40px, 7vh, 72px); }
+.t-brandrow { display: flex; align-items: center; justify-content: center; gap: clamp(12px, 1.6vw, 20px); }
+.t-brandrow .t-emblem { width: clamp(48px, 5vw, 68px); }
+.t-brandrow .t-word { margin: 0; }
+.t-hero h1 { margin-top: 16px; }
+@media (max-width: 640px) {
+  .t-hero .wrap { padding: 84px 0 24px; }
+  .t-brandrow .t-emblem { width: 40px; opacity: .85; }
+  .t-hero h1 { margin-top: 10px; }
+}
+/* el antetítulo de sección centrado (antes heredaba el ancho máximo de los párrafos) */
+.t-head .t-rule { margin: 0 auto 16px; max-width: none; }
+.t-head h2 { margin: 0; }
+.t-head { margin-bottom: 40px; }
+/* pie en dos columnas con divisor: marca a la izquierda, contacto a la derecha */
+.t-foot-cols { display: grid; grid-template-columns: 1fr 1px 1fr; align-items: center; gap: clamp(24px, 5vw, 64px); padding: 64px 0 48px; }
+.t-foot-cols::before { content: ""; grid-column: 2; grid-row: 1; align-self: stretch; background: linear-gradient(180deg, transparent, var(--line), transparent); }
+.t-foot-a { grid-column: 1; grid-row: 1; display: flex; flex-direction: column; align-items: center; }
+.t-foot-a .t-emblem { width: 64px; filter: drop-shadow(0 0 16px rgba(225,175,74,.35)); }
+.t-foot-a .t-rule { margin: 18px 0 0; }
+.t-foot-b { grid-column: 3; grid-row: 1; display: flex; flex-direction: column; align-items: center; }
+.t-foot-b h3 { font-size: clamp(1.05rem, 2vw, 1.35rem); }
+.t-foot-b p { margin: 10px auto 22px; max-width: 46ch; color: var(--ink-2); }
+@media (max-width: 760px) {
+  .t-foot-cols { grid-template-columns: 1fr; gap: 36px; padding: 52px 0 36px; }
+  .t-foot-cols::before { display: none; }
+  .t-foot-a, .t-foot-b { grid-column: 1; grid-row: auto; }
+}
