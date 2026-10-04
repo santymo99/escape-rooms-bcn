@@ -269,8 +269,9 @@
     const head = el('div', 'list-head', `
       <div class="rk-head">
         <div class="rk-title">
-          <h2>El ranking</h2>
-          <p>El top ${nTop + nVac} ${Z_TOP}, revisado a mano${nVac ? ` (${nVac === 1 ? 'un puesto vacante' : `${nVac} puestos vacantes`} hasta la próxima edición)` : ''}. Las otras ${nExtra} salas del inventario van debajo, sin número.</p>
+          <p class="rk-rule">Ranking</p>
+          <h2>El top ${nTop + nVac} <span>${esc(Z_TOP)}</span></h2>
+          <p>Revisado a mano${nVac ? ` (${nVac === 1 ? 'un puesto vacante' : `${nVac} puestos vacantes`} hasta la próxima edición)` : ''}. Las otras ${nExtra} salas del inventario van debajo, sin número.</p>
         </div>
         <div class="played${nDone ? ' has-some' : ''}">
           <div class="played-txt">
@@ -732,4 +733,16 @@
     const tb = document.querySelector('.topbar');
     tb.addEventListener('pointermove', e => { const b = tb.getBoundingClientRect(); tb.style.setProperty('--mx', `${((e.clientX - b.left) / b.width * 100).toFixed(1)}%`); }, { passive: true });
   }
+})();
+
+// 05/10: la píldora de zona abre el menú de mapas (negro y dorado) en lugar de ir a la portada.
+(function () {
+  var pill = document.querySelector('.zone-pill'), menu = document.getElementById('zoneMenu');
+  if (!pill || !menu) return;
+  function place() { var r = pill.getBoundingClientRect(); menu.style.top = (r.bottom + 8) + 'px'; menu.style.left = Math.max(12, Math.min(r.left, window.innerWidth - menu.offsetWidth - 12)) + 'px'; }
+  function open(v) { menu.hidden = !v; pill.setAttribute('aria-expanded', String(v)); if (v) { place(); var a = menu.querySelector('a'); a && a.focus({ preventScroll: true }); } }
+  pill.addEventListener('click', function (e) { e.preventDefault(); open(menu.hidden); });
+  document.addEventListener('click', function (e) { if (!menu.hidden && !menu.contains(e.target) && !pill.contains(e.target)) open(false); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !menu.hidden) { open(false); pill.focus(); } });
+  window.addEventListener('resize', function () { if (!menu.hidden) place(); });
 })();

@@ -917,3 +917,59 @@ input[type="range"]::-moz-range-thumb { width: 20px; height: 20px; border-radius
   [data-v="2"] .card .pill--dif { display: none; }
 }
 @media (prefers-reduced-motion: reduce) { .g-row, .g-go { transition: none; } }
+
+/* =====================================================================
+   «TEMPLO» EN MAPA Y RANKING (05/10). Nivel de movimiento 4: solo hover y fundidos cortos.
+   ===================================================================== */
+/* menú de la píldora de zona: negro con nombres dorados y texto centrado, como «Mapas» en el resto de la web */
+.zone-pill svg { transition: transform .18s var(--ease, ease); }
+.zone-pill[aria-expanded="true"] svg { transform: rotate(180deg); }
+.zone-menu { position: fixed; z-index: 1200; width: min(300px, calc(100vw - 24px)); max-height: calc(100svh - 90px); overflow-y: auto; padding: 6px;
+  background: #050608; border: 1px solid rgba(225,175,74,.28); border-radius: 14px; box-shadow: 0 22px 60px -14px rgba(0,0,0,.9), inset 0 1px 0 rgba(225,175,74,.08); }
+.zone-menu a { display: block; padding: 10px 12px; border-radius: 10px; text-align: center; text-decoration: none; border: 0; }
+.zone-menu a strong { display: block; font-family: Michroma, sans-serif; font-weight: 400; font-size: .8rem; color: #e1af4a; }
+.zone-menu a small { display: block; margin-top: 2px; color: #b9b2a2; font-size: .76rem; }
+.zone-menu a:hover, .zone-menu a:focus-visible { background: rgba(225,175,74,.1); }
+.zone-menu a:hover strong { color: #f3cd78; }
+.zone-menu a[aria-current] { background: rgba(225,175,74,.14); }
+.zone-menu-secs { display: flex; flex-wrap: wrap; justify-content: center; gap: 2px 4px; margin-top: 4px; padding-top: 6px; border-top: 1px solid rgba(225,175,74,.18); }
+.zone-menu-secs a { padding: 8px 10px; color: #e7e3da; font-size: .8rem; font-weight: 700; }
+@media (prefers-reduced-motion: no-preference) { .zone-menu:not([hidden]) { animation: zm-in .18s cubic-bezier(.23,1,.32,1) both; transform-origin: top left; } @keyframes zm-in { from { opacity: 0; transform: translateY(-4px) scale(.97); } } }
+
+/* cabecera del ranking: centrada, con antetítulo dorado entre líneas y título en dos tonos */
+[data-v="2"] .rk-head { grid-template-columns: 1fr; justify-items: center; text-align: center; gap: var(--space-3); }
+[data-v="2"] .rk-title { width: 100%; max-width: 760px; background: none; border: 0; padding: var(--space-4) var(--space-3) 0; overflow: visible; }
+[data-theme="dark"][data-v="2"] .rk-title::before { display: none; }
+.rk-rule { display: flex; align-items: center; justify-content: center; gap: 14px; margin: 0 0 14px; color: var(--gold); font-size: .7rem; font-weight: 700; letter-spacing: .26em; text-transform: uppercase; }
+[data-theme="dark"] .rk-rule { color: #f2d08a; }
+.rk-rule::before, .rk-rule::after { content: ""; width: clamp(28px, 8vw, 72px); height: 1px; background: linear-gradient(90deg, transparent, color-mix(in oklab, var(--gold) 75%, transparent)); }
+.rk-rule::after { transform: scaleX(-1); }
+[data-v="2"] .rk-title h2 { font-size: clamp(1.35rem, 1rem + 1.6vw, 2rem); line-height: 1.15; margin: 0 0 var(--space-3); }
+[data-v="2"] .rk-title h2 span { display: block; color: var(--ink-3); }
+[data-v="2"] .rk-title p { max-width: 60ch; margin-inline: auto; }
+[data-v="2"] .played { width: 100%; max-width: 620px; flex-direction: row; align-items: center; justify-content: space-between; text-align: left; padding: var(--space-3) var(--space-5); border-radius: 999px; }
+@media (max-width: 640px) { [data-v="2"] .played { border-radius: var(--r-lg); } [data-v="2"] .rk-title { padding-top: var(--space-2); } }
+
+/* tarjetas del ranking: marcas de mira en dos esquinas al pasar el ratón o con el foco */
+[data-v="2"] .card::before { content: ""; position: absolute; inset: 5px; pointer-events: none; opacity: 0; transition: opacity .18s ease;
+  background:
+    linear-gradient(var(--gold), var(--gold)) top left / 12px 2px no-repeat, linear-gradient(var(--gold), var(--gold)) top left / 2px 12px no-repeat,
+    linear-gradient(var(--gold), var(--gold)) bottom right / 12px 2px no-repeat, linear-gradient(var(--gold), var(--gold)) bottom right / 2px 12px no-repeat; }
+[data-v="2"] .card:hover::before, [data-v="2"] .card:focus-visible::before { opacity: .9; }
+@media (hover: none) { [data-v="2"] .card::before { display: none; } }
+
+/* separador «Resto del inventario» como regla dorada centrada */
+.list-sep { justify-content: center; }
+.list-sep::before { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, color-mix(in oklab, var(--gold) 55%, transparent)); }
+.list-sep::after { background: linear-gradient(90deg, color-mix(in oklab, var(--gold) 55%, transparent), transparent); }
+.list-sep span { color: var(--gold); letter-spacing: .22em; }
+[data-theme="dark"] .list-sep span { color: #f2d08a; }
+
+/* «¿Falta tu escape room?» al final del ranking, centrado como el pie de la web */
+[data-v="2"] .list-foot { justify-items: center; text-align: center; }
+/* el menú de zona es hijo de la cabecera: la regla «.topbar > * { position: relative }» no debe sacarlo de su sitio */
+[data-v="2"] .topbar > .zone-menu { position: fixed; z-index: 1200; }
+/* tema claro: el dorado como texto necesita un tono más oscuro para llegar a 4,5:1 (05/10) */
+[data-theme="light"] .zone-pill, [data-theme="light"] .wm b { color: #8a5a05; }
+[data-theme="light"] .btn-gold, [data-theme="light"] .tab.is-active { color: #120b00; }
+[data-theme="light"] .played-txt span { color: var(--ink-2); }

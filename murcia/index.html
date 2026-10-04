@@ -19,7 +19,7 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 <link href="https://api.fontshare.com/v2/css?f%5B%5D=satoshi@400,500,700,900&display=swap" rel="stylesheet" />
 <link href="/vendor/maplibre-gl-4.7.1/maplibre-gl.css" rel="stylesheet" />
-<link rel="stylesheet" href="/styles.css?v=ab29882c" />
+<link rel="stylesheet" href="/styles.css?v=e5bbd07c" />
 </head>
 <body>
 
@@ -41,7 +41,7 @@
     </svg>
     <span class="brand-txt"><strong class="wm"><b>GPS</b><span>ESCAPE</span></strong></span>
   </a>
-  <a class="zone-pill" href="/#mapas" title="Cambiar de mapa"><span class="zone-long">Región de Murcia</span><span class="zone-short">Murcia</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5"/></svg></a>
+  <a class="zone-pill" href="/#mapas" title="Cambiar de mapa" aria-haspopup="true" aria-expanded="false" aria-controls="zoneMenu"><span class="zone-long">Región de Murcia</span><span class="zone-short">Murcia</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5"/></svg></a>
 
   <label class="search" for="search">
     <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg>
@@ -54,6 +54,7 @@
     </button>
   </div>
 </header>
+<!-- zm --><nav class="zone-menu" id="zoneMenu" aria-label="Cambiar de mapa" hidden><a href="/barcelona/"><strong>Provincia de Barcelona</strong><small>216 salas · top 100</small></a><a href="/valencia/"><strong>Provincia de Valencia</strong><small>79 salas · top 50</small></a><a href="/madrid/"><strong>Provincia de Madrid</strong><small>217 salas · top 100</small></a><a href="/alicante/"><strong>Provincia de Alicante</strong><small>54 salas · top 25</small></a><a href="/pais-vasco/"><strong>País Vasco</strong><small>71 salas · top 25</small></a><a href="/sevilla/"><strong>Provincia de Sevilla</strong><small>51 salas · top 25</small></a><a href="/murcia/" aria-current="page"><strong>Región de Murcia</strong><small>41 salas · top 20</small></a><a href="/asturias/"><strong>Asturias</strong><small>27 salas · top 15</small></a><div class="zone-menu-secs"><a href="/">Inicio</a><a href="/guias/">Guías</a><a href="/articulos/">Artículos</a><a href="/#como">Cómo puntuamos</a></div></nav><!-- /zm -->
 
 <div class="filters" aria-label="Filtros">
   <nav class="chips" id="chips" aria-label="Categoría"></nav>
@@ -119,6 +120,6 @@
 <script defer src="/vendor/maplibre-gl-4.7.1/maplibre-gl.js"></script>
 <script>window.GPS_ZONE = { slug: 'murcia', nombre: 'Murcia', center: [-1.13, 37.86], zoom: 8.9, de: 'de la Región de Murcia', delTop: 'de la región', toda: 'Toda la región', zonaHint: 'Municipio del local.' };</script>
 <script defer src="/data-murcia.js?v=a977879f"></script>
-<script defer src="/app.js?v=a7eeefc6"></script>
+<script defer src="/app.js?v=84f79e08"></script>
 </body>
 </html>
