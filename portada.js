@@ -57,3 +57,15 @@
   if (!bar || !act || !('IntersectionObserver' in window)) return;
   new IntersectionObserver(function (es) { var e = es[0]; bar.classList.toggle('is-on', !e.isIntersecting && e.boundingClientRect.top < 0); }).observe(act);
 })();
+
+// 05/10: «Ya la he jugado» también en la ficha estática (misma clave gps-done que el mapa y el pasaporte). Sin JS, el botón no aparece.
+(function () {
+  var b = document.querySelector('.f-done'); if (!b) return;
+  var id = b.getAttribute('data-done'), t = b.querySelector('.f-done-t');
+  function get() { try { return JSON.parse(localStorage.getItem('gps-done') || '[]'); } catch (e) { return null; } }
+  if (get() === null) return;
+  function paint() { var on = get().indexOf(id) >= 0; b.classList.toggle('is-on', on); b.setAttribute('aria-pressed', on ? 'true' : 'false'); t.textContent = on ? 'Jugada · está en tu pasaporte' : 'Ya la he jugado'; }
+  b.hidden = false; paint();
+  b.addEventListener('click', function () { var a = get() || [], i = a.indexOf(id); if (i >= 0) a.splice(i, 1); else a.push(id);
+    try { localStorage.setItem('gps-done', JSON.stringify(a)); } catch (e) {} paint(); });
+})();

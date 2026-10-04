@@ -271,12 +271,12 @@
         <div class="rk-title">
           <p class="rk-rule">Ranking</p>
           <h2>El top ${nTop + nVac} <span>${esc(Z_TOP)}</span></h2>
-          <p>Revisado a mano${nVac ? ` (${nVac === 1 ? 'un puesto vacante' : `${nVac} puestos vacantes`} hasta la próxima edición)` : ''}. Las otras ${nExtra} salas del inventario van debajo, sin número.</p>
+          <p>Revisado a mano${nVac ? ` (${nVac === 1 ? 'un puesto vacante' : `${nVac} puestos vacantes`} hasta la próxima edición)` : ''}. Debajo, en el directorio, las otras ${nExtra} salas abiertas, sin puesto.</p>
         </div>
         <div class="played${nDone ? ' has-some' : ''}">
           <div class="played-txt">
             <strong>${nDone ? `Has jugado ${nDone} · te quedan ${state.rooms.length - nDone}` : 'Marca las que ya has jugado'}</strong>
-            <span>${nDone ? 'Se guardan en este navegador. ' : 'Abre una sala y pulsa «Ya la he jugado»: '}Así descubres las que te quedan por hacer.</span>
+            <span>${nDone ? 'Se guardan en este navegador. ' : 'Abre una sala y pulsa «Ya la he jugado»: '}Así descubres las que te quedan por hacer. <a href="/pasaporte/">Ver mi pasaporte</a></span>
           </div>
           <label class="switch"><input type="checkbox" id="hideDone"${state.hideDone ? ' checked' : ''}${nDone ? '' : ' disabled'} /><span class="switch-ui" aria-hidden="true"></span>Ocultar jugadas</label>
         </div>
@@ -307,7 +307,9 @@
       });
     }
     if (done.length) {
-      wrap.appendChild(el('div', 'list-sep', `<span>Resto del inventario (${done.length})</span>`));
+      wrap.appendChild(el('div', 'dir-head', `<p class="rk-rule">Directorio</p>
+        <h2>Las demás salas <span>${done.length}</span></h2>
+        <p>Abiertas y verificadas una a una, pero sin puesto: no tienen reconocimientos del sector, no han entrado en el top ${nTop + nVac} o han abierto después de la última edición del ranking. Ordenadas por nombre.</p>`));
       done.forEach(r => wrap.appendChild(card(r)));
     }
     wrap.appendChild(el('div', 'list-foot', `<strong>¿Falta tu escape room?</strong><span>Si tienes una sala que no está en el mapa o ves un dato que no cuadra, cuéntanoslo: lo revisamos a mano.</span><a class="btn-gold" href="/contacto/">Escríbenos →</a>`));

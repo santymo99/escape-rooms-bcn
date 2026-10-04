@@ -973,3 +973,8 @@ input[type="range"]::-moz-range-thumb { width: 20px; height: 20px; border-radius
 [data-theme="light"] .zone-pill, [data-theme="light"] .wm b { color: #8a5a05; }
 [data-theme="light"] .btn-gold, [data-theme="light"] .tab.is-active { color: #120b00; }
 [data-theme="light"] .played-txt span { color: var(--ink-2); }
+/* 05/10: «Directorio» separado del ranking, con su propia cabecera centrada */
+.dir-head { max-width: 760px; margin: var(--space-8) auto var(--space-4); text-align: center; }
+.dir-head h2 { font-family: Michroma, sans-serif; font-size: clamp(1.15rem, 1rem + 1vw, 1.5rem); line-height: 1.2; margin: 0 0 var(--space-2); }
+.dir-head h2 span { color: var(--ink-3); }
+.dir-head p:not(.rk-rule) { margin: 0 auto; max-width: 62ch; color: var(--ink-2); font-size: var(--text-sm); line-height: 1.55; }
