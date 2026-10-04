@@ -274,3 +274,223 @@ h1, h2, h3 { font-family: Michroma, sans-serif; font-weight: 400; letter-spacing
   background: linear-gradient(to bottom, rgba(6,7,10,.78) 0%, rgba(6,7,10,.45) 45%, rgba(6,7,10,0) 100%); }
 .p-top:not(.is-solid) .p-nav a:not(.btn-sm) { color: var(--ink); text-shadow: 0 1px 2px rgba(0,0,0,.9), 0 0 14px rgba(0,0,0,.75); }
 .p-top:not(.is-solid) .wm span { text-shadow: 0 1px 2px rgba(0,0,0,.9), 0 0 14px rgba(0,0,0,.6); }
+
+/* =====================================================================
+   PORTADA «TEMPLO» (04/10): hero centrado con emblema, antetítulos centrados, recuadros con marcas de mira,
+   brújula de fondo, desplegables negros y dorados, pie simétrico. Aprobada por el usuario tras /prueba/.
+   Todo va con prefijo .t-; lo único que afecta a otras páginas es el desplegable «Mapas» (.p-top .menu-list), negro y dorado en toda la web.
+   ===================================================================== */
+
+/* ---- cabecera simétrica: marca | enlaces centrados | Mapas ---- */
+.p-top .wrap.t-bar { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 16px; }
+.t-bar .p-nav { justify-self: end; }
+.t-nav { display: flex; gap: 6px; }
+.t-nav a { color: var(--ink); text-decoration: none; font-size: .74rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase;
+  padding: 10px 12px; border-radius: 8px; text-shadow: 0 1px 2px rgba(0,0,0,.9), 0 0 14px rgba(0,0,0,.7); transition: color .15s ease; }
+.t-nav a:hover, .t-nav a[aria-current] { color: var(--gold); }
+@media (max-width: 1040px) { .t-nav a.nav-xl { display: none; } }
+@media (max-width: 860px) { .t-nav { display: none; } .p-top .wrap.t-bar { grid-template-columns: 1fr auto; } }
+
+/* ---- héroe centrado con emblema grande ---- */
+.hero.t-hero { align-items: center; text-align: center; }
+.t-hero .wrap { padding: 110px 0 56px; }
+.t-hero .hero-in { max-width: 760px; margin-inline: auto; display: flex; flex-direction: column; align-items: center; }
+.t-emblem { width: clamp(96px, 11vw, 148px); height: auto; filter: drop-shadow(0 0 22px rgba(225,175,74,.45)) drop-shadow(0 0 60px rgba(225,175,74,.18)); }
+.t-word { margin: 18px 0 0; display: flex; gap: .55em; font-family: Michroma, sans-serif; font-size: clamp(1.35rem, 3.4vw, 2.5rem); letter-spacing: .22em; line-height: 1;
+  text-shadow: 0 2px 24px rgba(0,0,0,.6); }
+.t-word b { color: var(--gold); font-weight: 400; text-shadow: 0 0 22px rgba(225,175,74,.5); }
+.t-rule { display: flex; align-items: center; justify-content: center; gap: 14px; margin: 22px 0 0; color: #f2d08a; font-size: .7rem; font-weight: 700;
+  letter-spacing: .26em; text-transform: uppercase; text-shadow: 0 1px 2px rgba(0,0,0,.9); }
+.t-rule::before, .t-rule::after { content: ""; width: clamp(28px, 8vw, 72px); height: 1px; background: linear-gradient(90deg, transparent, rgba(225,175,74,.7)); }
+.t-rule::after { transform: scaleX(-1); }
+.t-hero h1 { margin-top: 18px; max-width: 26ch; font-size: clamp(1.05rem, 1.9vw, 1.45rem); line-height: 1.35; color: var(--ink); }
+.t-hero .lead { margin: 12px auto 24px; text-align: center; }
+.t-hero .zonas { margin-inline: auto; text-align: left; }
+.t-hero .zonas-list:has(li:nth-child(7)) { left: calc(50% - min(calc(100vw - 32px), 560px) / 2); }
+@media (max-width: 640px) {
+  .hero.t-hero { align-items: end; }
+  .t-hero .wrap { padding: 84px 0 28px; }
+  .t-emblem { width: 76px; }
+  .t-word { margin-top: 12px; }
+  .t-rule { margin-top: 14px; font-size: .62rem; letter-spacing: .2em; }
+  .t-hero h1 { margin-top: 12px; font-size: 1.05rem; }
+  .t-hero .lead { font-size: .9rem; margin: 8px auto 16px; }
+}
+
+/* ---- titulares de sección en dos tiempos, centrados ---- */
+.t-head { text-align: center; max-width: 760px; margin: 0 auto 36px; }
+.t-head .t-rule { margin: 0 0 16px; }
+.t-head h2 { font-size: clamp(1.3rem, 2.8vw, 2.1rem); line-height: 1.25; }
+.t-head h2 span { display: block; color: var(--ink-2); }
+.t-head p { margin: 14px auto 0; color: var(--ink-2); max-width: 58ch; }
+.sec.t-sec { padding: clamp(64px, 9vw, 120px) 0; }
+
+/* ---- recuadros con marcas de mira en las esquinas ---- */
+.t-frame { position: relative; padding: 26px 24px; border: 1px solid var(--line-soft);
+  background: linear-gradient(180deg, color-mix(in oklab, var(--surface) 75%, transparent), color-mix(in oklab, var(--bg) 60%, transparent)); }
+.t-frame::before, .t-frame::after { content: ""; position: absolute; width: 12px; height: 12px; border: 0 solid var(--ink-3); transition: border-color .2s ease, transform .25s var(--ease-out); }
+.t-frame::before { top: -1px; left: -1px; border-top-width: 2px; border-left-width: 2px; }
+.t-frame::after { bottom: -1px; right: -1px; border-bottom-width: 2px; border-right-width: 2px; }
+.t-frame:hover::before, .t-frame:hover::after { border-color: var(--gold); }
+.t-frame:hover::before { transform: translate(-3px, -3px); } .t-frame:hover::after { transform: translate(3px, 3px); }
+.t-steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
+@media (max-width: 1040px) { .t-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 640px) { .t-steps { grid-template-columns: 1fr; gap: 14px; } }
+.t-steps .lbl { display: block; margin-bottom: 10px; color: var(--gold); font-size: .68rem; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; }
+.t-steps h3 { font-size: 1rem; line-height: 1.3; margin-bottom: 10px; }
+.t-steps p { margin: 0; color: var(--ink-2); font-size: .95rem; }
+.t-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; margin-top: 18px; }
+@media (max-width: 860px) { .t-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; } }
+.t-stats .t-frame { text-align: center; padding: 22px 14px; }
+.t-stats b { display: block; font-family: Michroma, sans-serif; font-size: clamp(1.4rem, 2.6vw, 2rem); color: var(--gold); font-weight: 400; font-variant-numeric: tabular-nums; }
+.t-stats span { display: block; margin-top: 8px; color: var(--ink-2); font-size: .85rem; }
+.t-stats span b.stat-in { display: inline; font: inherit; color: inherit; }
+.t-quote { margin: 40px auto 0; text-align: center; max-width: 52ch; color: var(--ink-2); }
+.t-quote strong { color: var(--ink); }
+
+/* ---- pie simétrico ---- */
+.t-foot { text-align: center; background: var(--bg-2); }
+.t-foot-cta { padding: 64px 0 40px; display: flex; flex-direction: column; align-items: center; }
+.t-foot-cta .t-emblem { width: 64px; filter: drop-shadow(0 0 16px rgba(225,175,74,.35)); }
+.t-foot-cta .t-rule { margin: 20px 0 0; }
+.t-motto { margin: 14px 0 0; color: var(--ink-2); font-size: 1.02rem; }
+.t-foot-cta h3 { margin-top: 30px; font-size: clamp(1.05rem, 2vw, 1.35rem); }
+.t-foot-cta p { margin: 10px auto 22px; max-width: 52ch; color: var(--ink-2); }
+.t-foot-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 26px; padding: 22px 16px; border-top: 1px solid var(--line-soft); }
+.t-foot-nav a, .t-legal a { color: var(--ink-2); text-decoration: none; font-size: .72rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; }
+.t-foot-nav a:hover, .t-legal a:hover { color: var(--gold); }
+.t-legal { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 22px; padding: 0 16px 10px; }
+.t-legal a { color: var(--ink-3); font-size: .64rem; }
+.t-copy { margin: 0; padding: 6px 16px calc(22px + env(safe-area-inset-bottom)); color: var(--ink-3); font-size: .64rem; letter-spacing: .2em; text-transform: uppercase; }
+
+/* ---- movimiento al hacer scroll (nivel 6): la página «fluye» ---- */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .t-hero .hero-in { animation: t-salida linear both; animation-timeline: scroll(root); animation-range: 0 85vh; }
+    @keyframes t-salida { to { transform: translateY(-70px); opacity: 0; } }
+    .t-hero .hero-bg picture { display: block; height: 100%; animation: t-paralaje linear both; animation-timeline: scroll(root); animation-range: 0 100vh; }
+    @keyframes t-paralaje { to { transform: translateY(16%); } }
+    .t-rise { animation: t-entrada linear both; animation-timeline: view(); animation-range: entry 5% entry 70%; }
+    @keyframes t-entrada { from { opacity: 0; transform: translateY(46px); } }
+    .t-sec .cat img { animation: t-dentro linear both; animation-timeline: view(); }
+    @keyframes t-dentro { from { transform: translateY(-7%) scale(1.16); } to { transform: translateY(7%) scale(1.16); } }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .t-rise { animation: t-fundido linear both; animation-timeline: view(); animation-range: entry 0% entry 60%; }
+    @keyframes t-fundido { from { opacity: 0; } }
+  }
+}
+/* respaldo sin scroll-driven animations: revelado con IntersectionObserver (solo si el JS lo activa) */
+.t-io .t-rise { opacity: 0; transform: translateY(32px); transition: opacity .7s var(--ease-out), transform .7s var(--ease-out); }
+.t-io .t-rise.is-in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .t-io .t-rise { transform: none; } }
+
+/* ---- 04/10, cambios pedidos: contenido más abajo para no tapar la imagen, emblema junto a la marca ---- */
+.hero.t-hero { align-items: end; }
+.t-hero .wrap { padding: 110px 0 clamp(40px, 7vh, 72px); }
+.t-brandrow { display: flex; align-items: center; justify-content: center; gap: clamp(12px, 1.6vw, 20px); }
+.t-brandrow .t-emblem { width: clamp(48px, 5vw, 68px); }
+.t-brandrow .t-word { margin: 0; }
+.t-hero h1 { margin-top: 16px; }
+@media (max-width: 640px) {
+  .t-hero .wrap { padding: 84px 0 24px; }
+  .t-brandrow .t-emblem { width: 40px; opacity: .85; }
+  .t-hero h1 { margin-top: 10px; }
+}
+/* el antetítulo de sección centrado (antes heredaba el ancho máximo de los párrafos) */
+.t-head .t-rule { margin: 0 auto 16px; max-width: none; }
+.t-head h2 { margin: 0; }
+.t-head { margin-bottom: 40px; }
+/* pie en dos columnas con divisor: marca a la izquierda, contacto a la derecha */
+.t-foot-cols { display: grid; grid-template-columns: 1fr 1px 1fr; align-items: center; gap: clamp(24px, 5vw, 64px); padding: 64px 0 48px; }
+.t-foot-cols::before { content: ""; grid-column: 2; grid-row: 1; align-self: stretch; background: linear-gradient(180deg, transparent, var(--line), transparent); }
+.t-foot-a { grid-column: 1; grid-row: 1; display: flex; flex-direction: column; align-items: center; }
+.t-foot-a .t-emblem { width: 64px; filter: drop-shadow(0 0 16px rgba(225,175,74,.35)); }
+.t-foot-a .t-rule { margin: 18px 0 0; }
+.t-foot-b { grid-column: 3; grid-row: 1; display: flex; flex-direction: column; align-items: center; }
+.t-foot-b h3 { font-size: clamp(1.05rem, 2vw, 1.35rem); }
+.t-foot-b p { margin: 10px auto 22px; max-width: 46ch; color: var(--ink-2); }
+@media (max-width: 760px) {
+  .t-foot-cols { grid-template-columns: 1fr; gap: 36px; padding: 52px 0 36px; }
+  .t-foot-cols::before { display: none; }
+  .t-foot-a, .t-foot-b { grid-column: 1; grid-row: auto; }
+}
+
+/* ===== 04/10 (3): desplegable hacia abajo, «Categorías» más abajo, selector de tipografía y de fondo (solo prueba) ===== */
+/* el desplegable se abre hacia abajo en todos los tamaños: tapa la sección siguiente, no la foto */
+.t-hero .zonas-list { top: calc(100% + 8px); bottom: auto; transform-origin: top left; --zy: -4px; }
+/* «Categorías» empieza más abajo: deja sitio a la lista abierta */
+.t-hero + .t-sec { padding-top: clamp(150px, 22vw, 260px); }
+@media (max-width: 640px) { .t-hero + .t-sec { padding-top: 120px; } }
+
+/* brújula (elegida 04/10): rosa de los vientos enorme y tenue detrás de cada sección, gira un poco al bajar */
+.t-sec { position: relative; overflow: hidden; isolation: isolate; }
+.t-sec::before { content: ""; position: absolute; z-index: -1; left: 50%; top: 50%; width: min(1100px, 150vw); aspect-ratio: 1; translate: -50% -50%; pointer-events: none; opacity: .09;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200' fill='none' stroke='%23e1af4a'%3E%3Ccircle cx='100' cy='100' r='96' stroke-width='.6'/%3E%3Ccircle cx='100' cy='100' r='80' stroke-width='.4'/%3E%3Ccircle cx='100' cy='100' r='30' stroke-width='.4'/%3E%3Cpath stroke-width='.6' d='M100 4 112 88 196 100 112 112 100 196 88 112 4 100 88 88Z'/%3E%3Cpath stroke-width='.4' d='M100 100 166 34M100 100 166 166M100 100 34 166M100 100 34 34'/%3E%3Cpath stroke-width='.5' d='M100 4v10M100 186v10M4 100h10M186 100h10'/%3E%3C/svg%3E") center / contain no-repeat; }
+@supports (animation-timeline: view()) { @media (prefers-reduced-motion: no-preference) {
+  .t-sec::before { animation: t-gira linear both; animation-timeline: view(); }
+  @keyframes t-gira { from { rotate: -18deg; } to { rotate: 18deg; } } } }
+/* la lista abierta queda por encima de la sección siguiente (las animaciones de entrada crean capas propias) */
+.hero.t-hero { position: relative; z-index: 5; }
+.t-hero .zonas-list { background: var(--surface); }
+@media (max-width: 640px) { .t-hero + .t-sec { padding-top: 160px; } }
+/* con la lista abierta, el bloque del hero deja de desvanecerse al bajar (si no, la lista se vuelve translúcida) */
+.t-hero .hero-in:has(details.zonas[open]) { animation: none !important; opacity: 1 !important; transform: none !important; }
+
+/* ===== 04/10 (4): desplegables negros con títulos dorados y texto centrado; recuadros del método centrados ===== */
+.t-hero .zonas-btn { justify-content: center; position: relative; text-align: center; }
+.t-hero .zonas-btn .cta-txt { text-align: center; }
+.t-hero .zonas-btn svg { position: absolute; right: 18px; top: 50%; margin-top: -9px; }
+.t-hero .zonas-list, .p-top .menu-list { background: #050608; border: 1px solid rgba(225,175,74,.28); box-shadow: 0 22px 60px -14px rgba(0,0,0,.9), inset 0 1px 0 rgba(225,175,74,.08); }
+.t-hero .zonas-list a, .p-top .menu-list a { text-align: center; }
+.t-hero .zonas-list strong, .p-top .menu-list a strong { color: var(--gold); }
+.t-hero .zonas-list small, .p-top .menu-list a small { color: #b9b2a2; }
+.t-hero .zonas-list a:hover, .t-hero .zonas-list a:focus-visible, .p-top .menu-list a:hover, .p-top .menu-list a:focus-visible { background: rgba(225,175,74,.1); }
+.t-hero .zonas-list a:hover strong, .p-top .menu-list a:hover strong { color: #f3cd78; }
+.p-top .menu-list a { text-shadow: none !important; }
+.t-steps .t-frame { text-align: center; }
+
+/* ===== 04/10 (5): móvil compacto, más contraste en el hero, foto fundida con adorno, menú del móvil solo con secciones ===== */
+/* la foto se funde con el fondo (sin corte duro) y la parte baja del hero queda más oscura para leer logo y entradilla */
+.t-hero::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 62%; z-index: -1; pointer-events: none;
+  background: linear-gradient(180deg, rgba(9,11,16,0) 0%, rgba(9,11,16,.5) 45%, rgba(9,11,16,.82) 80%, var(--bg) 100%); }
+.t-word b { color: #f0c25c; text-shadow: 0 1px 2px rgba(0,0,0,.95), 0 0 14px rgba(0,0,0,.85), 0 0 26px rgba(225,175,74,.45); }
+.t-word span { text-shadow: 0 1px 2px rgba(0,0,0,.95), 0 0 14px rgba(0,0,0,.8); }
+.t-hero h1 { text-shadow: 0 1px 2px rgba(0,0,0,.95), 0 0 16px rgba(0,0,0,.8); }
+.t-hero .lead { color: var(--ink); text-shadow: 0 1px 2px rgba(0,0,0,.95), 0 0 14px rgba(0,0,0,.85); }
+.t-brandrow .t-emblem { filter: drop-shadow(0 0 3px rgba(0,0,0,.9)) drop-shadow(0 0 18px rgba(225,175,74,.4)); }
+@media (max-width: 640px) { .t-brandrow .t-emblem { opacity: .95; } }
+
+/* adorno en el paso de la foto a «Categorías»: un hilo dorado que baja hasta una pequeña rosa de los vientos */
+.t-hero + .t-sec::after { content: ""; position: absolute; left: 50%; top: 0; width: 28px; height: clamp(84px, 9vw, 120px); translate: -50% 0; pointer-events: none; z-index: 0;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 120'%3E%3Cdefs%3E%3ClinearGradient id='h' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23e1af4a' stop-opacity='0'/%3E%3Cstop offset='1' stop-color='%23e1af4a' stop-opacity='.75'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M14 0v96' stroke='url(%23h)' stroke-width='1'/%3E%3Cpath fill='%23e1af4a' d='M14 94 16 104 14 103 12 104ZM14 120 12 110 14 111 16 110ZM1 107 11 105 10 107 11 109ZM27 107 17 109 18 107 17 105Z'/%3E%3Ccircle cx='14' cy='107' r='2.2' fill='%23e1af4a'/%3E%3C/svg%3E") center bottom / contain no-repeat; opacity: .9; }
+
+/* «Categorías» lo bastante abajo para que la lista abierta no la tape (ajustado midiendo a 1280, 1440 y 1920 px) */
+.t-hero + .t-sec { padding-top: var(--t-hueco, 300px); }
+
+/* desplegable de provincias en el móvil: dos columnas, solo nombre y número de salas */
+@media (max-width: 640px) {
+  .t-hero .zonas-list, .t-hero .zonas-list:has(li:nth-child(7)) { grid-template-columns: 1fr 1fr; gap: 2px; padding: 6px; max-height: none; }
+  .t-hero .zonas-list a { padding: 9px 4px; min-height: 48px; }
+  .t-hero .zonas-list strong { font-size: .72rem; letter-spacing: 0; }
+  .t-hero .zonas-list small { margin-top: 2px; font-size: .74rem; }
+  .t-hero .zonas-list .z-com, .t-hero .zonas-list .z-mun { display: none; }
+}
+
+/* menú de arriba en el móvil: solo secciones (las provincias ya están en el botón dorado) */
+@media (max-width: 720px) {
+  .t-bar .menu-list { min-width: 220px; }
+  .t-bar .menu-list > a { display: none; }
+  .t-bar .menu-list .menu-secs { margin-top: 0; padding-top: 0; border-top: 0; }
+  .t-bar .menu-list .menu-secs a { text-align: center; color: var(--gold); font-weight: 600; }
+}
+@media (max-width: 640px) { .t-hero + .t-sec { --t-hueco: 240px; } }
+/* el hueco bajo la foto se llena con la brújula: centrada en el borde, asoma como un horizonte dorado y gira al bajar */
+.t-hero + .t-sec::before { top: 0; opacity: .16; width: min(1000px, 170vw); }
+.t-hero + .t-sec { background: radial-gradient(70% 220px at 50% 0, rgba(225,175,74,.10), transparent 75%); }
+.t-hero + .t-sec::after { height: calc(var(--t-hueco, 300px) * .62); width: 34px; }
+/* menú del móvil: enlaces en dorado también sobre la foto */
+@media (max-width: 720px) { .t-bar .p-nav .menu-list .menu-secs a { color: var(--gold); text-shadow: none; } }
+/* sin línea de corte: la brújula y el halo nacen poco a poco desde el borde de la foto */
+.t-hero + .t-sec::before { -webkit-mask-image: linear-gradient(180deg, transparent 50%, #000 66%); mask-image: linear-gradient(180deg, transparent 50%, #000 66%); }
+.t-hero + .t-sec { background: radial-gradient(55% 200px at 50% calc(var(--t-hueco, 300px) * .62), rgba(225,175,74,.09), transparent 75%); }
