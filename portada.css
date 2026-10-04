@@ -479,10 +479,10 @@ h1, h2, h3 { font-family: Michroma, sans-serif; font-weight: 400; letter-spacing
 
 /* menú de arriba en el móvil: solo secciones (las provincias ya están en el botón dorado) */
 @media (max-width: 720px) {
-  .t-bar .menu-list { min-width: 220px; }
-  .t-bar .menu-list > a { display: none; }
-  .t-bar .menu-list .menu-secs { margin-top: 0; padding-top: 0; border-top: 0; }
-  .t-bar .menu-list .menu-secs a { text-align: center; color: var(--gold); font-weight: 600; }
+  body:has(.t-hero) .t-bar .menu-list { min-width: 220px; }
+  body:has(.t-hero) .t-bar .menu-list > a { display: none; }
+  body:has(.t-hero) .t-bar .menu-list .menu-secs { margin-top: 0; padding-top: 0; border-top: 0; }
+  body:has(.t-hero) .t-bar .menu-list .menu-secs a { text-align: center; color: var(--gold); font-weight: 600; }
 }
 @media (max-width: 640px) { .t-hero + .t-sec { --t-hueco: 240px; } }
 /* el hueco bajo la foto se llena con la brújula: centrada en el borde, asoma como un horizonte dorado y gira al bajar */
@@ -490,7 +490,46 @@ h1, h2, h3 { font-family: Michroma, sans-serif; font-weight: 400; letter-spacing
 .t-hero + .t-sec { background: radial-gradient(70% 220px at 50% 0, rgba(225,175,74,.10), transparent 75%); }
 .t-hero + .t-sec::after { height: calc(var(--t-hueco, 300px) * .62); width: 34px; }
 /* menú del móvil: enlaces en dorado también sobre la foto */
-@media (max-width: 720px) { .t-bar .p-nav .menu-list .menu-secs a { color: var(--gold); text-shadow: none; } }
+@media (max-width: 720px) { body:has(.t-hero) .t-bar .p-nav .menu-list .menu-secs a { color: var(--gold); text-shadow: none; } }
 /* sin línea de corte: la brújula y el halo nacen poco a poco desde el borde de la foto */
 .t-hero + .t-sec::before { -webkit-mask-image: linear-gradient(180deg, transparent 50%, #000 66%); mask-image: linear-gradient(180deg, transparent 50%, #000 66%); }
 .t-hero + .t-sec { background: radial-gradient(55% 200px at 50% calc(var(--t-hueco, 300px) * .62), rgba(225,175,74,.09), transparent 75%); }
+
+
+/* =====================================================================
+   «TEMPLO» EN LAS PÁGINAS DE LECTURA (04/10): guías, categorías, artículos, municipios y listados (body.pg-lee).
+   Cabecera simétrica y pie en dos columnas en toda la web (build_pages). Aquí: cabeceras centradas con antetítulo,
+   títulos de sección como regla dorada, brújula de fondo que gira con el scroll y tarjetas que entran al bajar (nivel 6).
+   ===================================================================== */
+.p-top .t-bar .brand { justify-self: start; }
+.pg-lee main.page { position: relative; isolation: isolate; overflow: hidden; }
+.pg-lee main.page::before { content: ""; position: absolute; z-index: -1; left: 50%; top: 40px; width: min(1100px, 160vw); aspect-ratio: 1; translate: -50% 0; pointer-events: none; opacity: .07;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200' fill='none' stroke='%23e1af4a'%3E%3Ccircle cx='100' cy='100' r='96' stroke-width='.6'/%3E%3Ccircle cx='100' cy='100' r='80' stroke-width='.4'/%3E%3Ccircle cx='100' cy='100' r='30' stroke-width='.4'/%3E%3Cpath stroke-width='.6' d='M100 4 112 88 196 100 112 112 100 196 88 112 4 100 88 88Z'/%3E%3Cpath stroke-width='.4' d='M100 100 166 34M100 100 166 166M100 100 34 166M100 100 34 34'/%3E%3Cpath stroke-width='.5' d='M100 4v10M100 186v10M4 100h10M186 100h10'/%3E%3C/svg%3E") center / contain no-repeat;
+  -webkit-mask-image: linear-gradient(180deg, #000 40%, transparent 85%); mask-image: linear-gradient(180deg, #000 40%, transparent 85%); }
+@supports (animation-timeline: scroll()) { @media (prefers-reduced-motion: no-preference) {
+  .pg-lee main.page::before { animation: t-gira-lee linear both; animation-timeline: scroll(root); }
+  @keyframes t-gira-lee { from { rotate: -14deg; } to { rotate: 34deg; } } } }
+/* cabecera de página centrada */
+.pg-lee .crumbs { justify-content: center; }
+.pg-lee .l-head, .pg-lee .a-head { text-align: center; max-width: 860px; margin-inline: auto; }
+.pg-lee .l-head .lead, .pg-lee .a-head .a-sub { margin-inline: auto; max-width: 66ch; }
+.pg-lee .l-head .actions, .pg-lee .zf, .pg-lee .a-meta { justify-content: center; }
+.pg-lee .l-head .t-rule, .pg-lee .a-head .t-rule { margin: 0 0 16px; }
+.pg-lee .note.g-crit { max-width: 70ch; margin-inline: auto; }
+/* títulos de sección como regla dorada centrada, con el enlace debajo */
+.pg-lee .zsec-h { flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 8px; }
+.pg-lee .zsec-h h2 { display: flex; align-items: center; justify-content: center; gap: 14px; }
+.pg-lee .zsec-h h2::before, .pg-lee .zsec-h h2::after { content: ""; width: clamp(24px, 7vw, 64px); height: 1px; background: linear-gradient(90deg, transparent, rgba(225,175,74,.7)); flex: none; }
+.pg-lee .zsec-h h2::after { transform: scaleX(-1); }
+.pg-lee .zsec-sub { text-align: center; }
+.pg-lee .blk > h2 { text-align: center; }
+.pg-art .a-body { text-align: left; }
+/* tarjetas: entran al bajar (nivel 6); sin animation-timeline, se ven sin más */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .pg-lee .cards > *, .pg-lee .a-idx > a { animation: t-entra-lee linear both; animation-timeline: view(); animation-range: entry 0% entry 55%; }
+    @keyframes t-entra-lee { from { opacity: 0; transform: translateY(28px) scale(.97); } } }
+  @media (prefers-reduced-motion: reduce) {
+    .pg-lee .cards > *, .pg-lee .a-idx > a { animation: t-fundido-lee linear both; animation-timeline: view(); animation-range: entry 0% entry 50%; }
+    @keyframes t-fundido-lee { from { opacity: 0; } } } }
+@media (max-width: 560px) { .pg-lee .zsec-h h2 { gap: 10px; } .pg-lee .zsec-h h2::before, .pg-lee .zsec-h h2::after { width: 18px; } }
