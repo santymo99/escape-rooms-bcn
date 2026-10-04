@@ -173,3 +173,7 @@
 @media (max-width: 860px) { body:has(.f-sticky) { padding-bottom: 76px; } }
 @media (min-width: 861px) { .f-sticky { display: none; } }
 @media (prefers-reduced-motion: reduce) { .f-sticky, .f-sticky.is-on { transition: none; } }
+
+/* 05/10: el pie «Imagen ilustrativa…» quedaba pegado al puesto (la regla .f-cap, posterior, anulaba el margen inferior) */
+.f-cap.f-cap--ficha { margin: -12px 2px 26px; }
+@media (max-width: 560px) { .f-cap.f-cap--ficha { margin: -14px 2px 20px; } }
