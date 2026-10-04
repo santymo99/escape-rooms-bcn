@@ -169,3 +169,48 @@
 .t-hero .zonas-list a:hover strong, .p-top .menu-list a:hover strong { color: #f3cd78; }
 .p-top .menu-list a { text-shadow: none !important; }
 .t-steps .t-frame { text-align: center; }
+
+/* ===== 04/10 (5): móvil compacto, más contraste en el hero, foto fundida con adorno, menú del móvil solo con secciones ===== */
+/* la foto se funde con el fondo (sin corte duro) y la parte baja del hero queda más oscura para leer logo y entradilla */
+.t-hero::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 62%; z-index: -1; pointer-events: none;
+  background: linear-gradient(180deg, rgba(9,11,16,0) 0%, rgba(9,11,16,.5) 45%, rgba(9,11,16,.82) 80%, var(--bg) 100%); }
+.t-word b { color: #f0c25c; text-shadow: 0 1px 2px rgba(0,0,0,.95), 0 0 14px rgba(0,0,0,.85), 0 0 26px rgba(225,175,74,.45); }
+.t-word span { text-shadow: 0 1px 2px rgba(0,0,0,.95), 0 0 14px rgba(0,0,0,.8); }
+.t-hero h1 { text-shadow: 0 1px 2px rgba(0,0,0,.95), 0 0 16px rgba(0,0,0,.8); }
+.t-hero .lead { color: var(--ink); text-shadow: 0 1px 2px rgba(0,0,0,.95), 0 0 14px rgba(0,0,0,.85); }
+.t-brandrow .t-emblem { filter: drop-shadow(0 0 3px rgba(0,0,0,.9)) drop-shadow(0 0 18px rgba(225,175,74,.4)); }
+@media (max-width: 640px) { .t-brandrow .t-emblem { opacity: .95; } }
+
+/* adorno en el paso de la foto a «Categorías»: un hilo dorado que baja hasta una pequeña rosa de los vientos */
+.t-hero + .t-sec::after { content: ""; position: absolute; left: 50%; top: 0; width: 28px; height: clamp(84px, 9vw, 120px); translate: -50% 0; pointer-events: none; z-index: 0;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 120'%3E%3Cdefs%3E%3ClinearGradient id='h' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23e1af4a' stop-opacity='0'/%3E%3Cstop offset='1' stop-color='%23e1af4a' stop-opacity='.75'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M14 0v96' stroke='url(%23h)' stroke-width='1'/%3E%3Cpath fill='%23e1af4a' d='M14 94 16 104 14 103 12 104ZM14 120 12 110 14 111 16 110ZM1 107 11 105 10 107 11 109ZM27 107 17 109 18 107 17 105Z'/%3E%3Ccircle cx='14' cy='107' r='2.2' fill='%23e1af4a'/%3E%3C/svg%3E") center bottom / contain no-repeat; opacity: .9; }
+
+/* «Categorías» lo bastante abajo para que la lista abierta no la tape (ajustado midiendo a 1280, 1440 y 1920 px) */
+.t-hero + .t-sec { padding-top: var(--t-hueco, 300px); }
+
+/* desplegable de provincias en el móvil: dos columnas, solo nombre y número de salas */
+@media (max-width: 640px) {
+  .t-hero .zonas-list, .t-hero .zonas-list:has(li:nth-child(7)) { grid-template-columns: 1fr 1fr; gap: 2px; padding: 6px; max-height: none; }
+  .t-hero .zonas-list a { padding: 9px 4px; min-height: 48px; }
+  .t-hero .zonas-list strong { font-size: .72rem; letter-spacing: 0; }
+  .t-hero .zonas-list small { margin-top: 2px; font-size: .74rem; }
+  .t-hero .zonas-list .z-com, .t-hero .zonas-list .z-mun { display: none; }
+}
+
+/* menú de arriba en el móvil: solo secciones (las provincias ya están en el botón dorado) */
+@media (max-width: 720px) {
+  .p-top .menu-list { min-width: 220px; }
+  .p-top .menu-list > a { display: none; }
+  .p-top .menu-list .menu-secs { margin-top: 0; padding-top: 0; border-top: 0; }
+  .p-top .menu-list .menu-secs a { text-align: center; color: var(--gold); font-weight: 600; }
+}
+@media (max-width: 640px) { .t-hero + .t-sec { --t-hueco: 240px; } }
+/* el hueco bajo la foto se llena con la brújula: centrada en el borde, asoma como un horizonte dorado y gira al bajar */
+.t-hero + .t-sec::before { top: 0; opacity: .16; width: min(1000px, 170vw); }
+.t-hero + .t-sec { background: radial-gradient(70% 220px at 50% 0, rgba(225,175,74,.10), transparent 75%); }
+.t-hero + .t-sec::after { height: calc(var(--t-hueco, 300px) * .62); width: 34px; }
+/* menú del móvil: enlaces en dorado también sobre la foto */
+@media (max-width: 720px) { .p-top .p-nav .menu-list .menu-secs a { color: var(--gold); text-shadow: none; } }
+/* sin línea de corte: la brújula y el halo nacen poco a poco desde el borde de la foto */
+.t-hero + .t-sec::before { -webkit-mask-image: linear-gradient(180deg, transparent 50%, #000 66%); mask-image: linear-gradient(180deg, transparent 50%, #000 66%); }
+.t-hero + .t-sec { background: radial-gradient(55% 200px at 50% calc(var(--t-hueco, 300px) * .62), rgba(225,175,74,.09), transparent 75%); }
