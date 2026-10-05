@@ -22,7 +22,7 @@
 <link rel="preload" as="image" media="(min-width: 641px)" href="/img/portada.webp" imagesrcset="/img/portada-640.webp 640w, /img/portada.webp 1280w, /img/portada-1920.webp 1920w, /img/portada-2560.webp 2560w" imagesizes="100vw" />
 <link rel="preload" as="image" media="(max-width: 640px)" href="/img/portada-movil.webp" imagesrcset="/img/portada-movil-480.webp 480w, /img/portada-movil.webp 688w" imagesizes="100vw" />
 <link rel="preload" href="/fonts/michroma-latin.woff2" as="font" type="font/woff2" crossorigin />
-<link rel="stylesheet" href="/portada.css?v=28" />
+<link rel="stylesheet" href="/portada.css?v=29" />
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1814224275088721" crossorigin="anonymous"></script>
 <script type="application/ld+json">[
  {
@@ -72,7 +72,7 @@
     </svg>
       <strong class="wm"><b>GPS</b><span>ESCAPE</span></strong>
     </a>
-    <nav class="t-nav" aria-label="Secciones"><a class="nav-l" href="/" aria-current="page">Inicio</a><a href="/recomendador/">Recomiéndame</a><a href="/guias/">Guías</a><a href="#categorias">Categorías</a><a href="/articulos/">Artículos</a><a class="nav-xl" href="#como">Cómo puntuamos</a></nav>
+    <nav class="t-nav" aria-label="Secciones"><a class="nav-l" href="/" aria-current="page">Inicio</a><a href="/recomendador/">Recomiéndame</a><a href="/guias/">Guías</a><a href="#categorias">Categorías</a><a href="/articulos/">Artículos</a><a class="nav-xl" href="/como-puntuamos/">Cómo puntuamos</a></nav>
     <nav class="p-nav" aria-label="Mapas y secciones"><div class="menu">
         <button class="btn-sm menu-btn" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="menu-mapas"><span class="mb-desk">Mapas</span><span class="mb-mob">Menú</span> <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5"/></svg></button>
         <div class="menu-list" id="menu-mapas" hidden>
@@ -84,7 +84,7 @@
           <a href="/sevilla/"><strong>Provincia de Sevilla</strong><small><span data-stat="sevilla.salas">51</span> salas · <span data-stat="sevilla.puntuadas">25</span> en el ranking</small></a>
           <a href="/murcia/"><strong>Región de Murcia</strong><small><span data-stat="murcia.salas">41</span> salas · <span data-stat="murcia.puntuadas">20</span> en el ranking</small></a>
           <a href="/asturias/"><strong>Asturias</strong><small><span data-stat="asturias.salas">27</span> salas · <span data-stat="asturias.puntuadas">15</span> en el ranking</small></a>
-          <div class="menu-secs"><a href="/recomendador/">Recomiéndame una sala</a><a href="/pasaporte/">Mi pasaporte</a><a href="/guias/">Guías</a><a href="/articulos/">Artículos</a><a href="/#categorias">Categorías</a><a href="/#como">Cómo puntuamos</a><a href="/contacto/">Contacto</a></div>
+          <div class="menu-secs"><a href="/recomendador/">Recomiéndame una sala</a><a href="/pasaporte/">Mi pasaporte</a><a href="/guias/">Guías</a><a href="/articulos/">Artículos</a><a href="/#categorias">Categorías</a><a href="/como-puntuamos/">Cómo puntuamos</a><a href="/contacto/">Contacto</a></div>
         </div>
       </div></nav>
   </div>
@@ -164,17 +164,39 @@
     </div>
   </section>
 
-  <section class="sec t-sec" id="como" aria-labelledby="h-como">
+  <section class="sec t-sec" id="herramientas" aria-labelledby="h-herr">
     <div class="wrap">
       <div class="t-head t-rise">
-        <p class="t-rule">Método</p>
-        <h2 id="h-como">Cómo puntuamos <span>sala a sala</span></h2>
+        <p class="t-rule">Herramientas</p>
+        <h2 id="h-herr">Qué puedes hacer aquí <span>además del mapa</span></h2>
       </div>
-      <div class="t-steps">
-        <article class="t-frame t-rise"><span class="lbl">Primero</span><h3>Premios y menciones del sector</h3><p>Es lo que más pesa: TERPECA, Escape Room Awards, GibaEscape y otros. Solo entra en el ranking una sala con reconocimiento de fuera.</p></article>
-        <article class="t-frame t-rise"><span class="lbl">Después</span><h3>Reseñas que matizan</h3><p>Tres opiniones entusiastas no valen lo mismo que trescientas: la nota se corrige según el volumen antes de compararla.</p></article>
-        <article class="t-frame t-rise"><span class="lbl">También</span><h3>La experiencia</h3><p>Duración, tamaño de grupo y actores suman algo menos. Lo que no sabemos lo dejamos en blanco.</p></article>
-        <article class="t-frame t-rise"><span class="lbl">Siempre</span><h3>Que siga abierta</h3><p>Antes de entrar comprobamos que el local abre de verdad. Si una sala del ranking cierra, las de debajo suben un puesto.</p></article>
+      <div class="t-tools">
+        <article class="t-frame t-tool t-tool--reco t-rise">
+          <p class="lbl">Recomiéndame</p>
+          <h3><a href="/recomendador/">Seis preguntas y cinco salas para vuestro grupo</a></h3>
+          <p>Dónde, cuántos sois, cuánto queréis que dure, qué os gusta, cuánto gastar y vuestro nivel. Cada propuesta explica por qué encaja.</p>
+          <ul class="t-tool-chips" aria-hidden="true"><li>¿Dónde?</li><li class="on">4 jugadores</li><li>Una hora</li><li class="on">Terror</li><li>Hasta 25 €</li><li>Principiantes</li></ul>
+          <span class="t-tool-go" aria-hidden="true">Empezar las preguntas →</span>
+        </article>
+        <article class="t-frame t-tool t-tool--pasa t-rise">
+          <p class="lbl">Mi pasaporte</p>
+          <h3><a href="/pasaporte/">Lleva la cuenta de las salas que has jugado</a></h3>
+          <p>Marca «Ya la he jugado» en cada ficha y mira cuántas llevas de cada provincia y cuántas del top 10. Sin registro.</p>
+          <div class="t-tool-sellos" aria-hidden="true"><span class="on">1</span><span class="on">5</span><span class="on">10</span><span>25</span><span>50</span></div>
+          <span class="t-tool-go" aria-hidden="true">Ver mi pasaporte →</span>
+        </article>
+        <article class="t-frame t-tool t-tool--guias t-rise">
+          <p class="lbl">Guías</p>
+          <h3><a href="/guias/">Listas para cada plan</a></h3>
+          <p>Para empezar, para competir, grupos grandes, terror con actores, salas de dos horas y para parejas, provincia a provincia.</p>
+          <span class="t-tool-go" aria-hidden="true">Ver las guías →</span>
+        </article>
+        <article class="t-frame t-tool t-tool--arts t-rise">
+          <p class="lbl">Artículos</p>
+          <h3><a href="/articulos/">Salas jugadas y contadas en primera persona</a></h3>
+          <p>La más inmersiva, la ideal para principiantes, la más emotiva y la mejor para competir con amigos, sin destripar nada.</p>
+          <span class="t-tool-go" aria-hidden="true">Leer los artículos →</span>
+        </article>
       </div>
       <div class="t-stats" aria-label="Cifras de los mapas">
         <div class="t-frame t-rise"><b data-stat="salas">729</b><span>salas abiertas</span></div>
@@ -182,6 +204,7 @@
         <div class="t-frame t-rise"><b>8</b><span>categorías</span></div>
         <div class="t-frame t-rise"><b data-stat="municipios">82</b><span>municipios<br />en <b class="stat-in" data-stat="nprov">9</b> provincias</span></div>
       </div>
+      <p class="t-como t-rise">Revisamos cada sala a mano y solo publicamos las que siguen abiertas. <a href="/como-puntuamos/">Cómo puntuamos</a></p>
     </div>
   </section>
 </main>

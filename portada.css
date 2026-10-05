@@ -698,3 +698,47 @@ h1, h2, h3 { font-family: Michroma, sans-serif; font-weight: 400; letter-spacing
     .t-hero .hero-vidw { animation: t-paralaje linear both; animation-timeline: scroll(root); animation-range: 0 100vh; }
   }
 }
+
+/* 05/10 · «Qué puedes hacer aquí» (opción A del usuario): sustituye al bloque «Cómo puntuamos», que pasa a /como-puntuamos/.
+   Cuatro recuadros Templo de tamaños distintos (no una rejilla repetida): el recomendador manda, el pasaporte va alto a la derecha. */
+.t-tools { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-areas: "reco reco pasa" "guias arts pasa"; gap: 18px; }
+.t-tool { display: flex; flex-direction: column; align-items: center; text-align: center; transition: transform .3s var(--ease-out), border-color .2s ease; }
+.t-tool--reco { grid-area: reco; padding: 34px 32px; }
+.t-tool--pasa { grid-area: pasa; justify-content: center; }
+.t-tool--guias { grid-area: guias; } .t-tool--arts { grid-area: arts; }
+.t-tool .lbl { margin: 0 0 10px; color: var(--gold); font-size: .68rem; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; }
+.t-tool h3 { margin: 0 0 10px; font-size: 1.02rem; line-height: 1.35; }
+.t-tool--reco h3 { font-size: clamp(1.1rem, 2vw, 1.4rem); max-width: 26ch; }
+.t-tool h3 a { color: var(--ink); text-decoration: none; }
+.t-tool h3 a::after { content: ""; position: absolute; inset: 0; z-index: 1; }
+.t-tool h3 a:focus-visible { outline: none; }
+.t-tool:has(h3 a:focus-visible) { outline: 2px solid var(--gold); outline-offset: 3px; }
+.t-tool > p:not(.lbl) { margin: 0; color: var(--ink-2); font-size: .95rem; max-width: 52ch; }
+.t-tool-go { margin-top: auto; padding-top: 18px; color: var(--gold); font-size: .78rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+.t-tool:hover { border-color: color-mix(in oklab, var(--gold) 45%, var(--line-soft)); }
+.t-tool:hover h3 a { color: #f2d08a; }
+.t-tool-chips { list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 20px 0 0; padding: 0; max-width: 520px; }
+.t-tool-chips li { font-size: .8rem; font-weight: 700; padding: 7px 13px; border-radius: 999px; border: 1px solid var(--line); color: var(--ink-2); transition: transform .3s var(--ease-out); }
+.t-tool-chips li.on { background: var(--gold); border-color: var(--gold); color: var(--gold-ink); }
+.t-tool-sellos { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 22px; }
+.t-tool-sellos span { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%; border: 1.5px dashed var(--line); color: var(--ink-3); font-family: Michroma, sans-serif; font-size: .76rem; transform: rotate(-8deg); transition: transform .35s var(--ease-out); }
+.t-tool-sellos span.on { border: 2px solid var(--gold); color: var(--gold); background: var(--gold-soft); box-shadow: 0 0 14px rgba(225,175,74,.22); }
+.t-como { margin: 26px auto 0; text-align: center; color: var(--ink-2); font-size: .95rem; }
+.t-como a { color: var(--gold); font-weight: 700; text-underline-offset: 3px; }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .t-tool:hover { transform: translateY(-3px); }
+  .t-tool--reco:hover .t-tool-chips li:nth-child(odd) { transform: translateY(-2px); }
+  .t-tool--pasa:hover .t-tool-sellos span { transform: rotate(0deg); }
+}
+@media (max-width: 1040px) { .t-tools { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-areas: "reco reco" "pasa pasa" "guias arts"; } }
+@media (max-width: 640px) {
+  .t-tools { grid-template-columns: 1fr; grid-template-areas: "reco" "pasa" "guias" "arts"; gap: 14px; }
+  .t-tool, .t-tool--reco { padding: 24px 18px; }
+  .t-tool-chips li { font-size: .76rem; padding: 6px 11px; }
+}
+.t-tools + .t-stats { margin-top: 18px; }
+/* página /como-puntuamos/ */
+.como-zonas { list-style: none; margin: 14px 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 8px 18px; }
+.como-zonas li { padding: 10px 0; border-top: 1px solid var(--line-soft); }
+.como-zonas a { color: var(--gold); text-decoration: none; }
+.como-zonas span { display: block; color: var(--ink-3); font-size: .86rem; margin-top: 2px; }
