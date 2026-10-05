@@ -336,7 +336,39 @@
         </div>
       </div>`;
     b.onclick = () => { setView('map'); select(r.id, true); };
-    return b;
+    // 05/10 (usuario): marcar como jugada desde la lista, de un clic, sin abrir la ficha. Botón hermano (no dentro del botón de la
+    // tarjeta, que no puede anidar botones). La ficha y el panel del mapa siguen teniendo su «Ya la he jugado».
+    const w = el('div', 'card-w');
+    const t = el('button', 'card-done');
+    t.type = 'button';
+    const pinta = () => {
+      const on = isDone(r);
+      t.classList.toggle('is-on', on); t.setAttribute('aria-pressed', on ? 'true' : 'false');
+      t.setAttribute('aria-label', (on ? 'Quitar la marca de jugada a ' : 'Marcar como jugada: ') + r.sala);
+      t.title = on ? 'Jugada: está en tu pasaporte (pulsa para quitarla)' : 'Ya la he jugado: añadir a mi pasaporte';
+      t.innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2"/><circle cx="12" cy="10" r="3.4"/><path d="M8.5 17h7"/>${on ? '<path class="ok" d="M14.5 15.5l2.3 2.3 4.4-4.6"/>' : ''}</svg><span>${on ? 'Jugada' : 'Ya la he jugado'}</span>`;
+      b.classList.toggle('is-done', on);
+      const meta = b.querySelector('.card-meta'), p0 = meta && meta.querySelector('.pill--done');
+      if (on && meta && !p0) meta.insertAdjacentHTML('beforeend', pill('✓ Jugada', 'pill--done')); else if (!on && p0) p0.remove();
+    };
+    pinta();
+    t.onclick = e => {
+      e.stopPropagation(); toggleDone(r.id);
+      if (state.hideDone) { render(); return; }
+      pinta(); playedHead();
+      t.classList.remove('is-pop'); void t.offsetWidth; if (isDone(r)) t.classList.add('is-pop');
+    };
+    w.append(b, t);
+    return w;
+  }
+  // cabecera «Has jugado N · te quedan M» sin rehacer la lista (así no salta el scroll al marcar)
+  function playedHead() {
+    const box = document.querySelector('.played'); if (!box) return;
+    const n = state.rooms.filter(isDone).length, st = box.querySelector('.played-txt strong'), sp = box.querySelector('.played-txt span'), hd = box.querySelector('#hideDone');
+    box.classList.toggle('has-some', !!n);
+    if (st) st.textContent = n ? `Has jugado ${n} · te quedan ${state.rooms.length - n}` : 'Marca las que ya has jugado';
+    if (sp && n && !sp.querySelector('a')) sp.innerHTML = 'Se guardan en este navegador. Así descubres las que te quedan por hacer. <a href="/pasaporte/">Ver mi pasaporte</a>';
+    if (hd) hd.disabled = !n;
   }
 
   function fmtPrice(r) {

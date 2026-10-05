@@ -881,3 +881,13 @@ h1, h2, h3 { font-family: Michroma, sans-serif; font-weight: 400; letter-spacing
 
 /* 05/10 · con el desplegable abierto, «Categorías» deja aire debajo del enlace al recomendador (margen que pone portada.js). */
 #categorias { transition: none; }  /* sin transición: el margen se calcula midiendo y una transición falsearía la medida */
+
+/* 05/10 (usuario): los títulos de las preguntas quedaban montados sobre el borde del recuadro y desalineados. Ahora van dentro,
+   centrados, con el rombo dorado delante; y sin el párrafo de reglas de debajo (solo dos pistas cortas en precio y nivel). */
+.pg-reco .reco-form fieldset { padding: 20px 18px 18px; }
+.pg-reco .reco-form legend { float: left; width: 100%; padding: 0; margin: 0 0 2px; text-align: center; }
+.pg-reco .reco-form legend + * { clear: both; }
+.pg-reco .reco-form legend small { margin-top: 5px; }
+.pg-reco .reco-form legend::before { vertical-align: middle; margin: 0 10px 3px 0; }
+.pg-reco .reco-row { margin-top: 14px; }
+.pg-reco .reco-go { margin-top: 10px; }
