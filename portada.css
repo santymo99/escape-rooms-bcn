@@ -684,3 +684,17 @@ h1, h2, h3 { font-family: Michroma, sans-serif; font-weight: 400; letter-spacing
 .reco-sub small { display: block; margin-top: 3px; font-weight: 500; font-size: .76rem; color: var(--ink-3); }
 .reco-chip small { margin-left: 4px; font-size: .74rem; font-weight: 500; opacity: .7; }
 .reco-more { border-style: dashed; }
+
+/* 05/10 · Vídeo de la portada (aprobado por el usuario con el reloj fijo): solo escritorio, se carga después de la foto
+   y nunca con ahorro de datos, conexión lenta o movimiento reducido. Mismo encuadre, Ken Burns y paralaje que la foto. */
+.t-hero .hero-vidw { position: absolute; inset: 0; z-index: -2; opacity: 0; transition: opacity 1.4s cubic-bezier(.23, 1, .32, 1); pointer-events: none; }
+.t-hero .hero-vidw.is-on { opacity: 1; }
+.t-hero .hero-vidw video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 60% 40%; }
+@media (prefers-reduced-motion: no-preference) {
+  .t-hero .hero-vidw video { animation: kb 34s ease-in-out infinite alternate; transform-origin: 58% 38%; }
+}
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .t-hero .hero-vidw { animation: t-paralaje linear both; animation-timeline: scroll(root); animation-range: 0 100vh; }
+  }
+}

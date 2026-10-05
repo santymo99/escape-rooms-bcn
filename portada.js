@@ -69,3 +69,28 @@
   b.addEventListener('click', function () { var a = get() || [], i = a.indexOf(id); if (i >= 0) a.splice(i, 1); else a.push(id);
     try { localStorage.setItem('gps-done', JSON.stringify(a)); } catch (e) {} paint(); });
 })();
+
+// 05/10: vídeo de la portada. Solo escritorio (≥1024 px), después de cargar la foto y en un momento libre; nunca con ahorro
+// de datos, 2G/3G o movimiento reducido. Se pausa fuera de pantalla y con la pestaña oculta. Si algo falla, queda la foto.
+(function () {
+  var img = document.querySelector('.t-hero .hero-img'), pic = img && img.closest('picture'); if (!pic) return;
+  var c = navigator.connection || {};
+  if (!window.matchMedia || !matchMedia('(min-width: 1024px)').matches || matchMedia('(prefers-reduced-motion: reduce)').matches || c.saveData || /(^|-)(2g|3g)$/.test(c.effectiveType || '')) return;
+  function go() {
+    var w = document.createElement('div'), v = document.createElement('video'), ancho = window.innerWidth * (window.devicePixelRatio || 1);
+    w.className = 'hero-vidw'; w.setAttribute('aria-hidden', 'true');
+    v.muted = true; v.loop = true; v.playsInline = true; v.preload = 'auto'; v.setAttribute('muted', ''); v.setAttribute('playsinline', ''); v.setAttribute('tabindex', '-1');
+    v.src = '/img/portada-video-' + (ancho > 1400 ? 1920 : 1280) + '.mp4';
+    w.appendChild(v); pic.insertAdjacentElement('afterend', w);
+    v.addEventListener('playing', function () {
+      try { var ai = img.getAnimations && img.getAnimations()[0], av = v.getAnimations && v.getAnimations()[0]; if (ai && av) av.currentTime = ai.currentTime; } catch (e) {}
+      w.classList.add('is-on');
+    }, { once: true });
+    v.addEventListener('error', function () { w.remove(); }, { once: true });
+    var vis = true, play = function () { if (vis && !document.hidden) { var p = v.play(); if (p && p.catch) p.catch(function () {}); } else v.pause(); };
+    if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { vis = es[0].isIntersecting; play(); }).observe(w);
+    document.addEventListener('visibilitychange', play); play();
+  }
+  function idle() { (window.requestIdleCallback || function (f) { setTimeout(f, 1200); })(go, { timeout: 3000 }); }
+  if (img.complete && document.readyState === 'complete') idle(); else window.addEventListener('load', idle, { once: true });
+})();
