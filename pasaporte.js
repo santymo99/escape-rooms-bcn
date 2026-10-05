@@ -16,6 +16,12 @@
   function enc(ids) { return ids.map(hh).join(''); }
   function dec(t) { var o = []; for (var k = 0; k + 5 <= t.length; k += 5) (H[t.substr(k, 5)] || []).forEach(function (i) { if (o.indexOf(i) < 0) o.push(i); }); return o.length ? o : null; }
   var shared = null, m = location.hash.match(/^#p=([0-9a-z]+)/); if (m) shared = dec(m[1]);
+  // tapa del librito: cuero oscuro, filete dorado y el emblema de la web (se clona el de la cabecera)
+  function tapa(cerrada) {
+    var em = document.querySelector('.p-top .brand svg, .t-bar .brand svg'), svg = em ? em.outerHTML.replace(/id="([^"]+)"/g, 'id="pp$1"').replace(/url\(#([^)]+)\)/g, 'url(#pp$1)') : '';
+    return '<div class="pp-cover' + (cerrada ? ' is-closed' : '') + '" aria-hidden="true"><div class="pp-cover-in">' + svg +
+      '<p class="pp-cover-t">Pasaporte</p><p class="pp-cover-s">GPS Escape · escape rooms</p></div></div>';
+  }
   function render() {
     var mine = load().filter(function (i) { return BY[i]; }), ids = shared || mine, h = '';
     if (shared) {
@@ -25,27 +31,32 @@
         '<a class="btn btn--ghost" href="/pasaporte/" id="ppMine">Ver el mío</a></p></div>';
     }
     if (!ids.length) {
-      h += '<div class="pp-empty"><p class="t-rule">Pasaporte en blanco</p><h2>Aún no has marcado ninguna sala</h2><p>En la ficha de cada sala, o en el mapa al abrirla, pulsa <strong>«Ya la he jugado»</strong>. Aquí verás cuántas llevas de cada provincia, qué te falta y cuál podría ser tu próxima partida.</p><p class="pp-acts"><a class="btn" href="/#mapas">Elegir provincia</a><a class="btn btn--ghost" href="/recomendador/">Recomiéndame una sala</a></p></div>';
+      h += tapa(true) + '<div class="pp-empty"><p class="t-rule">Pasaporte en blanco</p><h2>Aún no has marcado ninguna sala</h2><p>En la ficha de cada sala, o en el mapa al abrirla, pulsa <strong>«Ya la he jugado»</strong>. Aquí verás cuántas llevas de cada provincia, qué te falta y cuál podría ser tu próxima partida.</p><p class="pp-acts"><a class="btn" href="/#mapas">Elegir provincia</a><a class="btn btn--ghost" href="/recomendador/">Recomiéndame una sala</a></p></div>';
       root.innerHTML = h; bind(); return;
     }
     var set = {}; ids.forEach(function (i) { set[i] = 1; });
     var sel = ids.map(function (i) { return BY[i]; });
-    // sellos e hitos
+    // 05/10: el pasaporte es un librito: tapa que se abre y dos páginas (titular con los hitos y «visados», un sello por provincia)
     var hitos = [1, 5, 10, 25, 50, 100], n = ids.length, sig = hitos.filter(function (x) { return x > n; })[0];
-    h += '<div class="pp-total"><p class="pp-big">' + n + '</p><p>' + (n === 1 ? 'sala jugada' : 'salas jugadas') + (sig ? ' · te faltan ' + (sig - n) + ' para el sello de ' + sig : '') + '</p>' +
-      '<div class="pp-sellos" aria-hidden="true">' + hitos.map(function (x) { return '<span class="pp-sello' + (n >= x ? ' is-on' : '') + '" title="' + x + ' salas">' + x + '</span>'; }).join('') + '</div></div>';
-    // por zona
-    var zonas = D.zonas.map(function (z) {
+    var zonasAll = D.zonas.map(function (z) {
       var todas = D.salas.filter(function (s) { return s.z === z.s; }), jug = todas.filter(function (s) { return set[s.i]; });
       var top10 = todas.filter(function (s) { return s.r && s.r <= 10; }), t10 = top10.filter(function (s) { return set[s.i]; }).length;
       return { z: z, todas: todas, jug: jug, top10: top10.length, t10: t10 };
-    }).filter(function (x) { return x.jug.length; }).sort(function (a, b) { return b.jug.length - a.jug.length; });
-    h += '<div class="pp-zonas">' + zonas.map(function (x) {
-      var pct = Math.round(x.jug.length / x.todas.length * 100);
-      return '<article class="pp-zona"><h3>' + esc(x.z.n) + '</h3><p class="pp-n">Has jugado <b>' + x.jug.length + '</b> de ' + x.todas.length + '</p>' +
-        '<div class="pp-bar" role="img" aria-label="' + pct + ' % completado"><span style="width:' + Math.max(pct, 2) + '%"></span></div><p class="pp-pct">' + pct + ' % completado</p>' +
-        (x.top10 ? '<p class="pp-t10">' + (x.t10 === x.top10 ? '¡Todas las ' + x.top10 + ' mejores!' : 'Has hecho <b>' + x.t10 + '</b> de las ' + x.top10 + ' mejores') + '</p>' : '') + '</article>';
-    }).join('') + '</div>';
+    });
+    var zonas = zonasAll.filter(function (x) { return x.jug.length; }).sort(function (a, b) { return b.jug.length - a.jug.length; });
+    var GIRO = [-9, 7, -4, 11, -13, 5, -7, 9, -2, 12];
+    var visados = zonasAll.slice().sort(function (a, b) { return b.jug.length - a.jug.length; }).map(function (x, k) {
+      var pct = Math.round(x.jug.length / x.todas.length * 100), on = x.jug.length > 0, full = x.top10 && x.t10 === x.top10;
+      return '<div class="pp-visa' + (on ? ' is-on' : '') + (full ? ' is-full' : '') + '" style="--g:' + GIRO[k % GIRO.length] + 'deg;--d:' + k + '">' +
+        '<span class="pp-visa-z">' + esc(x.z.n) + '</span>' + (on ? '<b>' + x.jug.length + '<small>/' + x.todas.length + '</small></b><span class="pp-visa-p">' + pct + ' %' +
+        (x.top10 ? ' · top 10: ' + x.t10 + '/' + x.top10 : '') + '</span>' : '<span class="pp-visa-p">sin visado</span>') + '</div>';
+    }).join('');
+    h += '<div class="pp-book' + (shared ? ' is-shared' : '') + '">' + tapa(false) +
+      '<div class="pp-page pp-pl"><p class="pp-pg-h">' + (shared ? 'Titular: pasaporte compartido' : 'Titular') + '</p><p class="pp-big">' + n + '</p><p class="pp-big-t">' +
+      (n === 1 ? 'sala jugada' : 'salas jugadas') + (sig ? '<br />te faltan ' + (sig - n) + ' para el sello de ' + sig : '<br />todos los sellos conseguidos') + '</p>' +
+      '<div class="pp-sellos" aria-hidden="true">' + hitos.map(function (x, k) { return '<span class="pp-sello' + (n >= x ? ' is-on' : '') + '" style="--d:' + k + '">' + x + '</span>'; }).join('') + '</div></div>' +
+      '<div class="pp-page pp-pr"><p class="pp-pg-h">Visados</p><div class="pp-visas">' + visados + '</div></div></div>';
+    h += '<ul class="sr-only">' + zonas.map(function (x) { return '<li>' + esc(x.z.n) + ': ' + x.jug.length + ' de ' + x.todas.length + (x.top10 ? ', ' + x.t10 + ' de las ' + x.top10 + ' mejores' : '') + '</li>'; }).join('') + '</ul>';
     // categorías
     var cats = {}; sel.forEach(function (s) { cats[s.c] = (cats[s.c] || 0) + 1; });
     var orden = Object.keys(cats).sort(function (a, b) { return cats[b] - cats[a]; });

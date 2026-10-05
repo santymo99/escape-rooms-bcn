@@ -99,9 +99,12 @@
 (function () {
   var d = document.querySelector('.t-hero details.zonas'), list = d && d.querySelector('.zonas-list'), reco = document.querySelector('.t-hero .t-reco');
   if (!d || !list || !reco) return;
-  function medir() { if (!d.open) { reco.style.removeProperty('--zl'); return; }
+  function medir() { if (!d.open) { reco.style.removeProperty('--zl'); var c0 = document.getElementById('categorias'); if (c0) c0.style.marginTop = ''; return; }
     var lr = list.getBoundingClientRect(), rr = reco.getBoundingClientRect(), t = rr.top - (d.open ? (parseFloat(reco.style.getPropertyValue('--zl')) || 0) : 0);
-    reco.style.setProperty('--zl', Math.max(0, Math.round(lr.bottom + 16 - t)) + 'px'); }
-  d.addEventListener('toggle', function () { requestAnimationFrame(medir); });
+    var zl = Math.max(0, Math.round(lr.bottom + 16 - t)); reco.style.setProperty('--zl', zl + 'px');
+    // «Categorías» baja lo justo para dejar 56 px de aire bajo el enlace
+    var cat = document.getElementById('categorias'), cr = cat && cat.querySelector('.t-rule, h2');
+    if (cat && cr) { cat.style.marginTop = '0px'; var hueco = cr.getBoundingClientRect().top - (t + rr.height + zl); cat.style.marginTop = Math.max(0, Math.round(56 - hueco)) + 'px'; } }
+  d.addEventListener('toggle', function () { requestAnimationFrame(medir); setTimeout(medir, 280); });  // segunda medida tras la animación de la lista
   window.addEventListener('resize', function () { if (d.open) medir(); });
 })();
