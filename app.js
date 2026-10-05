@@ -300,7 +300,7 @@
         const hole = el('div', 'card card-hole', `<div class="card-n">${r.rank}</div>
           <div class="card-main">
             <div class="card-title">Puesto vacante</div>
-            <div class="card-sub">${esc(r.sala)} · ${esc(r.local)} · cerrada${r.estado_ev ? ` — ${esc(r.estado_ev)}` : ''}. Se mantiene el número hasta la próxima edición del ranking.</div>
+            <div class="card-sub">${esc(r.sala)} · ${esc(r.local)} · cerrada. Se mantiene el número hasta la próxima edición del ranking.</div>
           </div>`);
         const next = [...wrap.querySelectorAll('.card')].find(c => !c.classList.contains('card-hole') && Number(c.querySelector('.card-n').textContent) > r.rank);
         next ? wrap.insertBefore(hole, next) : wrap.appendChild(hole);
@@ -454,14 +454,12 @@
 
   function priceSmall(r) {
     if (!r.p4n) return r.ptxt || null;
-    const src = (String(r.ptxt || '').match(/\(([^()]*)\)\s*$/) || [])[1];
-    return `grupo de ${r.p4n}: ${priceNum(Math.round(r.pmin * r.p4n * 100) / 100)} € en total${src ? ` · ${src}` : ''}`;
+    return `grupo de ${r.p4n}: ${priceNum(Math.round(r.pmin * r.p4n * 100) / 100)} € en total`;
   }
 
   function detailHTML(r) {
     const dif = r.dif || null;
-    const difSmall = [r.dif_raw && r.dif_raw !== r.dif ? `publicada como «${r.dif_raw}»` : '',
-                      r.edad ? `edad ${r.edad}` : ''].filter(Boolean).join(' · ');
+    const difSmall = r.edad ? (/^edad/i.test(r.edad) ? r.edad : `Edad: ${r.edad}`) : '';
     const host = u => { try { return new URL(u).hostname.replace(/^www\./, ''); } catch (e) { return u; } };
     const gmaps = gmapsOf(r.dir, r.local, r.municipio);
     const cells = [
@@ -470,7 +468,7 @@
       cell('Duración', r.dur ? `${r.dur} min` : null),
       cell('Dificultad', dif, difSmall),
       cell('Estado', r.estado === 'Abierto' ? 'En funcionamiento' : (r.estado && r.estado !== 'n.a.' ? r.estado : null),
-           r.estado === 'Abierto' ? (noUrls(r.estado_ev) || 'reservas activas en su web') : null),
+           r.estado === 'Abierto' && r.estado_f ? `comprobado el ${r.estado_f}` : null),
       cell('Actores', r.actores === true ? 'Sí, en directo' : (r.actores === false ? 'No' : null)),
       cell('Idiomas', r.idiomas)
     ].filter(Boolean).join('');
