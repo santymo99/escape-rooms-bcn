@@ -750,3 +750,53 @@ h1, h2, h3 { font-family: Michroma, sans-serif; font-weight: 400; letter-spacing
 .t-sec + .t-sec::after { content: ""; position: absolute; top: 0; left: 50%; translate: -50% 0; width: min(340px, 72%); aspect-ratio: 240 / 28; pointer-events: none;
   background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 -2 240 28'%3E%3Cdefs%3E%3ClinearGradient id='l' x1='0' x2='1'%3E%3Cstop offset='0' stop-color='%23e1af4a' stop-opacity='0'/%3E%3Cstop offset='1' stop-color='%23e1af4a' stop-opacity='.7'/%3E%3C/linearGradient%3E%3ClinearGradient id='r' x1='0' x2='1'%3E%3Cstop offset='0' stop-color='%23e1af4a' stop-opacity='.7'/%3E%3Cstop offset='1' stop-color='%23e1af4a' stop-opacity='0'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M0 12H101' stroke='url(%23l)' stroke-width='1'/%3E%3Cpath d='M139 12H240' stroke='url(%23r)' stroke-width='1'/%3E%3Cpath fill='%23e1af4a' d='M120 -1 122 9 120 8 118 9ZM120 25 118 15 120 16 122 15ZM107 12 117 10 116 12 117 14ZM133 12 123 14 124 12 123 10Z'/%3E%3Ccircle cx='120' cy='12' r='2.2' fill='%23e1af4a'/%3E%3C/svg%3E") center / contain no-repeat; opacity: .9; }
 @media (max-width: 640px) { .t-sec:has(+ .t-sec) { padding-bottom: 32px; } .t-sec + .t-sec { padding-top: 64px; } }
+
+/* 05/10 (usuario): con el desplegable de provincias abierto, «¿No sabéis cuál elegir? Recomiéndame…» baja y aparece debajo de
+   la lista en lugar de quedar tapado. portada.js mide la lista y la guarda en --zl; solo se mueve con transform (sin saltos). */
+.t-hero .t-reco { transition: translate .25s var(--ease-out); }
+.t-hero .hero-in:has(.zonas[open]) .t-reco { translate: 0 var(--zl, 0px); }  /* translate y no transform: la animación de entrada usa transform */
+@media (prefers-reduced-motion: reduce) { .t-hero .t-reco { transition: none; } }
+
+/* 05/10: /como-puntuamos/ es texto corrido: una sola columna (heredaba las dos columnas de la ficha y dejaba huecos). */
+.wrap.ficha.como { display: block; max-width: 780px; }
+.wrap.ficha.como .l-head { text-align: center; }
+.wrap.ficha.como .l-head .lead { margin-inline: auto; }
+.wrap.ficha.como .blk { margin-top: 30px; padding-top: 26px; border-top: 1px solid var(--line-soft); }
+.wrap.ficha.como .blk p { margin-inline: auto; }
+
+/* 05/10 (usuario: «dale color»): cada tarjeta de «Tu próxima sala» lleva su imagen propia (Higgsfield gpt_image_2_5, img/herr/).
+   Recomiéndame: foto a la izquierda y texto a la derecha en escritorio; las demás, foto arriba. La foto se funde con la tarjeta. */
+.t-tool { padding: 0 !important; align-items: stretch; text-align: center; }
+.t-tool::before, .t-tool::after { z-index: 2; pointer-events: none; }
+.t-tool-ph { position: relative; overflow: hidden; aspect-ratio: 16 / 9; background: var(--surface-2); }
+.t-tool-ph img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .6s var(--ease-out), filter .3s ease; filter: saturate(.92) brightness(.92); }
+.t-tool-ph::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 45%, color-mix(in oklab, var(--surface) 85%, transparent) 100%); }
+.t-tool-tx { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 6px 24px 24px; }
+.t-tool--reco .t-tool-tx { padding: 30px 30px 28px; }
+.t-tool--pasa .t-tool-ph { aspect-ratio: 4 / 3; }
+@media (hover: hover) { .t-tool:hover .t-tool-ph img { transform: scale(1.045); filter: saturate(1) brightness(1); } }
+@media (min-width: 1041px) {
+  .t-tool--reco { display: grid !important; grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.25fr); }
+  .t-tool--reco .t-tool-ph { aspect-ratio: auto; height: 100%; }
+  .t-tool--reco .t-tool-ph::after { background: linear-gradient(90deg, transparent 55%, color-mix(in oklab, var(--surface) 85%, transparent) 100%); }
+  .t-tool--reco .t-tool-tx { justify-content: center; }
+}
+@media (max-width: 640px) { .t-tool-tx, .t-tool--reco .t-tool-tx { padding: 4px 18px 22px; } .t-tool--pasa .t-tool-ph { aspect-ratio: 16 / 9; } }
+
+/* 05/10 (usuario): las guías salen de la portada (siguen como páginas para Google, con llamada al recomendador). Quedan tres
+   tarjetas: Recomiéndame y Artículos a lo ancho (foto a la izquierda en escritorio) y Mi pasaporte alto a la derecha. */
+.t-tools { grid-template-areas: "reco reco pasa" "arts arts pasa"; }
+@media (min-width: 1041px) {
+  .t-tool--arts { display: grid !important; grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.25fr); }
+  .t-tool--arts .t-tool-ph { aspect-ratio: auto; height: 100%; }
+  .t-tool--arts .t-tool-ph::after { background: linear-gradient(90deg, transparent 55%, color-mix(in oklab, var(--surface) 85%, transparent) 100%); }
+  .t-tool--arts .t-tool-tx { justify-content: center; padding: 26px 30px 26px; }
+}
+@media (max-width: 1040px) { .t-tools { grid-template-areas: "reco reco" "pasa arts"; } }
+@media (max-width: 640px) { .t-tools { grid-template-areas: "reco" "pasa" "arts"; } }
+/* llamada al recomendador en las guías */
+.g-reco { margin: 22px auto 8px; max-width: 760px; padding: 22px 24px; text-align: center; }
+.g-reco .lbl { margin: 0 0 8px; color: var(--gold); font-size: .68rem; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; }
+.g-reco p:not(.lbl) { margin: 0 auto 14px; color: var(--ink-2); max-width: 60ch; }
+.g-reco p strong { color: var(--ink); }
+.wrap.ficha.como .blk p, .wrap.ficha.como .como-zonas li { text-align: center; }

@@ -94,3 +94,14 @@
   function idle() { (window.requestIdleCallback || function (f) { setTimeout(f, 1200); })(go, { timeout: 3000 }); }
   if (img.complete && document.readyState === 'complete') idle(); else window.addEventListener('load', idle, { once: true });
 })();
+
+// 05/10: el enlace al recomendador baja por debajo del desplegable de provincias cuando se abre (ver portada.css, --zl).
+(function () {
+  var d = document.querySelector('.t-hero details.zonas'), list = d && d.querySelector('.zonas-list'), reco = document.querySelector('.t-hero .t-reco');
+  if (!d || !list || !reco) return;
+  function medir() { if (!d.open) { reco.style.removeProperty('--zl'); return; }
+    var lr = list.getBoundingClientRect(), rr = reco.getBoundingClientRect(), t = rr.top - (d.open ? (parseFloat(reco.style.getPropertyValue('--zl')) || 0) : 0);
+    reco.style.setProperty('--zl', Math.max(0, Math.round(lr.bottom + 16 - t)) + 'px'); }
+  d.addEventListener('toggle', function () { requestAnimationFrame(medir); });
+  window.addEventListener('resize', function () { if (d.open) medir(); });
+})();
