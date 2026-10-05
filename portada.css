@@ -676,3 +676,11 @@ h1, h2, h3 { font-family: Michroma, sans-serif; font-weight: 400; letter-spacing
 /* 05/10: el desplegable de provincias abierto quedaba por debajo de «¿No sabéis cuál elegir?» (cada hijo de .hero-in
    anima opacidad y crea su propio contexto de apilamiento; el posterior pintaba encima). El desplegable va siempre delante. */
 .t-hero .zonas { z-index: 40; }
+
+/* 05/10 · Recomendador: municipios de la provincia (opcional) y duración */
+.reco-muni { margin-top: 16px; padding-top: 14px; border-top: 1px dashed var(--line-soft); }
+.reco-muni[hidden] { display: none; }
+.reco-sub { margin: 0; font-size: .86rem; color: var(--ink); font-weight: 700; }
+.reco-sub small { display: block; margin-top: 3px; font-weight: 500; font-size: .76rem; color: var(--ink-3); }
+.reco-chip small { margin-left: 4px; font-size: .74rem; font-weight: 500; opacity: .7; }
+.reco-more { border-style: dashed; }

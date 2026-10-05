@@ -2,19 +2,19 @@
 <html lang="es">
 <head>
 <title>Recomiéndame un escape room: cinco salas para vuestro grupo · GPS Escape</title>
-<meta name="description" content="Dinos dónde, cuántos sois, qué os gusta, cuánto queréis gastar y vuestro nivel: te proponemos cinco escape rooms con datos verificados y el porqué de cada uno." />
+<meta name="description" content="Dinos dónde, cuántos sois, cuánto queréis que dure, qué os gusta, cuánto queréis gastar y vuestro nivel: te proponemos cinco escape rooms con datos verificados y el porqué de cada uno." />
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="theme-color" content="#090b10" />
 <link rel="canonical" href="https://gpsescape.es/recomendador/" />
-<meta property="og:title" content="Recomiéndame un escape room: cinco salas para vuestro grupo · GPS Escape" /><meta property="og:description" content="Dinos dónde, cuántos sois, qué os gusta, cuánto queréis gastar y vuestro nivel: te proponemos cinco escape rooms con datos verificados y el porqué de cada uno." /><meta property="og:url" content="https://gpsescape.es/recomendador/" /><meta property="og:type" content="website" /><meta property="og:image" content="https://gpsescape.es/img/og.jpg" /><meta property="og:locale" content="es_ES" />
+<meta property="og:title" content="Recomiéndame un escape room: cinco salas para vuestro grupo · GPS Escape" /><meta property="og:description" content="Dinos dónde, cuántos sois, cuánto queréis que dure, qué os gusta, cuánto queréis gastar y vuestro nivel: te proponemos cinco escape rooms con datos verificados y el porqué de cada uno." /><meta property="og:url" content="https://gpsescape.es/recomendador/" /><meta property="og:type" content="website" /><meta property="og:image" content="https://gpsescape.es/img/og.jpg" /><meta property="og:locale" content="es_ES" />
 <link rel="icon" href="/favicon.ico" sizes="48x48" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="icon" href="/favicon-96.png" sizes="96x96" type="image/png" />
   <link rel="icon" href="/favicon-192.png" sizes="192x192" type="image/png" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 <link href="https://api.fontshare.com/v2/css?f%5B%5D=satoshi@400,500,700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="/portada.css?v=26" />
+<link rel="stylesheet" href="/portada.css?v=27" />
 <link rel="stylesheet" href="/fichas.css?v=13" />
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1814224275088721" crossorigin="anonymous"></script>
 </head>
@@ -51,21 +51,23 @@
 
   <div class="wrap ficha reco">
     <nav class="crumbs" aria-label="Estás en"><a href="/">GPS Escape</a><span>/</span><a href="/recomendador/">Recomendador</a></nav>
-    <header class="l-head"><p class="t-rule">Recomendador</p><h1>Recomiéndame un escape room</h1><p class="lead">Cinco preguntas y te proponemos cinco salas que encajan con vuestro grupo, con el porqué de cada una. Solo usamos los datos verificados de las fichas.</p></header>
+    <header class="l-head"><p class="t-rule">Recomendador</p><h1>Recomiéndame un escape room</h1><p class="lead">Seis preguntas y te proponemos cinco salas que encajan con vuestro grupo, con el porqué de cada una. Solo usamos los datos verificados de las fichas.</p></header>
     <form class="reco-form" id="reco">
       <fieldset><legend>¿Dónde queréis jugar?</legend><div class="reco-row"><button type="button" class="reco-chip" data-k="z" data-v="cerca" aria-pressed="false">Cerca de mí</button><button type="button" class="reco-chip" data-k="z" data-v="barcelona" aria-pressed="false">Barcelona</button><button type="button" class="reco-chip" data-k="z" data-v="valencia" aria-pressed="false">Valencia</button><button type="button" class="reco-chip" data-k="z" data-v="madrid" aria-pressed="false">Madrid</button><button type="button" class="reco-chip" data-k="z" data-v="alicante" aria-pressed="false">Alicante</button><button type="button" class="reco-chip" data-k="z" data-v="pais-vasco" aria-pressed="false">País Vasco</button><button type="button" class="reco-chip" data-k="z" data-v="sevilla" aria-pressed="false">Sevilla</button><button type="button" class="reco-chip" data-k="z" data-v="murcia" aria-pressed="false">Región de Murcia</button><button type="button" class="reco-chip" data-k="z" data-v="asturias" aria-pressed="false">Asturias</button></div>
         <div class="reco-row reco-km" hidden><button type="button" class="reco-chip" data-k="km" data-v="10" aria-pressed="false">Hasta 10 km</button><button type="button" class="reco-chip" data-k="km" data-v="25" aria-pressed="false">Hasta 25 km</button><button type="button" class="reco-chip" data-k="km" data-v="50" aria-pressed="false">Hasta 50 km</button></div>
+        <div class="reco-muni" id="recoMuni" hidden></div>
         <p class="reco-geo" id="recoGeo" role="status" aria-live="polite"></p></fieldset>
       <fieldset><legend>¿Cuántos sois?</legend><div class="reco-row"><button type="button" class="reco-chip" data-k="n" data-v="2" aria-pressed="false">2</button><button type="button" class="reco-chip" data-k="n" data-v="3" aria-pressed="false">3</button><button type="button" class="reco-chip" data-k="n" data-v="4" aria-pressed="false">4</button><button type="button" class="reco-chip" data-k="n" data-v="5" aria-pressed="false">5</button><button type="button" class="reco-chip" data-k="n" data-v="6" aria-pressed="false">6 o más</button></div></fieldset>
+      <fieldset><legend>¿Cuánto queréis que dure?</legend><div class="reco-row"><button type="button" class="reco-chip" data-k="d" data-v="0" aria-pressed="false">Me da igual</button><button type="button" class="reco-chip" data-k="d" data-v="60" aria-pressed="false">Una hora o menos</button><button type="button" class="reco-chip" data-k="d" data-v="75" aria-pressed="false">Hasta 75 min</button><button type="button" class="reco-chip" data-k="d" data-v="90" aria-pressed="false">Hasta hora y media</button><button type="button" class="reco-chip" data-k="d" data-v="91" aria-pressed="false">Más de hora y media</button></div></fieldset>
       <fieldset><legend>¿Qué buscáis? <small>Podéis marcar varias</small></legend><div class="reco-row"><button type="button" class="reco-chip" data-k="c" data-v="" aria-pressed="false">Me da igual</button><button type="button" class="reco-chip" data-k="c" data-v="Terror" aria-pressed="false">Terror</button><button type="button" class="reco-chip" data-k="c" data-v="Aventura" aria-pressed="false">Aventura</button><button type="button" class="reco-chip" data-k="c" data-v="Thriller/Misterio" aria-pressed="false">Thriller y misterio</button><button type="button" class="reco-chip" data-k="c" data-v="Ciencia ficción" aria-pressed="false">Ciencia ficción</button><button type="button" class="reco-chip" data-k="c" data-v="Histórico" aria-pressed="false">Histórico</button><button type="button" class="reco-chip" data-k="c" data-v="Fantasía" aria-pressed="false">Fantasía</button><button type="button" class="reco-chip" data-k="c" data-v="Humor" aria-pressed="false">Humor</button><button type="button" class="reco-chip" data-k="c" data-v="Infantil" aria-pressed="false">Infantil y familias</button></div></fieldset>
-      <fieldset><legend>¿Cuánto queréis gastar por persona? <small>Precio por persona en grupo de 4</small></legend><div class="reco-row"><button type="button" class="reco-chip" data-k="p" data-v="0" aria-pressed="false">Me da igual</button><button type="button" class="reco-chip" data-k="p" data-v="20" aria-pressed="false">Hasta 20 €</button><button type="button" class="reco-chip" data-k="p" data-v="25" aria-pressed="false">Hasta 25 €</button><button type="button" class="reco-chip" data-k="p" data-v="30" aria-pressed="false">Hasta 30 €</button></div></fieldset>
+      <fieldset><legend>¿Cuánto queréis gastar por persona? <small>Precio por persona en grupo de 4</small></legend><div class="reco-row"><button type="button" class="reco-chip" data-k="p" data-v="20" aria-pressed="false">Hasta 20 €</button><button type="button" class="reco-chip" data-k="p" data-v="25" aria-pressed="false">Hasta 25 €</button><button type="button" class="reco-chip" data-k="p" data-v="30" aria-pressed="false">Hasta 30 €</button><button type="button" class="reco-chip" data-k="p" data-v="0" aria-pressed="false">Más de 30 €</button></div></fieldset>
       <fieldset><legend>¿Qué nivel tenéis?</legend><div class="reco-row"><button type="button" class="reco-chip" data-k="l" data-v="prin" aria-pressed="false">Principiantes</button><button type="button" class="reco-chip" data-k="l" data-v="hab" aria-pressed="false">Jugadores habituales</button><button type="button" class="reco-chip" data-k="l" data-v="exp" aria-pressed="false">Expertos</button></div></fieldset>
       <p class="reco-go"><button class="btn" type="submit">Dame 5 opciones <span aria-hidden="true">→</span></button></p>
-      <p class="note reco-nota">Las salas sin dato de jugadores no entran. Con presupuesto, solo las que publican precio. Para principiantes, dificultad media o inferior y sin terror, salvo que lo marquéis.</p>
+      <p class="note reco-nota">Las salas sin dato de jugadores no entran. Con un tope de precio, solo las que lo publican; «Más de 30 €» no pone tope. Con duración, solo las que la publican. Para principiantes, dificultad media o inferior y sin terror, salvo que lo marquéis.</p>
     </form>
     <section class="reco-out" id="recoOut" aria-live="polite" hidden></section>
   </div>
-  <script defer src="/recomendador/salas.js?v=934bb3ac"></script><script defer src="/recomendador.js?v=1e492880"></script>
+  <script defer src="/recomendador/salas.js?v=934bb3ac"></script><script defer src="/recomendador.js?v=afaaab85"></script>
 </main>
 <footer class="foot t-foot">
   <div class="wrap t-foot-cols t-rise">
