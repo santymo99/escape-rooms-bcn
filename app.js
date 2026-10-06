@@ -751,7 +751,7 @@
     render(); // el ranking no depende del mapa: si las teselas fallan, la lista sigue estando
     // ?sala=<id> desde las fichas estáticas: abre la sala y centra el mapa
     const qsala = qs.get('sala'); if (qsala && state.rooms.some(r => r.id === qsala)) setTimeout(() => select(qsala, true), 400);
-    try { initMap(); } catch (e) { console.error(e); const k = $('#sk'); if (k) k.innerHTML = '<div class="sk-inner">No se ha podido cargar el mapa. El ranking sigue disponible en la pestaña Ranking.</div>'; }
+    try { initMap(); } catch (e) { console.error(e); const k = $('#sk'); if (k) k.innerHTML = '<div class="sk-inner">No se ha podido cargar el mapa. El ranking sigue disponible en la pestaña Ranking.</div>'; try { setView('list'); } catch (_) {} }
     // red de seguridad: si el mapa no emite 'load' (teselas bloqueadas o sin WebGL)
     setTimeout(() => { if (!state.markers.size && state.map) { $('#sk')?.remove(); try { buildMarkers(); } catch (e) { console.error(e); } } }, 9000);
   }).catch(err => {
