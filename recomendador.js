@@ -8,15 +8,21 @@
   var CAT = { 'Terror': 'de terror', 'Aventura': 'de aventura', 'Thriller/Misterio': 'de thriller y misterio', 'Ciencia ficción': 'de ciencia ficción',
     'Histórico': 'histórica', 'Fantasía': 'de fantasía', 'Humor': 'de humor', 'Infantil': 'infantil' };
   var FACIL = ['Baja', 'Media-Baja', 'Media', 'Adaptable'], DIFICIL = ['Media-Alta', 'Alta', 'Muy alta'];
-  var S = { z: '', km: 25, n: 4, d: 0, m: [], c: [], p: 0, l: 'hab', me: null }, verTodos = false;
+  var S = { z: '', km: 25, n: 4, d: [], m: [], c: [], p: [], l: 'hab', me: null }, verTodos = false;
   var form = document.getElementById('reco'), out = document.getElementById('recoOut'), geoMsg = document.getElementById('recoGeo');
   if (!form || !out) return;
   var q = new URLSearchParams(location.search);
   if (q.get('z') && Z[q.get('z')]) S.z = q.get('z');
   if (q.get('n')) S.n = Math.max(2, Math.min(6, +q.get('n') || 4));
   if (q.get('c')) S.c = q.get('c').split(',').filter(function (c) { return CAT[c]; });
-  if (q.get('p')) S.p = +q.get('p') || 0;
-  if ([60, 75, 90, 91].indexOf(+q.get('d')) >= 0) S.d = +q.get('d');
+  // 06/10 (usuario): duración y precio por tramos, con varias respuestas a la vez. «du» y «pr» = tramos separados por «|»;
+  // «d» y «p» (enlaces del 05/10, un solo tope) se traducen a los tramos que cubría ese tope.
+  var TD = [60, 75, 90, 91], TP = [20, 25, 30, 31];
+  function lista(x, T) { return (x || '').split('|').map(Number).filter(function (v, i, a) { return T.indexOf(v) >= 0 && a.indexOf(v) === i; }); }
+  if (q.get('du')) S.d = lista(q.get('du'), TD); else if (+q.get('d')) S.d = +q.get('d') === 91 ? [91] : TD.filter(function (v) { return v <= +q.get('d') && v < 91; });
+  if (q.get('pr')) S.p = lista(q.get('pr'), TP); else if (+q.get('p')) S.p = TP.filter(function (v) { return v <= +q.get('p'); });
+  function tD(m) { return m <= 60 ? 60 : m <= 75 ? 75 : m <= 90 ? 90 : 91; }
+  function tP(e) { return e <= 20 ? 20 : e <= 25 ? 25 : e <= 30 ? 30 : 31; }
   if (q.get('m') && S.z) S.m = q.get('m').split('|').filter(function (m) { return D.salas.some(function (s) { return s.z === S.z && s.m === m; }); });
   if (['prin', 'hab', 'exp'].indexOf(q.get('l')) >= 0) S.l = q.get('l');
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
@@ -26,6 +32,7 @@
       var k = b.dataset.k, v = b.dataset.v, on;
       if (k === 'z') on = S.z === v;
       else if (k === 'c') on = v === '' ? S.c.length === 0 : S.c.indexOf(v) >= 0;
+      else if (k === 'd' || k === 'p') on = v === '' ? S[k].length === 0 : S[k].indexOf(+v) >= 0;
       else on = String(S[k]) === v;
       b.setAttribute('aria-pressed', String(on));
     });
@@ -59,9 +66,9 @@
       if (s.a == null || s.b == null) return;
       if (st.n >= 6 ? s.b < 6 : (st.n < s.a || st.n > s.b)) return;
       if (st.m.length && st.m.indexOf(s.m) < 0) return;
-      if (st.d === 91 ? (!s.d || s.d <= 90) : (st.d && (!s.d || s.d > st.d))) return;
+      if (st.d.length && (!s.d || st.d.indexOf(tD(s.d)) < 0)) return;
       if (st.c.length && st.c.indexOf(s.c) < 0) return;
-      if (st.p && (s.p == null || s.p > st.p)) return;
+      if (st.p.length && (s.p == null || st.p.indexOf(tP(s.p)) < 0)) return;
       if (st.l === 'prin') { if (FACIL.indexOf(s.f) < 0) return; if (s.c === 'Terror' && st.c.indexOf('Terror') < 0) return; }
       if (st.l === 'exp' && (s.f === 'Baja' || s.f === 'Media-Baja')) return;
       var sc = s.r ? 1 - (s.r - 1) / Z[s.z].t * 0.7 : 0.15;
@@ -79,9 +86,9 @@
     var s = o.s, w = [], z = Z[s.z];
     w.push(st.n >= 6 ? 'Admite hasta ' + s.b + ' jugadores: os vale si sois 6 o más.' : 'Admite de ' + s.a + ' a ' + s.b + ' jugadores: sois ' + st.n + ', encaja.');
     if (st.m.length) w.push('Está en ' + s.m + ', uno de los sitios que marcasteis.');
-    if (st.d) w.push('Dura ' + s.d + ' minutos, lo que queríais.');
+    if (st.d.length) w.push('Dura ' + s.d + ' minutos, lo que queríais.');
     if (st.c.length) w.push('Es una sala ' + CAT[s.c] + ', lo que buscáis.');
-    if (s.p != null) w.push(eur(s.p) + ' por persona en grupo de ' + (s.q || 4) + (st.p ? ', dentro de vuestro presupuesto.' : '.'));
+    if (s.p != null) w.push(eur(s.p) + ' por persona en grupo de ' + (s.q || 4) + (st.p.length ? ', dentro de vuestro presupuesto.' : '.'));
     if (st.l === 'prin') w.push('Dificultad ' + s.f.toLowerCase() + (s.d && s.d <= 75 ? ' y ' + s.d + ' minutos' : '') + ': buena para empezar.');
     else if (st.l === 'exp' && DIFICIL.indexOf(s.f) >= 0) w.push('Dificultad ' + s.f.toLowerCase() + ': para equipos con experiencia.');
     else if (s.f) w.push('Dificultad ' + s.f.toLowerCase() + '.');
@@ -93,8 +100,8 @@
   function relax(st) {
     var r = [];
     if (st.m.length) r.push(['m', [], 'Toda la provincia']);
-    if (st.d) r.push(['d', 0, 'Cualquier duración']);
-    if (st.p) r.push(['p', 0, 'Sin límite de presupuesto']);
+    if (st.d.length) r.push(['d', [], 'Cualquier duración']);
+    if (st.p.length) r.push(['p', [], 'Cualquier precio']);
     if (st.c.length) r.push(['c', [], 'Cualquier temática']);
     if (st.l !== 'hab') r.push(['l', 'hab', 'Nivel: jugadores habituales']);
     if (st.z === 'cerca' && st.km < 50) r.push(['km', 50, 'Hasta 50 km']);
@@ -102,7 +109,7 @@
   }
   function run(scroll) {
     if (S.z === 'cerca' && !S.me) { geoMsg.textContent = 'Primero necesito tu ubicación: pulsa «Cerca de mí» y acepta el permiso.'; return; }
-    var p = new URLSearchParams(); if (S.z && S.z !== 'cerca') p.set('z', S.z); p.set('n', S.n); if (S.m.length && S.z !== 'cerca') p.set('m', S.m.join('|')); if (S.d) p.set('d', S.d); if (S.c.length) p.set('c', S.c.join(',')); if (S.p) p.set('p', S.p); p.set('l', S.l);
+    var p = new URLSearchParams(); if (S.z && S.z !== 'cerca') p.set('z', S.z); p.set('n', S.n); if (S.m.length && S.z !== 'cerca') p.set('m', S.m.join('|')); if (S.d.length) p.set('du', S.d.join('|')); if (S.c.length) p.set('c', S.c.join(',')); if (S.p.length) p.set('pr', S.p.join('|')); p.set('l', S.l);
     history.replaceState(null, '', location.pathname + '?' + p.toString());
     var R = pick(S), h = '', rl = relax(S);
     if (!R.res.length) h = '<div class="reco-head"><p class="t-rule">Sin resultados</p><h2>Ninguna sala cumple todo a la vez</h2><p class="note">Prueba a soltar alguna condición:</p>';
@@ -123,7 +130,7 @@
     h += '</ol>';
     if (R.res.length) h += '<p class="reco-share"><button type="button" class="reco-chip" id="recoShare">Copiar el enlace de esta recomendación</button></p>';
     out.innerHTML = h; out.hidden = false;
-    out.querySelectorAll('[data-relax]').forEach(function (b) { b.onclick = function () { var x = rl[+b.dataset.relax]; S[x[0]] = x[1]; paint(); run(true); }; });
+    out.querySelectorAll('[data-relax]').forEach(function (b) { b.onclick = function () { var x = rl[+b.dataset.relax]; S[x[0]] = Array.isArray(x[1]) ? x[1].slice() : x[1]; paint(); run(true); }; });
     var sh = document.getElementById('recoShare'); if (sh) sh.onclick = function () { var u = location.href; (navigator.clipboard ? navigator.clipboard.writeText(u) : Promise.reject()).then(function () { sh.textContent = 'Enlace copiado'; }, function () { window.prompt('Copia este enlace:', u); }); };
     if (scroll) out.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
   }
@@ -143,6 +150,7 @@
     }
     if (k === 'z') { S.z = S.z === v ? '' : v; S.m = []; verTodos = false; geoMsg.textContent = ''; munis(); }
     else if (k === 'c') { if (v === '') S.c = []; else { var i = S.c.indexOf(v); i >= 0 ? S.c.splice(i, 1) : S.c.push(v); } }
+    else if (k === 'd' || k === 'p') { if (v === '') S[k] = []; else { var t = S[k].indexOf(+v); t >= 0 ? S[k].splice(t, 1) : S[k].push(+v); } }
     else S[k] = (k === 'l') ? v : +v;
     paint();
   });
