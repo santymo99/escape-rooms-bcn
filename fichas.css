@@ -191,3 +191,8 @@
 
 /* 06/10: el rótulo «Ranking» de los listados quedaba descentrado (heredaba el ancho máximo de los párrafos) */
 .pg-lee .blk > .t-rule { max-width: none; margin-inline: auto; }
+
+/* 06/10 — novedades */
+.nov-list { list-style: none; padding: 0; margin: 14px auto 0; max-width: 760px; display: grid; gap: 8px; color: var(--ink-2); }
+.nov-list li { padding: 10px 14px; border: 1px solid var(--line-soft); border-radius: 12px; }
+.nov .zsec-sub { text-align: center; margin-top: 26px; }
