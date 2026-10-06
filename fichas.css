@@ -177,3 +177,17 @@
 /* 05/10: el pie «Imagen ilustrativa…» quedaba pegado al puesto (la regla .f-cap, posterior, anulaba el margen inferior) */
 .f-cap.f-cap--ficha { margin: -12px 2px 26px; }
 @media (max-width: 560px) { .f-cap.f-cap--ficha { margin: -14px 2px 20px; } }
+
+/* 06/10 — huecos de anuncios (opción A). Altura reservada para que la página no salte al cargar el anuncio; si AdSense no
+   tiene anuncio para el hueco (data-ad-status="unfilled"), el hueco desaparece. Solo existen con ADS_SLOT en build_pages. */
+.ad-slot { margin: 44px auto; max-width: 760px; min-height: 290px; display: flex; flex-direction: column; gap: 8px; }
+.ad-slot .ad-lbl { margin: 0; text-align: center; font-size: .7rem; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-3); }
+.ad-slot ins { display: block; min-height: 250px; }
+.ad-slot:has(ins[data-ad-status="unfilled"]) { display: none; }
+.cards + .ad-slot + .cards { margin-top: 0; }
+@media (max-width: 640px) { .ad-slot { margin: 32px auto; min-height: 280px; } }
+.pg-ficha .ad-slot { margin-inline: 0; max-width: 728px; }
+.pg-ficha .ad-slot .ad-lbl { text-align: left; }
+
+/* 06/10: el rótulo «Ranking» de los listados quedaba descentrado (heredaba el ancho máximo de los párrafos) */
+.pg-lee .blk > .t-rule { max-width: none; margin-inline: auto; }
