@@ -196,3 +196,8 @@
 .nov-list { list-style: none; padding: 0; margin: 14px auto 0; max-width: 760px; display: grid; gap: 8px; color: var(--ink-2); }
 .nov-list li { padding: 10px 14px; border: 1px solid var(--line-soft); border-radius: 12px; }
 .nov .zsec-sub { text-align: center; margin-top: 26px; }
+
+/* 07/10 — Quiénes somos: texto largo, alineado a la izquierda para leerse bien */
+.pg-qs .blk p { text-align: left; max-width: 66ch; margin: 0 auto 1em; }
+.pg-qs .blk p:last-child { margin-bottom: 0; }
+body.pg-qs .wrap.ficha .blk > p { text-align: left; }
