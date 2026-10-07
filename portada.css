@@ -891,3 +891,9 @@ h1, h2, h3 { font-family: Michroma, sans-serif; font-weight: 400; letter-spacing
 .pg-reco .reco-form legend::before { vertical-align: middle; margin: 0 10px 3px 0; }
 .pg-reco .reco-row { margin-top: 14px; }
 .pg-reco .reco-go { margin-top: 10px; }
+/* 07/10: con 10 zonas, en escritorio el desplegable se ensancha para que cada zona quepa en una línea y la lista no crezca hacia abajo */
+@media (min-width: 861px) {
+  .t-hero .zonas-list:has(li:nth-child(7)) { width: min(calc(100vw - 32px), 720px); left: calc(50% - min(calc(100vw - 32px), 720px) / 2); grid-template-columns: 1fr 1fr; }
+  .t-hero .zonas-list:has(li:nth-child(7)) a { padding: 10px 12px; min-height: 0; }
+  .t-hero .zonas-list:has(li:nth-child(7)) small { white-space: nowrap; }
+}
