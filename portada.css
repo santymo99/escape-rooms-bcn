@@ -961,3 +961,19 @@ h1, h2, h3 { font-family: Michroma, sans-serif; font-weight: 400; letter-spacing
 @media (prefers-reduced-motion: reduce) { .n-art img, .n-pola, .n-pass-cover { transition: none; } }
 .n-pass-cover { padding-bottom: 22px; } .n-pass-sello { right: -32px; bottom: -30px; }
 @media (max-width: 560px) { .n-pass-cover { padding-bottom: 18px; } .n-pass-sello { right: -24px; bottom: -24px; } }
+/* 07/10 (noche, 4): más vida en «¿Dónde queréis jugar?» (pin, ruta y chinchetas) y «Quiénes somos» bajo la firma */
+.n-reco-q { display: flex; align-items: center; gap: 16px; }
+.n-pin { flex: none; display: grid; place-items: center; width: 54px; height: 54px; border-radius: 50%; background: rgba(225,175,74,.16); border: 1px solid rgba(225,175,74,.5); color: var(--gold); box-shadow: 0 0 22px rgba(225,175,74,.18); }
+.n-pin svg { width: 26px; height: 26px; transition: transform .3s cubic-bezier(.23,1,.32,1); }
+.n-reco:hover .n-pin svg { transform: translateY(-3px); }
+.n-ruta { flex: none; width: 92px; height: 46px; margin-left: auto; color: rgba(225,175,74,.75); }
+.n-reco-z a { display: inline-flex; align-items: center; gap: 7px; }
+.n-reco-z a::before { content: ""; width: 12px; height: 12px; background: currentColor; opacity: .85;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 22s7-7.2 7-12.5A7 7 0 0 0 5 9.5C5 14.8 12 22 12 22z'/%3E%3C/svg%3E") center / contain no-repeat;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 22s7-7.2 7-12.5A7 7 0 0 0 5 9.5C5 14.8 12 22 12 22z'/%3E%3C/svg%3E") center / contain no-repeat; }
+.n-yo-tx { display: flex; flex-direction: column; }
+.n-yo-tx .n-qs { align-self: flex-end; margin-top: 28px; }
+@media (max-width: 860px) { .n-ruta { display: none; } }
+@media (max-width: 560px) { .n-pin { width: 44px; height: 44px; } .n-pin svg { width: 22px; height: 22px; } .n-yo-tx .n-qs { margin-top: 20px; } }
+@media (prefers-reduced-motion: reduce) { .n-pin svg { transition: none; } }
+@media (min-width: 861px) { .n-reco { grid-template-columns: minmax(0, .95fr) minmax(0, 1.65fr); gap: 22px 36px; } .n-ruta { width: 70px; height: 36px; } }
