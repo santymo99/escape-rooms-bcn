@@ -22,7 +22,7 @@
 <link rel="preload" as="image" media="(min-width: 641px)" href="/img/portada.webp" imagesrcset="/img/portada-640.webp 640w, /img/portada.webp 1280w, /img/portada-1920.webp 1920w, /img/portada-2560.webp 2560w" imagesizes="100vw" />
 <link rel="preload" as="image" media="(max-width: 640px)" href="/img/portada-movil.webp" imagesrcset="/img/portada-movil-480.webp 480w, /img/portada-movil.webp 688w" imagesizes="100vw" />
 <link rel="preload" href="/fonts/michroma-latin.woff2" as="font" type="font/woff2" crossorigin />
-<link rel="stylesheet" href="/portada.css?v=37" />
+<link rel="stylesheet" href="/portada.css?v=38" />
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1814224275088721" crossorigin="anonymous"></script>
 <script type="application/ld+json">[
  {
@@ -174,39 +174,43 @@
   <section class="sec t-sec" id="herramientas" aria-labelledby="h-herr">
     <div class="wrap">
       <div class="t-head t-rise">
-        <p class="t-rule">Tu próxima sala</p>
-        <h2 id="h-herr">Decide la siguiente <span>y apunta las que ya has jugado</span></h2>
+        <p class="t-rule">Recomiéndame</p>
+        <h2 id="h-herr">¿No sabéis a cuál ir? <span>Os ayudamos a elegir</span></h2>
       </div>
-      <div class="t-tools">
-        <article class="t-frame t-tool t-tool--reco t-rise"><div class="t-tool-ph" aria-hidden="true"><img src="/img/herr/reco-640.webp" srcset="/img/herr/reco-640.webp 640w, /img/herr/reco.webp 1280w" sizes="(min-width: 1041px) 400px, 100vw" alt="" width="1280" height="716" loading="lazy" decoding="async" /></div><div class="t-tool-tx">
-          <p class="lbl">Recomiéndame</p>
-          <h3><a href="/recomendador/">Seis preguntas y cinco salas para vuestro grupo</a></h3>
-          <p>Dónde, cuántos sois, cuánto queréis que dure, qué os gusta, cuánto gastar y vuestro nivel. Cada propuesta explica por qué encaja.</p>
-          <ul class="t-tool-chips" aria-hidden="true"><li>¿Dónde?</li><li class="on">4 jugadores</li><li>Una hora</li><li class="on">Terror</li><li>Hasta 25 €</li><li>Principiantes</li></ul>
-          <span class="t-tool-go" aria-hidden="true">Empezar las preguntas →</span>
-        </div></article>
-        <article class="t-frame t-tool t-tool--pasa t-rise"><div class="t-tool-ph" aria-hidden="true"><img src="/img/herr/pasa-640.webp" srcset="/img/herr/pasa-640.webp 640w, /img/herr/pasa.webp 1280w" sizes="(min-width: 1041px) 380px, 100vw" alt="" width="1280" height="716" loading="lazy" decoding="async" /></div><div class="t-tool-tx">
-          <p class="lbl">Mi pasaporte</p>
-          <h3><a href="/pasaporte/">Lleva la cuenta de las salas que has jugado</a></h3>
-          <p>Marca «Ya la he jugado» en cada ficha y mira cuántas llevas de cada provincia y cuántas del top 10. Sin registro.</p>
-          <div class="t-tool-sellos" aria-hidden="true"><span class="on">1</span><span class="on">5</span><span class="on">10</span><span>25</span><span>50</span></div>
-          <span class="t-tool-go" aria-hidden="true">Ver mi pasaporte →</span>
-        </div></article>
-        <article class="t-frame t-tool t-tool--arts t-rise"><div class="t-tool-ph" aria-hidden="true"><img src="/img/herr/arts-640.webp?v=2" srcset="/img/herr/arts-640.webp?v=2 640w, /img/herr/arts.webp?v=2 1280w" sizes="(min-width: 1041px) 380px, (min-width: 641px) 50vw, 100vw" alt="" width="1280" height="716" loading="lazy" decoding="async" /></div><div class="t-tool-tx">
-          <p class="lbl">Artículos</p>
-          <h3><a href="/articulos/">Salas jugadas y contadas en primera persona</a></h3>
-          <p>La más inmersiva, la ideal para principiantes, la más emotiva y la mejor para competir con amigos, sin destripar nada.</p>
-          <span class="t-tool-go" aria-hidden="true">Leer los artículos →</span>
-        </div></article>
+      <div class="n-reco t-rise">
+        <div class="n-reco-q"><h3>¿Dónde queréis jugar?</h3></div>
+        <nav class="n-reco-z" aria-label="Empezar el recomendador por provincia"><!--RECOZ--><a href="/recomendador/?z=barcelona">Barcelona</a><a href="/recomendador/?z=valencia">Valencia</a><a href="/recomendador/?z=madrid">Madrid</a><a href="/recomendador/?z=alicante">Alicante</a><a href="/recomendador/?z=pais-vasco">País Vasco</a><a href="/recomendador/?z=sevilla">Sevilla</a><a href="/recomendador/?z=murcia">Murcia</a><a href="/recomendador/?z=asturias">Asturias</a><a href="/recomendador/?z=aragon">Aragón</a><a href="/recomendador/?z=malaga">Málaga</a><!--/RECOZ--></nav>
       </div>
-      <div class="t-stats" aria-label="Cifras de los mapas">
-        <div class="t-frame t-rise"><b data-stat="salas">846</b><span>salas abiertas</span></div>
-        <div class="t-frame t-rise"><b data-stat="puntuadas">390</b><span>salas en el ranking</span></div>
-        <div class="t-frame t-rise"><b>8</b><span>categorías</span></div>
-        <div class="t-frame t-rise"><b data-stat="municipios">99</b><span>municipios<br />en <b class="stat-in" data-stat="nprov">14</b> provincias</span></div>
+      <div class="n-arts">
+        <div class="n-arts-h t-rise"><h3>Artículos: nuestra experiencia</h3><a href="/articulos/">Todos los artículos <span aria-hidden="true">→</span></a></div>
+        <div class="n-arts-l"><!--ARTS--><a class="n-art" href="/articulos/diamante-de-almas-terror-stories-madrid-juega-antes-la-primera-parte/"><img src="/img/salas/terror-stories-sambara-diamante-de-almas-640.webp" alt="" width="640" height="360" loading="lazy" /><span class="n-art-m">Por Adri · Madrid</span><span class="n-art-t">Diamante de Almas: por qué conviene jugar antes la primera parte</span></a><a class="n-art" href="/articulos/11s-open-mind-el-escape-room-homenaje/"><img src="/img/salas/jug-open-mind-11s-640.webp" alt="" width="640" height="360" loading="lazy" /><span class="n-art-m">Por Santi · Cornellà de Llobregat</span><span class="n-art-t">El escape room que acaba en homenaje</span></a><a class="n-art" href="/articulos/elements-esplugues-kemet-y-katrina/"><img src="/img/salas/jug-elements-misterios-de-kemet-640.webp" alt="" width="640" height="360" loading="lazy" /><span class="n-art-m">Por Santi · Esplugues de Llobregat</span><span class="n-art-t">El local mejor aprovechado de Barcelona: dos salas de sobresaliente bajo el mismo techo</span></a><a class="n-art" href="/articulos/hotel-hello-competir-con-amigos/"><img src="/img/salas/jug-brutal-hotel-hello-640.webp" alt="" width="640" height="360" loading="lazy" /><span class="n-art-m">Por Santi · Cornellà de Llobregat</span><span class="n-art-t">El escape room ideal para competir con tus amigos</span></a><!--/ARTS--></div>
       </div>
-      <p class="t-como t-rise">Revisamos cada sala a mano y solo publicamos las que siguen abiertas. <a href="/como-puntuamos/">Cómo puntuamos</a></p>
+      <div class="n-duo t-rise">
+        <figure class="n-yo">
+          <div class="n-yo-foto"><a class="n-pola" href="/quienes-somos/" tabindex="-1" aria-hidden="true"><img src="/img/qs/mapa-640.webp" alt="" width="640" height="640" loading="lazy" /><span>El mapa de Barcelona</span></a><a class="n-qs" href="/quienes-somos/">Quiénes somos <span aria-hidden="true">→</span></a></div>
+          <blockquote class="n-cita"><p>«Todo empezó con un mapa que me hice para mí, para llevar la cuenta de las salas que había jugado y situar las que me faltaban.»</p><figcaption class="n-firma">Santi</figcaption></blockquote>
+        </figure>
+        <a class="n-pass" href="/pasaporte/">
+          <span class="n-pass-cover" aria-hidden="true"><svg class="n-pass-emb" viewBox="0 0 64 64" aria-hidden="true">
+      <defs>
+        <linearGradient id="tg-gold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6d27a"/><stop offset=".55" stop-color="#e1af4a"/><stop offset="1" stop-color="#b9862a"/></linearGradient>
+        <linearGradient id="tg-gold2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#c9973a"/><stop offset="1" stop-color="#8d6520"/></linearGradient>
+      </defs>
+      <circle cx="32" cy="32" r="27.5" fill="none" stroke="url(#tg-gold)" stroke-width="2.4"/>
+      <circle cx="32" cy="32" r="22.5" fill="none" stroke="#e1af4a" stroke-opacity=".45" stroke-width="1"/>
+      <g stroke="#e1af4a" stroke-width="1.6" stroke-linecap="round" opacity=".9"><path d="M32 6.5v3M32 54.5v3M6.5 32h3M54.5 32h3"/><path d="M13.9 13.9l2.1 2.1M50.1 13.9l-2.1 2.1M13.9 50.1l2.1-2.1M50.1 50.1l-2.1-2.1" stroke-width="1.3" opacity=".7"/></g>
+      <path fill="url(#tg-gold2)" d="M32 15.5 35.2 28.8 32 27.3 28.8 28.8ZM48.5 32 35.2 35.2 36.7 32 35.2 28.8ZM32 48.5 28.8 35.2 32 36.7 35.2 35.2ZM15.5 32 28.8 28.8 27.3 32 28.8 35.2Z" transform="rotate(45 32 32)"/>
+      <path fill="url(#tg-gold)" d="M32 9.5 36 29 32 27 28 29ZM54.5 32 35 36 37 32 35 28ZM32 54.5 28 35 32 37 36 35ZM9.5 32 29 28 27 32 29 36Z"/>
+      <circle cx="32" cy="32" r="8.6" fill="url(#tg-gold)"/>
+      <circle class="lg-cut" cx="32" cy="29.6" r="2.9"/>
+      <path class="lg-cut" d="M30.7 31.6 29.4 37.4h5.2l-1.3-5.8Z"/>
+    </svg><b>Pasaporte</b><small>GPS Escape</small><i class="n-pass-sello" id="n-pass-sello">Tu primer sello</i></span>
+          <span class="n-pass-tx"><strong>Tu pasaporte de escapista</strong><span id="n-pass-t">Marca las salas que has jugado y mira cuántas te faltan del top de tu provincia. Sin registro.</span><em>Abrir mi pasaporte <span aria-hidden="true">→</span></em></span>
+        </a>
+      </div>
+      <p class="t-como t-rise"><span data-stat="salas">846</span> salas abiertas en <span data-stat="munitxt">casi 100</span> municipios, revisadas a mano una a una. <a href="/como-puntuamos/">Cómo puntuamos</a></p>
     </div>
+    <script>try{var n=JSON.parse(localStorage.getItem('gps-done')||'[]').length;if(n){document.getElementById('n-pass-t').textContent='Llevas '+n+(n===1?' sala marcada':' salas marcadas')+'. Mira cuántas te faltan del top de tu provincia.';document.getElementById('n-pass-sello').textContent=n+(n===1?' sala':' salas');}}catch(e){}</script>
   </section>
 </main>
 
