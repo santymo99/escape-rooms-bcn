@@ -122,7 +122,7 @@
       h += '<li class="reco-card" style="--i:' + i + ';--c:var(' + s.v + ')"><a class="reco-img" href="' + s.u + '" tabindex="-1" aria-hidden="true"><img src="' + s.img + '" alt="" loading="lazy" decoding="async" /></a>' +
         '<div class="reco-body"><p class="reco-n" aria-hidden="true">' + (i + 1) + '</p><h3><a href="' + s.u + '">' + esc(s.s) + '</a></h3>' +
         '<p class="reco-meta">' + esc(s.l) + ' · ' + esc(s.m) + '</p>' +
-        '<p class="reco-facts"><span class="reco-cat">' + esc(s.c) + '</span>' + (s.d ? '<span>' + s.d + ' min</span>' : '') + '<span>' + s.a + '–' + s.b + ' jugadores</span>' +
+        '<p class="reco-facts"><span class="reco-cat">' + esc(s.c) + '</span>' + (s.d ? '<span>' + s.d + ' min</span>' : '') + '<span>' + (s.a === s.b ? s.a : s.a + ' a ' + s.b) + ' jugadores</span>' +
         (s.p != null ? '<span>' + eur(s.p) + '/persona</span>' : '') + (s.r ? '<span class="reco-rank">N.º ' + s.r + ' ' + esc(z.de) + '</span>' : '') + '</p>' +
         '<p class="reco-why-t">Por qué te la recomiendo</p><ul class="reco-why">' + why(o, S).map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul>' +
         '<p class="reco-act"><a class="btn" href="' + s.u + '">Ver la ficha</a>' + (s.w ? '<a class="btn btn--ghost" href="' + esc(s.w) + '" rel="noopener nofollow" target="_blank">Reservar en su web <span aria-hidden="true">↗</span></a>' : '') + '</p></div></li>';

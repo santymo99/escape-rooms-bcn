@@ -432,7 +432,7 @@
     const facts = [
       `<span><b>${rooms.length}</b> ${rooms.length === 1 ? 'sala' : 'salas'}</span>`,
       ranked.length ? `<span>Mejor puesto <b>nº ${Math.min(...ranked)}</b></span>` : '',
-      jug ? `<span><b>${jug[0] === jug[1] ? jug[0] : `${jug[0]}-${jug[1]}`}</b> jugadores</span>` : '',
+      jug ? `<span><b>${jug[0] === jug[1] ? jug[0] : `${jug[0]} a ${jug[1]}`}</b> jugadores</span>` : '',
       pp ? `<span><b>${pp[0] === pp[1] ? priceNum(pp[0]) : `${priceNum(pp[0])}-${priceNum(pp[1])}`} €</b> por persona</span>` : ''
     ].filter(Boolean).join('');
     return `
@@ -510,7 +510,7 @@
     return `
       <div class="d-eyebrow">
         <span class="d-rank${!r.rank ? ' is-plain' : ''}" style="--mk:${catVar(r.cat)}">${r.rank || '·'}</span>
-        <span class="pill pill--cat" style="--mk:${catVar(r.cat)}">${esc(r.cat || '—')}</span>
+        <span class="pill pill--cat" style="--mk:${catVar(r.cat)}">${esc(r.cat || 'Sin datos')}</span>
 
         ${!hasPos(r) ? pill('Ubicación no confirmada', 'pill--warn') : ''}
       </div>
