@@ -221,3 +221,25 @@ body.pg-qs .wrap.ficha .blk > p { text-align: left; }
 @media (max-width: 560px) { .qs-polas { gap: 14px; } .qs-pola { width: calc(50% - 14px); padding: 7px 7px 10px; } }
 @media (prefers-reduced-motion: reduce) { .qs-pola { transition: none; } }
 @media (min-width: 860px) { .qs-polas { flex-wrap: nowrap; gap: 22px; } .qs-pola { flex: 0 1 188px; width: auto; } }
+
+/* 07/10 (3) Revisión anti-IA */
+/* cajas de datos de la ficha sin borde lateral de color: el color de la categoría queda en su etiqueta */
+.fact::after { display: none; }
+/* párrafos largos alineados a la izquierda; títulos, migas y botones siguen centrados */
+.pg-lee .l-head .lead, .pg-lee .l-head .lead p, .pg-lee .note.g-crit, .pg-lee .blk > p:not(.t-rule), .pg-lee .g-otra { text-align: left; }
+.pg-lee .l-head .lead { max-width: 64ch; }
+.a-tip .a-tip-t { margin: 0 0 8px; font-family: Michroma, sans-serif; font-weight: 400; font-size: .78rem; letter-spacing: .1em; text-transform: uppercase; color: var(--gold); }
+.g-otra { max-width: 64ch; margin: 34px auto 0; color: var(--ink-2); }
+/* «La hemos jugado» en las fichas de las salas que hemos jugado */
+.jugada { margin: 10px 0 0; }
+.jugada a { display: inline-flex; align-items: center; gap: 7px; padding: 5px 12px 5px 9px; border: 1px solid rgba(225,175,74,.45); border-radius: 999px; color: var(--gold); font-size: .85rem; font-weight: 700; text-decoration: none; transition: background .15s ease; }
+.jugada a:hover, .jugada a:focus-visible { background: rgba(225,175,74,.12); }
+/* Cómo puntuamos */
+.como-tabla { width: 100%; border-collapse: collapse; margin: 20px 0 26px; font-size: .95rem; font-variant-numeric: tabular-nums; }
+.como-tabla th, .como-tabla td { padding: 9px 10px; border-bottom: 1px solid var(--line-soft); text-align: right; }
+.como-tabla th[scope="row"], .como-tabla thead th:first-child { text-align: left; }
+.como-tabla thead th { font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); font-weight: 600; }
+.como-tabla a { color: var(--ink); text-decoration: none; font-weight: 700; } .como-tabla a:hover { color: var(--gold); }
+/* Quiénes somos: solo el título, fecha al pie */
+.qs .a-head { margin-bottom: 8px; }
+.qs-fecha { margin: 6px 0 0; font-size: .85rem; color: var(--ink-3); }
