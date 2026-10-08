@@ -246,3 +246,4 @@ body.pg-qs .wrap.ficha .blk > p { text-align: left; }
 /* 08/10: aclaración de hall escape en la ficha */
 .hall-nota { margin-top: 10px; padding: 12px 14px; border-radius: var(--r-md, 12px); background: rgba(225,175,74,.07); border: 1px solid rgba(225,175,74,.28); color: var(--ink-2); }
 .hall-nota b { color: var(--gold); }
+.reco-facts .reco-hall { color: var(--gold); font-weight: 700; }

@@ -8,7 +8,7 @@
   var CAT = { 'Terror': 'de terror', 'Aventura': 'de aventura', 'Thriller/Misterio': 'de thriller y misterio', 'Ciencia ficción': 'de ciencia ficción',
     'Histórico': 'histórica', 'Fantasía': 'de fantasía', 'Humor': 'de humor', 'Infantil': 'infantil' };
   var FACIL = ['Baja', 'Media-Baja', 'Media', 'Adaptable'], DIFICIL = ['Media-Alta', 'Alta', 'Muy alta'];
-  var S = { z: '', km: 25, n: 4, d: [], m: [], c: [], p: [], l: 'hab', me: null }, verTodos = false;
+  var S = { z: '', km: 25, n: 4, d: [], m: [], c: [], p: [], l: 'hab', h: '', me: null }, verTodos = false;
   var form = document.getElementById('reco'), out = document.getElementById('recoOut'), geoMsg = document.getElementById('recoGeo');
   if (!form || !out) return;
   var q = new URLSearchParams(location.search);
@@ -25,6 +25,7 @@
   function tP(e) { return e <= 20 ? 20 : e <= 25 ? 25 : e <= 30 ? 30 : 31; }
   if (q.get('m') && S.z) S.m = q.get('m').split('|').filter(function (m) { return D.salas.some(function (s) { return s.z === S.z && s.m === m; }); });
   if (['prin', 'hab', 'exp'].indexOf(q.get('l')) >= 0) S.l = q.get('l');
+  if (['sala', 'hall'].indexOf(q.get('h')) >= 0) S.h = q.get('h');
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
   function eur(x) { return String(Math.round(x * 100) / 100).replace('.', ',') + ' €'; }
   function paint() {
@@ -33,6 +34,7 @@
       if (k === 'z') on = S.z === v;
       else if (k === 'c') on = v === '' ? S.c.length === 0 : S.c.indexOf(v) >= 0;
       else if (k === 'd' || k === 'p') on = v === '' ? S[k].length === 0 : S[k].indexOf(+v) >= 0;
+      else if (k === 'h') on = S.h === v;
       else on = String(S[k]) === v;
       b.setAttribute('aria-pressed', String(on));
     });
@@ -68,6 +70,7 @@
       if (st.m.length && st.m.indexOf(s.m) < 0) return;
       if (st.d.length && (!s.d || st.d.indexOf(tD(s.d)) < 0)) return;
       if (st.c.length && st.c.indexOf(s.c) < 0) return;
+      if (st.h === 'sala' && s.h) return; if (st.h === 'hall' && !s.h) return;
       if (st.p.length && (s.p == null || st.p.indexOf(tP(s.p)) < 0)) return;
       if (st.l === 'prin') { if (FACIL.indexOf(s.f) < 0) return; if (s.c === 'Terror' && st.c.indexOf('Terror') < 0) return; }
       if (st.l === 'exp' && (s.f === 'Baja' || s.f === 'Media-Baja')) return;
@@ -88,6 +91,7 @@
     if (st.m.length) w.push('Está en ' + s.m + ', uno de los sitios que marcasteis.');
     if (st.d.length) w.push('Dura ' + s.d + ' minutos, lo que queríais.');
     if (st.c.length) w.push('Es una sala ' + CAT[s.c] + ', lo que buscáis.');
+    if (s.h) w.push('Es un hall escape: no hay que salir de ninguna sala, sino superar pruebas contra el reloj.');
     if (s.p != null) w.push(eur(s.p) + ' por persona en grupo de ' + (s.q || 4) + (st.p.length ? ', dentro de vuestro presupuesto.' : '.'));
     if (st.l === 'prin') w.push('Dificultad ' + s.f.toLowerCase() + (s.d && s.d <= 75 ? ' y ' + s.d + ' minutos' : '') + ': buena para empezar.');
     else if (st.l === 'exp' && DIFICIL.indexOf(s.f) >= 0) w.push('Dificultad ' + s.f.toLowerCase() + ': para equipos con experiencia.');
@@ -103,13 +107,14 @@
     if (st.d.length) r.push(['d', [], 'Cualquier duración']);
     if (st.p.length) r.push(['p', [], 'Cualquier precio']);
     if (st.c.length) r.push(['c', [], 'Cualquier temática']);
+    if (st.h) r.push(['h', '', 'Escape rooms y hall escapes']);
     if (st.l !== 'hab') r.push(['l', 'hab', 'Nivel: jugadores habituales']);
     if (st.z === 'cerca' && st.km < 50) r.push(['km', 50, 'Hasta 50 km']);
     return r;
   }
   function run(scroll) {
     if (S.z === 'cerca' && !S.me) { geoMsg.textContent = 'Primero necesito tu ubicación: pulsa «Cerca de mí» y acepta el permiso.'; return; }
-    var p = new URLSearchParams(); if (S.z && S.z !== 'cerca') p.set('z', S.z); p.set('n', S.n); if (S.m.length && S.z !== 'cerca') p.set('m', S.m.join('|')); if (S.d.length) p.set('du', S.d.join('|')); if (S.c.length) p.set('c', S.c.join(',')); if (S.p.length) p.set('pr', S.p.join('|')); p.set('l', S.l);
+    var p = new URLSearchParams(); if (S.z && S.z !== 'cerca') p.set('z', S.z); p.set('n', S.n); if (S.m.length && S.z !== 'cerca') p.set('m', S.m.join('|')); if (S.d.length) p.set('du', S.d.join('|')); if (S.c.length) p.set('c', S.c.join(',')); if (S.p.length) p.set('pr', S.p.join('|')); p.set('l', S.l); if (S.h) p.set('h', S.h);
     history.replaceState(null, '', location.pathname + '?' + p.toString());
     var R = pick(S), h = '', rl = relax(S);
     if (!R.res.length) h = '<div class="reco-head"><p class="t-rule">Sin resultados</p><h2>Ninguna sala cumple todo a la vez</h2><p class="note">Prueba a soltar alguna condición:</p>';
@@ -122,7 +127,7 @@
       h += '<li class="reco-card" style="--i:' + i + ';--c:var(' + s.v + ')"><a class="reco-img" href="' + s.u + '" tabindex="-1" aria-hidden="true"><img src="' + s.img + '" alt="" loading="lazy" decoding="async" /></a>' +
         '<div class="reco-body"><p class="reco-n" aria-hidden="true">' + (i + 1) + '</p><h3><a href="' + s.u + '">' + esc(s.s) + '</a></h3>' +
         '<p class="reco-meta">' + esc(s.l) + ' · ' + esc(s.m) + '</p>' +
-        '<p class="reco-facts"><span class="reco-cat">' + esc(s.c) + '</span>' + (s.d ? '<span>' + s.d + ' min</span>' : '') + '<span>' + (s.a === s.b ? s.a : s.a + ' a ' + s.b) + ' jugadores</span>' +
+        '<p class="reco-facts"><span class="reco-cat">' + esc(s.c) + '</span>' + (s.h ? '<span class="reco-hall">Hall escape</span>' : '') + (s.d ? '<span>' + s.d + ' min</span>' : '') + '<span>' + (s.a === s.b ? s.a : s.a + ' a ' + s.b) + ' jugadores</span>' +
         (s.p != null ? '<span>' + eur(s.p) + '/persona</span>' : '') + (s.r ? '<span class="reco-rank">N.º ' + s.r + ' ' + esc(z.de) + '</span>' : '') + '</p>' +
         '<p class="reco-why-t">Por qué te la recomiendo</p><ul class="reco-why">' + why(o, S).map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul>' +
         '<p class="reco-act"><a class="btn" href="' + s.u + '">Ver la ficha</a>' + (s.w ? '<a class="btn btn--ghost" href="' + esc(s.w) + '" rel="noopener nofollow" target="_blank">Reservar en su web <span aria-hidden="true">↗</span></a>' : '') + '</p></div></li>';
@@ -151,6 +156,7 @@
     if (k === 'z') { S.z = S.z === v ? '' : v; S.m = []; verTodos = false; geoMsg.textContent = ''; munis(); }
     else if (k === 'c') { if (v === '') S.c = []; else { var i = S.c.indexOf(v); i >= 0 ? S.c.splice(i, 1) : S.c.push(v); } }
     else if (k === 'd' || k === 'p') { if (v === '') S[k] = []; else { var t = S[k].indexOf(+v); t >= 0 ? S[k].splice(t, 1) : S[k].push(+v); } }
+    else if (k === 'h') S.h = v;
     else S[k] = (k === 'l') ? v : +v;
     paint();
   });

@@ -69,7 +69,7 @@
 
   /* ---------------- helpers de datos ---------------- */
   const priceOf = r => (r.pmax ?? r.pmin ?? null);
-  const DEF_F = { zona: '', players: 0, dif: '', noDif: false, rank: false };
+  const DEF_F = { zona: '', players: 0, dif: '', formato: '', noDif: false, rank: false };
   const CAT_IMG = { 'Terror': 'terror', 'Thriller/Misterio': 'thriller', 'Aventura': 'aventura', 'Ciencia ficción': 'scifi', 'Histórico': 'historico', 'Fantasía': 'fantasia', 'Humor': 'humor', 'Infantil': 'infantil', 'Clásico': 'clasico' };
   const catImg = (c, sm) => `/img/cat/${CAT_IMG[c] || 'clasico'}${sm ? '-640' : ''}.webp`;
   function fitsGroup(r, n) {
@@ -89,6 +89,8 @@
     if (!fitsGroup(r, f.players)) return false;
     // dificultad: la sala sin dato solo entra si el usuario pide verlas (nunca se le asigna un nivel)
     if (f.dif && r.dif !== f.dif && !(f.noDif && !r.dif)) return false;
+    if (f.formato === 'sala' && r.hall) return false;
+    if (f.formato === 'hall' && !r.hall) return false;
     if (f.rank && !r.rank) return false;
     if (state.hideDone && isDone(r)) return false;
     return true;
@@ -620,6 +622,12 @@
       key: 'dif', label: 'Dificultad', hint: '',
       opts: [['', 'Cualquiera'], ['Fácil', 'Fácil'], ['Media', 'Media'], ['Media-Alta', 'Media-Alta'], ['Alta', 'Alta'], ['Muy alta', 'Muy alta']],
       short: v => v
+    },
+    {
+      // 08/10 (Santi): escape room o hall escape, tan importante para decidir como la dificultad o la zona
+      key: 'formato', label: 'Formato', hint: 'En un hall escape no hay que salir de ninguna sala: se superan pruebas y enigmas contra el reloj, a menudo en grupos grandes o con varios equipos a la vez.',
+      opts: [['', 'Escape rooms y hall escapes'], ['sala', 'Solo escape rooms'], ['hall', 'Solo hall escapes']],
+      short: v => (v === 'hall' ? 'Hall escapes' : 'Escape rooms')
     }
   ];
 
@@ -739,6 +747,7 @@
     buildGroups();
     const qs = new URLSearchParams(location.search);
     const qcat = qs.get('cat'); if (qcat && CATS[qcat]) state.cat = qcat;
+    const qf = qs.get('formato'); if (qf === 'hall' || qf === 'sala') state.f.formato = qf;
     const qq = qs.get('q'); if (qq) { state.q = qq.toLowerCase(); const qi = $('#q'); if (qi) qi.value = qq; }
     $('#lgN').textContent = state.rooms.filter(r => r.rank).length; $('#lgX').textContent = state.rooms.filter(r => !r.rank).length;
     const sinDif = state.rooms.filter(r => !r.dif).length;
