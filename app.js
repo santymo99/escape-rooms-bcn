@@ -326,6 +326,7 @@
         <div class="card-sub">${esc(r.local)} · ${esc(r.municipio)}</div>
         <div class="card-meta">
           ${pill(r.cat, 'pill--cat')}
+          ${r.hall ? pill('Hall escape', 'pill--hall') : ''}
           ${r.jmin != null ? pill(`${r.jmin}-${r.jmax} jug.`) : ''}
           ${r.dur ? pill(`${r.dur} min`) : ''}
           ${price ? pill(price) : ''}
@@ -511,6 +512,7 @@
       <div class="d-eyebrow">
         <span class="d-rank${!r.rank ? ' is-plain' : ''}" style="--mk:${catVar(r.cat)}">${r.rank || '·'}</span>
         <span class="pill pill--cat" style="--mk:${catVar(r.cat)}">${esc(r.cat || 'Sin datos')}</span>
+        ${r.hall ? '<span class="pill pill--hall" title="Un juego de escape en el que no hay que salir de ninguna sala: pruebas y enigmas contra el reloj, a menudo para grupos grandes o varios equipos a la vez.">Hall escape*</span>' : ''}
 
         ${!hasPos(r) ? pill('Ubicación no confirmada', 'pill--warn') : ''}
       </div>
