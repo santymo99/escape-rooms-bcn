@@ -501,7 +501,7 @@
       r.pmin != null ? cell('Precio por persona', fmtPrice(r), priceSmall(r)) : cell('Precio', r.ptxt || null),
       cell('Jugadores', r.jmin != null ? `${r.jmin}-${r.jmax}` : null),
       cell('Duración', r.dur ? `${r.dur} min` : null),
-      cell('Dificultad', dif, difSmall),
+      dif ? cell('Dificultad', dif, difSmall) : cell('Edad', r.edad || null),
       cell('Estado', r.estado === 'Abierto' ? 'En funcionamiento' : (r.estado && r.estado !== 'n.a.' ? r.estado : null),
            r.estado === 'Abierto' && r.estado_f ? `comprobado el ${r.estado_f}` : null),
       cell('Actores', r.actores === true ? 'Sí, en directo' : (r.actores === false ? 'No' : null)),
