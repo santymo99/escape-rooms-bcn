@@ -197,6 +197,8 @@
     node.className = keep + ' mk' + (!best.rank ? ' is-plain' : '') + (best.rank && best.rank <= 10 ? ' is-top10' : '')
       + (rooms.length > 1 ? ' is-multi' : '') + (rooms.every(isDone) ? ' is-done' : '') + ((state.sel && rooms.some(r => r.id === state.sel)) || state.openLocal === g.id ? ' is-sel' : '');
     node.style.setProperty('--mk', catVar(best.cat));
+    // 15/10: donde se amontonan, el mejor puesto queda encima y se lee (antes mandaba el orden de creación)
+    node.style.zIndex = node.classList.contains('is-sel') ? 2000 : best.rank ? String(1500 - best.rank) : '1';
     // local con varias salas: un segundo disco apilado detrás (sin cifra, para no confundir con el puesto)
     node.innerHTML = (rooms.length > 1 ? '<div class="mk-stack"></div>' : '')
       + (best.rank ? `<div class="mk-pin">${best.rank}</div>` : '<div class="mk-dot"></div>');
@@ -274,6 +276,7 @@
           <p class="rk-rule">Ranking</p>
           <h2>El top ${nTop + nVac} <span>${esc(Z_TOP)}</span></h2>
           <p>Revisado a mano${nVac ? ` (${nVac === 1 ? 'un puesto vacante' : `${nVac} puestos vacantes`} hasta la próxima edición)` : ''}. Debajo, en el directorio, las otras ${nExtra} salas abiertas, sin puesto.</p>
+          <p class="rk-reco">¿No sabéis cuál elegir? <a href="/recomendador/?z=${esc(ZONE.slug)}">Recomiéndame una sala <span aria-hidden="true">→</span></a></p>
         </div>
         <div class="played${nDone ? ' has-some' : ''}">
           <div class="played-txt">
@@ -291,7 +294,7 @@
     });
 
     if (!pend.length && !done.length) {
-      wrap.appendChild(el('div', 'empty', '<strong>Sin resultados</strong>Prueba a relajar algún filtro.'));
+      wrap.appendChild(el('div', 'empty', `<strong>Sin resultados</strong>Prueba a relajar algún filtro o deja que <a href="/recomendador/?z=${esc(ZONE.slug)}">el recomendador</a> os proponga cinco salas.`));
       return;
     }
     pend.forEach(r => wrap.appendChild(card(r)));

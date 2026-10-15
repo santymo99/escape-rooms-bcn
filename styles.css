@@ -1006,3 +1006,10 @@ input[type="range"]::-moz-range-thumb { width: 20px; height: 20px; border-radius
 .played-txt a { font-weight: 700; text-underline-offset: 3px; }
 /* 08/10: marca de hall escape */
 .pill--hall { border-color: rgba(225,175,74,.55); color: var(--gold); background: rgba(225,175,74,.10); font-weight: 600; }
+
+/* 15/10: enlace al recomendador bajo el titular del ranking de cada zona (subrayado dorado: el texto mantiene contraste en claro) */
+[data-v="2"] .rk-title p.rk-reco { margin-top: var(--space-2); color: var(--ink-2); }
+.rk-reco a { color: var(--ink); font-weight: 700; text-decoration: underline; text-decoration-color: var(--gold); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+.rk-reco a:hover { color: var(--gold); }
+.empty a { color: var(--ink); font-weight: 700; text-decoration: underline; text-decoration-color: var(--gold); text-underline-offset: 3px; }
+/* 15/10: en el móvil la marca del mapa se queda en «GPS» a propósito: con «ESCAPE» no cabe junto al selector de zona (probado a 390 px) */
