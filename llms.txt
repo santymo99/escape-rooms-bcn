@@ -1,0 +1,64 @@
+# GPS Escape
+
+> Guía independiente de escape rooms físicos en España por provincias: mapa, fichas revisadas a mano y un top propio en cada zona. 875 salas abiertas en 10 zonas. Solo se publican salas abiertas y ningún local paga por aparecer ni por su puesto.
+
+Cada ficha de sala reúne categoría, número de jugadores, duración, dificultad, precio orientativo cuando el local lo publica, ubicación y enlace a la web del local para reservar.
+
+## Zonas
+
+- [Barcelona](https://gpsescape.es/barcelona/): mapa con 224 salas abiertas
+- [Mejores escape rooms de Barcelona](https://gpsescape.es/barcelona/mejores/): top 100 en orden
+- [Todas las salas de Barcelona](https://gpsescape.es/barcelona/salas/): listado completo
+- [Valencia](https://gpsescape.es/valencia/): mapa con 84 salas abiertas
+- [Mejores escape rooms de Valencia](https://gpsescape.es/valencia/mejores/): top 50 en orden
+- [Todas las salas de Valencia](https://gpsescape.es/valencia/salas/): listado completo
+- [Madrid](https://gpsescape.es/madrid/): mapa con 227 salas abiertas
+- [Mejores escape rooms de Madrid](https://gpsescape.es/madrid/mejores/): top 100 en orden
+- [Todas las salas de Madrid](https://gpsescape.es/madrid/salas/): listado completo
+- [Alicante](https://gpsescape.es/alicante/): mapa con 55 salas abiertas
+- [Mejores escape rooms de Alicante](https://gpsescape.es/alicante/mejores/): top 25 en orden
+- [Todas las salas de Alicante](https://gpsescape.es/alicante/salas/): listado completo
+- [País Vasco](https://gpsescape.es/pais-vasco/): mapa con 70 salas abiertas
+- [Mejores escape rooms del País Vasco](https://gpsescape.es/pais-vasco/mejores/): top 25 en orden
+- [Todas las salas del País Vasco](https://gpsescape.es/pais-vasco/salas/): listado completo
+- [Sevilla](https://gpsescape.es/sevilla/): mapa con 52 salas abiertas
+- [Mejores escape rooms de Sevilla](https://gpsescape.es/sevilla/mejores/): top 25 en orden
+- [Todas las salas de Sevilla](https://gpsescape.es/sevilla/salas/): listado completo
+- [Región de Murcia](https://gpsescape.es/murcia/): mapa con 46 salas abiertas
+- [Mejores escape rooms de la Región de Murcia](https://gpsescape.es/murcia/mejores/): top 20 en orden
+- [Todas las salas de la Región de Murcia](https://gpsescape.es/murcia/salas/): listado completo
+- [Asturias](https://gpsescape.es/asturias/): mapa con 27 salas abiertas
+- [Mejores escape rooms de Asturias](https://gpsescape.es/asturias/mejores/): top 15 en orden
+- [Todas las salas de Asturias](https://gpsescape.es/asturias/salas/): listado completo
+- [Aragón](https://gpsescape.es/aragon/): mapa con 52 salas abiertas
+- [Mejores escape rooms de Aragón](https://gpsescape.es/aragon/mejores/): top 15 en orden
+- [Todas las salas de Aragón](https://gpsescape.es/aragon/salas/): listado completo
+- [Málaga](https://gpsescape.es/malaga/): mapa con 38 salas abiertas
+- [Mejores escape rooms de Málaga](https://gpsescape.es/malaga/mejores/): top 15 en orden
+- [Todas las salas de Málaga](https://gpsescape.es/malaga/salas/): listado completo
+
+## Herramientas
+
+- [Recomendador](https://gpsescape.es/recomendador/): propone salas según zona, grupo, categoría, duración y precio
+- [Pasaporte](https://gpsescape.es/pasaporte/): registro personal de las salas jugadas
+- [Guías](https://gpsescape.es/guias/): selecciones por zona y por tipo de plan
+
+## Artículos
+
+- [El escape room que acaba en homenaje](https://gpsescape.es/articulos/11s-open-mind-el-escape-room-homenaje/): 11S, de Open Mind Room Escape: una temática que podía ser polémica convertida en una hora intensa en la piel de los equipos de rescate de Nueva York, con un final que emociona
+- [Diamante de Almas: por qué conviene jugar antes la primera parte](https://gpsescape.es/articulos/diamante-de-almas-terror-stories-madrid-juega-antes-la-primera-parte/): El Capítulo 2 de Terror Stories en Madrid: un terror llevadero, pruebas asequibles y un game master que se lo cree. Mejor si ya conoces la historia
+- [El local mejor aprovechado de Barcelona: dos salas de sobresaliente bajo el mismo techo](https://gpsescape.es/articulos/elements-esplugues-kemet-y-katrina/): Misterios de Kemet y Katrina, de Elements Esplugues: una tumba del Antiguo Egipto y un tesoro mexicano, jugadas con tres años de diferencia y las dos entre lo mejor que he vivido en un escape room
+- [Adelantados a su época: el escape room del Triángulo de las Bermudas](https://gpsescape.es/articulos/final-code-bermudas-adelantados-a-su-epoca/): Bermudas, de Final Code, en L'Hospitalet: una sala de 2020 que ya tenía un game master que te mete en la historia, un rol distinto para cada jugador y un ascensor que baja al fondo del mar
+- [El escape room ideal para competir con tus amigos](https://gpsescape.es/articulos/hotel-hello-competir-con-amigos/): Hotel Hello, de Brutal Escape Room, en modo Battle Royale: dos salas gemelas, dos equipos y un grupo grande de amigos con ganas de demostrar quién resuelve mejor
+- [El escape room que es un plan de fin de semana](https://gpsescape.es/articulos/la-casa-insomnia-plan-de-fin-de-semana/): La Casa, de Insomnia Corporation, en Berga: una hora de coche, un check-in de hotel, un camino de baches y una casa de campo sin un solo cartel. La experiencia empieza mucho antes de entrar
+- [Salir embarrado en pleno Eixample: el escape room más inmersivo que he jugado](https://gpsescape.es/articulos/jurasico-golden-pop-el-mas-inmersivo/): Jurásico, de Golden Pop: dos horas dentro de un parque de dinosaurios, con clima, sonido y un tamaño que no parece posible en el centro de Barcelona
+- [Formación tortuga: el escape room en el que no paramos ni un segundo](https://gpsescape.es/articulos/outline-cornella-el-mas-intenso/): Outline, en Cornellà de Llobregat: una vieja fábrica abandonada, un periodista que no vuelve y dos horas de correr, huir y, aun así, pensar
+- [La mejor introducción al mundo de los escape rooms en Barcelona](https://gpsescape.es/articulos/slasher-party-primer-escape-room/): Por qué Slasher Party, de Open Mind Room Escape, es la sala que recomiendo a quien nunca ha hecho un escape room
+- [La primera vez que vi una película para hacer un escape room (y no me arrepiento)](https://gpsescape.es/articulos/sweeney-todd-open-mind-ver-la-pelicula-antes/): Sweeney Todd, de Open Mind, en Cornellà: el barbero de Fleet Street convertido en una sala oscura, variada y llena de guiños que se disfrutan el doble si has visto la película
+
+## Sobre el proyecto
+
+- [Quiénes somos](https://gpsescape.es/quienes-somos/)
+- [Cómo puntuamos](https://gpsescape.es/como-puntuamos/)
+- [Novedades](https://gpsescape.es/novedades/): altas y bajas de salas
+- [Contacto](https://gpsescape.es/contacto/): hola@gpsescape.es

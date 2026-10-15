@@ -247,3 +247,6 @@ body.pg-qs .wrap.ficha .blk > p { text-align: left; }
 .hall-nota { margin-top: 10px; padding: 12px 14px; border-radius: var(--r-md, 12px); background: rgba(225,175,74,.07); border: 1px solid rgba(225,175,74,.28); color: var(--ink-2); }
 .hall-nota b { color: var(--gold); }
 .reco-facts .reco-hall { color: var(--gold); font-weight: 700; }
+
+/* 15/10: «Sigue buscando» al final de la ficha (top, listado y recomendador de la zona): en el móvil, botones del mismo ancho */
+@media (max-width: 560px) { .f-sigue .actions { display: grid; grid-template-columns: 1fr; } .f-sigue .actions .btn { justify-content: center; text-align: center; } }
