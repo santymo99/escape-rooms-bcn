@@ -147,6 +147,8 @@ h1, h2, h3 { font-family: Michroma, sans-serif; font-weight: 400; letter-spacing
   .mb-desk { display: none; } .mb-mob { display: inline; }
   .menu-secs { display: grid; }
   .menu-list { min-width: min(300px, calc(100vw - 32px)); }
+  /* 16/10 (Galicia, 11 zonas): el menú ya no cabe en pantallas cortas; se desplaza por dentro en vez de salirse por abajo. */
+  .menu-list { max-height: calc(100dvh - 76px); overflow-y: auto; overscroll-behavior: contain; }
 }
 
 .hero .lead + .cta { margin-top: 0; }
