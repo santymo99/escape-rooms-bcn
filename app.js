@@ -108,7 +108,7 @@
     const map = new maplibregl.Map({
       container: 'map',
       style: `https://tiles.openfreemap.org/styles/${state.theme === 'dark' ? 'dark' : 'positron'}`,
-      center: ZONE.center, zoom: ZONE.zoom, minZoom: 7, maxZoom: 18,
+      center: ZONE.center, zoom: ZONE.zoom, minZoom: ZONE.minZoom || 7, maxZoom: 18,  // minZoom propio: Castilla y León (16/10) no cabe en el móvil con 7
       attributionControl: { compact: true }
     });
     map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right');

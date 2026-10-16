@@ -147,9 +147,10 @@ h1, h2, h3 { font-family: Michroma, sans-serif; font-weight: 400; letter-spacing
   .mb-desk { display: none; } .mb-mob { display: inline; }
   .menu-secs { display: grid; }
   .menu-list { min-width: min(300px, calc(100vw - 32px)); }
-  /* 16/10 (Galicia, 11 zonas): el menú ya no cabe en pantallas cortas; se desplaza por dentro en vez de salirse por abajo. */
-  .menu-list { max-height: calc(100dvh - 76px); overflow-y: auto; overscroll-behavior: contain; }
 }
+/* 16/10 (Galicia y Castilla y León, 12 zonas): el menú ya no cabe en pantallas cortas (móvil y portátiles de 768 px);
+   se desplaza por dentro en vez de salirse por abajo. */
+.menu-list { max-height: calc(100dvh - 76px); overflow-y: auto; overscroll-behavior: contain; }
 
 .hero .lead + .cta { margin-top: 0; }
 .cta-more { display: inline-block; margin: 14px 0 0; color: var(--gold); font-weight: 700; text-decoration: none; font-size: .95rem; }
