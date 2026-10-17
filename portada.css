@@ -252,7 +252,7 @@ h1, h2, h3 { font-family: Michroma, sans-serif; font-weight: 400; letter-spacing
 .zonas > summary::-webkit-details-marker { display: none; }
 .zonas-btn:hover svg { transform: none; }
 .zonas[open] > .zonas-btn svg { transform: rotate(180deg); }
-.zonas-list { position: absolute; left: 0; top: calc(100% + 8px); z-index: 30; width: min(calc(100vw - 32px), 400px); max-height: min(62svh, 520px); overflow-y: auto;
+.zonas-list { position: absolute; left: 0; top: calc(100% + 8px); z-index: 30; width: min(calc(100vw - 32px), 400px); max-height: min(62svh, 520px); overflow-y: auto; overflow-x: hidden;
   margin: 0; padding: 6px; list-style: none; display: grid; gap: 2px;
   background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-md); box-shadow: 0 18px 50px -12px rgba(0,0,0,.8); transform-origin: top left; }
 .zonas-list:has(li:nth-child(7)) { width: min(calc(100vw - 32px), 560px); grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
@@ -898,7 +898,8 @@ h1, h2, h3 { font-family: Michroma, sans-serif; font-weight: 400; letter-spacing
 @media (min-width: 861px) {
   .t-hero .zonas-list:has(li:nth-child(7)) { width: min(calc(100vw - 32px), 720px); left: calc(50% - min(calc(100vw - 32px), 720px) / 2); grid-template-columns: 1fr 1fr; }
   .t-hero .zonas-list:has(li:nth-child(7)) a { padding: 10px 12px; min-height: 0; }
-  .t-hero .zonas-list:has(li:nth-child(7)) small { white-space: nowrap; }
+  /* 17/10 (usuario): sin nowrap; con subtítulos largos la lista desbordaba y salía una barra horizontal en el ordenador */
+  .t-hero .zonas-list:has(li:nth-child(7)) small { white-space: normal; text-wrap: balance; }
 }
 
 /* 07/10 (noche): bloque «Recomiéndame» de la portada. Sustituye a la rejilla de tarjetas con bodegones y a las cajas de cifras */
