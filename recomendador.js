@@ -9,6 +9,9 @@
     'Histórico': 'histórica', 'Fantasía': 'de fantasía', 'Humor': 'de humor', 'Infantil': 'infantil' };
   var FACIL = ['Baja', 'Media-Baja', 'Media', 'Adaptable'], DIFICIL = ['Media-Alta', 'Alta', 'Muy alta'];
   var S = { z: '', km: 25, n: 4, d: [], m: [], c: [], p: [], l: 'hab', h: '', me: null }, verTodos = false;
+  // 18/10 (usuario): las salas marcadas en el pasaporte («Ya la he jugado», clave gps-done) no se recomiendan, salvo que se pida
+  var incJug = false;
+  function jugadas() { try { return new Set(JSON.parse(localStorage.getItem('gps-done') || '[]')); } catch (e) { return new Set(); } }
   var form = document.getElementById('reco'), out = document.getElementById('recoOut'), geoMsg = document.getElementById('recoGeo');
   if (!form || !out) return;
   var q = new URLSearchParams(location.search);
@@ -60,7 +63,7 @@
   function km(a, b) { var R = 6371, r = Math.PI / 180, dLa = (b[0] - a[0]) * r, dLo = (b[1] - a[1]) * r;
     var h = Math.sin(dLa / 2) * Math.sin(dLa / 2) + Math.cos(a[0] * r) * Math.cos(b[0] * r) * Math.sin(dLo / 2) * Math.sin(dLo / 2); return 2 * R * Math.asin(Math.sqrt(h)); }
   function pick(st) {
-    var L = [];
+    var L = [], J = incJug ? null : jugadas(), fuera = 0;
     D.salas.forEach(function (s) {
       var dist = null;
       if (st.z === 'cerca') { if (!st.me || s.x == null || s.y == null) return; dist = km(st.me, [s.y, s.x]); if (dist > st.km) return; }
@@ -78,12 +81,13 @@
       if (st.l === 'prin' && s.d && s.d <= 75) sc += 0.1;
       if (st.l === 'exp' && DIFICIL.indexOf(s.f) >= 0) sc += 0.15;
       if (dist != null) sc -= dist / 250;
+      if (J && J.has(s.i)) { fuera++; return; }
       L.push({ s: s, sc: sc, dist: dist });
     });
     L.sort(function (a, b) { return b.sc - a.sc; });
     var res = [], porLocal = {};
     for (var i = 0; i < L.length && res.length < 5; i++) { var k = L[i].s.l + '|' + L[i].s.m; if ((porLocal[k] || 0) >= 2) continue; porLocal[k] = (porLocal[k] || 0) + 1; res.push(L[i]); }
-    return { res: res, total: L.length };
+    return { res: res, total: L.length, fuera: fuera, jug: incJug ? jugadas().size : 0 };
   }
   function why(o, st) {
     var s = o.s, w = [], z = Z[s.z];
@@ -121,6 +125,8 @@
     else h = '<div class="reco-head"><p class="t-rule">Mi recomendación</p><h2>' + (R.res.length === 5 ? 'Cinco salas para vosotros' : (R.res.length === 1 ? 'Una sala para vosotros' : R.res.length + ' salas para vosotros')) + '</h2>' +
       (R.res.length < 5 ? '<p class="note">Solo ' + (R.total === 1 ? 'hay una sala que cumple' : 'hay ' + R.total + ' salas que cumplen') + ' todo lo que pedís. Si soltáis alguna condición saldrán más:</p>' : '');
     if (R.res.length < 5 && rl.length) h += '<div class="reco-relax">' + rl.map(function (x, i) { return '<button type="button" class="reco-chip" data-relax="' + i + '">' + esc(x[2]) + '</button>'; }).join('') + '</div>';
+    if (R.fuera) h += '<p class="note reco-jug">No incluye ' + (R.fuera === 1 ? 'una sala que ya has jugado' : R.fuera + ' salas que ya has jugado') + ' según tu <a href="/pasaporte/">pasaporte</a>. <button type="button" class="reco-chip" id="recoJug">Incluirlas</button></p>';
+    else if (incJug && R.jug) h += '<p class="note reco-jug">Incluye las salas que ya has jugado. <button type="button" class="reco-chip" id="recoJug">Quitarlas</button></p>';
     h += '</div><ol class="reco-list">';
     R.res.forEach(function (o, i) {
       var s = o.s, z = Z[s.z];
@@ -136,6 +142,7 @@
     if (R.res.length) h += '<p class="reco-share"><button type="button" class="reco-chip" id="recoShare">Copiar el enlace de esta recomendación</button></p>';
     out.innerHTML = h; out.hidden = false;
     out.querySelectorAll('[data-relax]').forEach(function (b) { b.onclick = function () { var x = rl[+b.dataset.relax]; S[x[0]] = Array.isArray(x[1]) ? x[1].slice() : x[1]; paint(); run(true); }; });
+    var jb = document.getElementById('recoJug'); if (jb) jb.onclick = function () { incJug = !incJug; run(false); };
     var sh = document.getElementById('recoShare'); if (sh) sh.onclick = function () { var u = location.href; (navigator.clipboard ? navigator.clipboard.writeText(u) : Promise.reject()).then(function () { sh.textContent = 'Enlace copiado'; }, function () { window.prompt('Copia este enlace:', u); }); };
     if (scroll) out.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
   }

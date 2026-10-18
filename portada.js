@@ -108,3 +108,18 @@
   d.addEventListener('toggle', function () { requestAnimationFrame(medir); setTimeout(medir, 280); });  // segunda medida tras la animación de la lista
   window.addEventListener('resize', function () { if (d.open) medir(); });
 })();
+
+// 18/10: «Elige tu zona» del menú (y «Mapas» del pie) llevan a /#mapas: en la portada se abre el desplegable de zonas.
+(function () {
+  var d = document.querySelector('.t-hero details.zonas'); if (!d) return;
+  function abrir() { setTimeout(function () { d.open = true; var s = d.querySelector('summary'); if (s) s.focus({ preventScroll: true }); }, 120); }
+  if (location.hash === '#mapas') abrir();
+  window.addEventListener('hashchange', function () { if (location.hash === '#mapas') abrir(); });
+  // si ya estamos en /#mapas, el enlace no cambia el hash: se abre a mano y se cierra el menú
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href="/#mapas"], a[href="#mapas"]');
+    if (!a || location.hash !== '#mapas') return;
+    var m = a.closest('.menu-list'); if (m) { m.hidden = true; var b = m.parentNode.querySelector('.menu-btn'); if (b) b.setAttribute('aria-expanded', 'false'); }
+    e.preventDefault(); document.getElementById('mapas').scrollIntoView(); abrir();
+  });
+})();

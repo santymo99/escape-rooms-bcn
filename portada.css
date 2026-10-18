@@ -485,13 +485,18 @@ h1, h2, h3 { font-family: Michroma, sans-serif; font-weight: 400; letter-spacing
   .t-hero .zonas-list .z-com, .t-hero .zonas-list .z-mun { display: none; }
 }
 
-/* menú de arriba en el móvil: solo secciones (las provincias ya están en el botón dorado) */
+/* menú de arriba en el móvil: solo secciones, en todas las páginas (18/10, decisión del usuario: antes, fuera de la
+   portada, las 12 zonas ocupaban casi toda la pantalla y tapaban Recomiéndame, Mi pasaporte…). Las zonas se eligen con
+   «Elige tu zona», que lleva al desplegable de la portada y lo abre. */
 @media (max-width: 720px) {
-  body:has(.t-hero) .t-bar .menu-list { min-width: 220px; }
-  body:has(.t-hero) .t-bar .menu-list > a { display: none; }
-  body:has(.t-hero) .t-bar .menu-list .menu-secs { margin-top: 0; padding-top: 0; border-top: 0; }
-  body:has(.t-hero) .t-bar .menu-list .menu-secs a { text-align: center; color: var(--gold); font-weight: 600; }
+  .t-bar .menu-list { min-width: 220px; }
+  .t-bar .menu-list > a { display: none; }
+  .t-bar .menu-list .menu-secs { margin-top: 0; padding-top: 0; border-top: 0; }
+  .t-bar .menu-list .menu-secs a { text-align: center; color: var(--gold); font-weight: 600; text-shadow: none; }
 }
+/* en el ordenador las zonas siguen en «Mapas» y las secciones en la barra: el enlace sobra */
+.menu-secs .ms-zona { display: none; }
+@media (max-width: 720px) { .t-bar .menu-secs .ms-zona { display: block; } }
 @media (max-width: 640px) { .t-hero + .t-sec { --t-hueco: 240px; } }
 /* el hueco bajo la foto se llena con la brújula: centrada en el borde, asoma como un horizonte dorado y gira al bajar */
 .t-hero + .t-sec::before { top: 0; opacity: .16; width: min(1000px, 170vw); }
