@@ -1013,3 +1013,28 @@ input[type="range"]::-moz-range-thumb { width: 20px; height: 20px; border-radius
 .rk-reco a:hover { color: var(--gold); }
 .empty a { color: var(--ink); font-weight: 700; text-decoration: underline; text-decoration-color: var(--gold); text-underline-offset: 3px; }
 /* 15/10: en el móvil la marca del mapa se queda en «GPS» a propósito: con «ESCAPE» no cabe junto al selector de zona (probado a 390 px) */
+
+/* 22/10 (SEO, opción A del usuario): H1 real del mapa en la píldora de zona de la barra superior y enlace al top estático.
+   En el móvil la píldora enseña solo el nombre corto; el resto del H1 queda oculto a la vista pero no a lectores ni buscadores. */
+.zone-h1 { margin: 0; font: inherit; line-height: 1; min-width: 0; display: flex; }
+.zone-h1 .zh-pre { color: var(--ink-2); font-weight: 500; }
+.zone-h1 .zone-short::before { content: attr(data-t); }
+/* los pines llevan z-index en línea (hasta 1499 los del top 10) y tapaban el contador, el enlace al top y, en el móvil, el
+   panel de sala: el mapa pasa a ser su propio contexto de apilamiento, así todo lo que flota sobre él queda encima */
+[data-v="2"] #map { isolation: isolate; }
+[data-v="2"] .counter, .top-link { z-index: 12; }
+@media (max-width: 1100px) { [data-v="2"] .zone-h1 .zh-pre { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; } }
+@media (max-width: 640px) {
+  [data-v="2"] .zone-h1 { grid-row: 1; grid-column: 2; justify-self: start; }
+  [data-v="2"] .zone-h1 .zone-long { display: inline; position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+}
+.top-link {
+  position: absolute; top: calc(var(--space-3) + 38px); left: var(--space-3); display: inline-flex; align-items: center; gap: 5px;
+  height: 30px; padding: 0 12px; border-radius: 999px; font-size: var(--text-xs); font-weight: 700; color: var(--gold); text-decoration: none;
+  background: color-mix(in oklab, var(--bg) 82%, transparent); backdrop-filter: blur(10px);
+  border: 1px solid color-mix(in oklab, var(--gold) 35%, transparent); transition: border-color .15s var(--ease), background .15s var(--ease);
+}
+.top-link::after { content: ""; position: absolute; inset: -7px -4px; }
+.top-link:hover { border-color: var(--gold); background: color-mix(in oklab, var(--gold) 16%, var(--bg)); color: var(--gold); }
+.top-link:active { transform: scale(.97); }
+[data-theme="light"] .top-link { color: #8a5a05; }
