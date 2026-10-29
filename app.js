@@ -39,7 +39,8 @@
 
   const state = {
     data: null, rooms: [], groups: [], markers: new Map(), map: null, openLocal: null,
-    cat: 'all', q: '', sel: null, view: 'map',
+    // 29/10 (Santi): varias categorías a la vez. Conjunto vacío = todas.
+    cats: new Set(), q: '', sel: null, view: 'map',
     f: { zona: '', players: 0, dif: '', noDif: false, rank: false },
     pop: null,
     theme: (() => { try { return localStorage.getItem('gps-theme') || 'dark'; } catch (e) { return 'dark'; } })(),
@@ -80,7 +81,7 @@
   }
   function matches(r, f) {
     f = f || state.f;
-    if (state.cat !== 'all' && r.cat !== state.cat) return false;
+    if (state.cats.size && !state.cats.has(r.cat)) return false;
     if (state.q) {
       const hay = `${r.sala} ${r.local} ${r.municipio} ${r.zona || ''} ${r.cat} ${r.tema || ''}`.toLowerCase();
       if (!hay.includes(state.q)) return false;
@@ -96,7 +97,17 @@
     return true;
   }
   const activeFilterCount = () =>
-    Object.keys(DEF_F).filter(k => k !== 'noDif').reduce((n, k) => n + (state.f[k] !== DEF_F[k] ? 1 : 0), 0);
+    Object.keys(DEF_F).filter(k => k !== 'noDif').reduce((n, k) => n + (state.f[k] !== DEF_F[k] ? 1 : 0), 0) + (state.cats.size ? 1 : 0);
+  // marca o desmarca una categoría; si se desmarca la última, vuelve a «Todas». La URL refleja la selección (?cat=A,B).
+  function toggleCat(k) {
+    if (k === 'all') state.cats.clear(); else if (state.cats.has(k)) state.cats.delete(k); else state.cats.add(k);
+    try {
+      const u = new URL(location.href);
+      if (state.cats.size) u.searchParams.set('cat', [...state.cats].join(',')); else u.searchParams.delete('cat');
+      history.replaceState(history.state, '', u.pathname + (u.search ? u.search.replace(/%2C/gi, ',') : '') + u.hash);
+    } catch (e) {}
+    closePop(); buildChips(); buildQChips(); render();
+  }
   // cuántas salas pendientes quedarían si un filtro tomara otro valor
   function countWith(key, value) {
     const f = { ...state.f, [key]: value };
@@ -265,7 +276,7 @@
     const nExtra = state.rooms.filter(r => !r.rank).length;
     const counts = {}; state.rooms.forEach(r => counts[r.cat] = (counts[r.cat] || 0) + 1);
     const tiles = Object.keys(CATS).filter(k => counts[k]).sort((a, b) => counts[b] - counts[a]).map(k =>
-      `<button class="cat-tile${state.cat === k ? ' is-active' : ''}" data-cat="${esc(k)}" style="--mk:${catVar(k)}">
+      `<button class="cat-tile${state.cats.has(k) ? ' is-active' : ''}" data-cat="${esc(k)}" aria-pressed="${state.cats.has(k)}" style="--mk:${catVar(k)}">
          <img src="${catImg(k, true)}" alt="" loading="lazy" decoding="async" />
          <span class="cat-tile-txt"><strong>${esc(CATS[k].label)}</strong><small>${counts[k]} ${counts[k] === 1 ? 'sala' : 'salas'}</small></span>
        </button>`).join('');
@@ -289,9 +300,7 @@
       <div class="cat-grid" id="catGrid">${tiles}</div>`);
     wrap.appendChild(head);
     const hd = head.querySelector('#hideDone'); if (hd) hd.onchange = () => { setHideDone(hd.checked); render(); };
-    head.querySelectorAll('.cat-tile').forEach(t => t.onclick = () => {
-      state.cat = state.cat === t.dataset.cat ? 'all' : t.dataset.cat; closePop(); buildChips(); buildQChips(); render();
-    });
+    head.querySelectorAll('.cat-tile').forEach(t => t.onclick = () => toggleCat(t.dataset.cat));
 
     if (!pend.length && !done.length) {
       wrap.appendChild(el('div', 'empty', `<strong>Sin resultados</strong>Prueba a relajar algún filtro o deja que <a href="/recomendador/?z=${esc(ZONE.slug)}">el recomendador</a> os proponga cinco salas.`));
@@ -600,12 +609,16 @@
     state.rooms.forEach(r => counts[r.cat] = (counts[r.cat] || 0) + 1);
     const box = $('#chips'); box.innerHTML = '';
     const mk = (key, label, color) => {
-      const c = el('button', 'chip' + (state.cat === key ? ' is-active' : ''),
+      const on = key === 'all' ? !state.cats.size : state.cats.has(key);
+      const c = el('button', 'chip' + (on ? ' is-active' : ''),
         `${color ? `<span class="dot" style="--dot:${color}"></span>` : ''}${esc(label)}`);
-      c.onclick = () => { state.cat = key; closePop(); buildChips(); buildQChips(); render(); };
+      c.setAttribute('aria-pressed', on ? 'true' : 'false');
+      c.onclick = () => toggleCat(key);
       box.appendChild(c);
     };
+    // en el móvil, con más de dos categorías marcadas, «Todas» dice cuántas hay (sigue sirviendo para quitarlas todas)
     mk('all', 'Todas');
+    if (state.cats.size > 2) { const t = box.firstChild; t.innerHTML = `<span class="ct-all">Todas</span><span class="ct-n">${state.cats.size} categorías</span>`; t.setAttribute('aria-label', `Todas las categorías (ahora hay ${state.cats.size} marcadas)`); }
     Object.keys(CATS).filter(k => counts[k]).sort((a, b) => counts[b] - counts[a])
       .forEach(k => mk(k, `${CATS[k].label} ${counts[k]}`, catVar(k)));
   }
@@ -651,7 +664,7 @@
     rk.title = 'Ver solo las salas con puesto en el ranking';
     rk.onclick = e => { e.stopPropagation(); closePop(); state.f.rank = !state.f.rank; buildQChips(); render(); };
     box.appendChild(rk);
-    if (activeFilterCount() || state.cat !== 'all' || state.q) {
+    if (activeFilterCount() || state.q) {
       const cl = el('button', 'chip chip--clear', 'Limpiar');
       cl.onclick = e => { e.stopPropagation(); closePop(); resetFilters(); };
       box.appendChild(cl);
@@ -713,7 +726,8 @@
   $('#btnLegend').onclick = () => openSheet('#legend');
   function resetFilters() {
     state.f = { ...DEF_F };
-    state.cat = 'all'; state.q = '';
+    state.cats.clear(); state.q = '';
+    try { const u = new URL(location.href); if (u.searchParams.has('cat')) { u.searchParams.delete('cat'); history.replaceState(history.state, '', u.pathname + u.search + u.hash); } } catch (e) {}
     $('#search').value = '';
     buildChips(); buildQChips(); render();
   }
@@ -749,7 +763,8 @@
     state.rooms = [...d.rank, ...d.otras].filter(r => r.estado !== 'Cerrado');
     buildGroups();
     const qs = new URLSearchParams(location.search);
-    const qcat = qs.get('cat'); if (qcat && CATS[qcat]) state.cat = qcat;
+    // ?cat=Terror (enlaces de siempre) o ?cat=Aventura,Humor (varias)
+    const qcat = qs.get('cat'); if (qcat) qcat.split(',').map(x => x.trim()).filter(x => CATS[x]).forEach(x => state.cats.add(x));
     const qf = qs.get('formato'); if (qf === 'hall' || qf === 'sala') state.f.formato = qf;
     const qq = qs.get('q'); if (qq) { state.q = qq.toLowerCase(); const qi = $('#q'); if (qi) qi.value = qq; }
     $('#lgN').textContent = state.rooms.filter(r => r.rank).length; $('#lgX').textContent = state.rooms.filter(r => !r.rank).length;
