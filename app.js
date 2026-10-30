@@ -340,7 +340,7 @@
   // 30/10: vista Ranking del mapa de comunidad: un bloque por provincia con su top (los 10 primeros, o entero con ?rk=completo) y
   // enlaces a su top estático y a su mapa. Las salas sin puesto solo se cuentan (están en el directorio de cada provincia).
   function renderProvincias(wrap, visible) {
-    PROVS.forEach(p => {
+    PROVS.filter(p => !state.f.prov || state.f.prov === p.slug).forEach(p => {   // con el filtro «Provincia», solo su bloque
       const rooms = visible.filter(r => r.prov === p.slug);
       const ranked = rooms.filter(r => r.rank).sort((a, b) => a.rank - b.rank);
       const rest = rooms.filter(r => !r.rank).sort((a, b) => a.sala.localeCompare(b.sala, 'es'));
