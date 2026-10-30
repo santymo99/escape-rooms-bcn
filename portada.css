@@ -990,3 +990,17 @@ h1, h2, h3 { font-family: Michroma, sans-serif; font-weight: 400; letter-spacing
 .reco-row + .reco-sub { margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--line-soft); }
 .reco-sub small { margin-top: 6px; line-height: 1.5; }
 .reco-sub + .reco-row { margin-top: 14px; }
+
+/* 30/10 · comunidades con mapa propio: en «Mapas» y en el desplegable de la portada, las provincias van agrupadas bajo su comunidad */
+.p-top .menu-list a.mz-com { border-top: 1px solid rgba(225,175,74,.14); margin-top: 2px; }
+.p-top .menu-list a.mz-sub { padding-block: 7px; }
+.p-top .menu-list a.mz-sub strong { font-size: .72rem; }
+.p-top .menu-list a.mz-sub { margin-inline: 12px; background: rgba(225,175,74,.035); border-radius: 8px; }
+.p-top .menu-list a.mz-sub + a:not(.mz-sub) { border-top: 1px solid rgba(225,175,74,.14); margin-top: 4px; padding-top: 11px; }
+.zonas-list li.z-grp { grid-column: 1 / -1; border: 1px solid rgba(225,175,74,.18); border-radius: 10px; padding: 2px; }
+.zonas-list li.z-grp > a strong { letter-spacing: .05em; }
+.zonas-list .z-grp-l { list-style: none; margin: 0; padding: 0 0 2px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2px; }
+.zonas-list .z-grp-l a { min-height: 42px; padding: 8px 10px; }
+.zonas-list .z-grp-l strong { font-size: .74rem; }
+.zonas-list .z-grp-l small { font-size: .74rem; }
+@media (max-width: 400px) { .zonas-list .z-grp-l .z-mun { display: none; } }

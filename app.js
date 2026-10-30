@@ -15,6 +15,12 @@
   const ZONE = Object.assign({ slug: 'barcelona', nombre: 'Barcelona', center: [2.168, 41.404], zoom: 10.6 }, window.GPS_ZONE || {});
   // Zonas que no son una provincia (País Vasco) traen sus propios textos en GPS_ZONE: de, delTop, toda, zonaHint.
   const Z_DE = ZONE.de || `de la provincia de ${ZONE.nombre}`, Z_TOP = ZONE.delTop || 'de la provincia', Z_TODA = ZONE.toda || 'Toda la provincia';
+  // 30/10: mapa de comunidad (/cataluna/): GPS_ZONE.provincias trae sus provincias; cada sala lleva `prov` y `provn`. Hay un filtro
+  // «Provincia» más, el filtro «Zona» se ciñe a la provincia elegida y la vista Ranking enseña un bloque por provincia (los puestos
+  // son los del top de cada provincia y nunca se mezclan). ?rk=completo enseña cada top entero en vez de los 10 primeros.
+  const PROVS = Array.isArray(ZONE.provincias) && ZONE.provincias.length ? ZONE.provincias : null;
+  const PROV_N = {}; (PROVS || []).forEach(p => PROV_N[p.slug] = p);
+  const RK_FULL = (() => { try { return ZONE.rankMode === 'completo' || new URLSearchParams(location.search).get('rk') === 'completo'; } catch (e) { return false; } })();
   const catVar = c => `var(${(CATS[c] || CATS['Clásico']).v})`;
 
   const $ = s => document.querySelector(s);
@@ -41,7 +47,7 @@
     data: null, rooms: [], groups: [], markers: new Map(), map: null, openLocal: null,
     // 29/10 (Santi): varias categorías a la vez. Conjunto vacío = todas.
     cats: new Set(), q: '', sel: null, view: 'map',
-    f: { zona: '', players: 0, dif: '', noDif: false, rank: false },
+    f: { prov: '', zona: '', players: 0, dif: '', formato: '', noDif: false, rank: false },  // 30/10: faltaba formato (el chip «Formato» salía marcado y «Limpiar» visible desde el arranque)
     pop: null,
     theme: (() => { try { return localStorage.getItem('gps-theme') || 'dark'; } catch (e) { return 'dark'; } })(),
     // «Ya la he jugado»: se guarda en este navegador (sin registro). No se sincroniza entre dispositivos.
@@ -70,7 +76,7 @@
 
   /* ---------------- helpers de datos ---------------- */
   const priceOf = r => (r.pmax ?? r.pmin ?? null);
-  const DEF_F = { zona: '', players: 0, dif: '', formato: '', noDif: false, rank: false };
+  const DEF_F = { prov: '', zona: '', players: 0, dif: '', formato: '', noDif: false, rank: false };
   const CAT_IMG = { 'Terror': 'terror', 'Thriller/Misterio': 'thriller', 'Aventura': 'aventura', 'Ciencia ficción': 'scifi', 'Histórico': 'historico', 'Fantasía': 'fantasia', 'Humor': 'humor', 'Infantil': 'infantil', 'Clásico': 'clasico' };
   const catImg = (c, sm) => `/img/cat/${CAT_IMG[c] || 'clasico'}${sm ? '-640' : ''}.webp`;
   function fitsGroup(r, n) {
@@ -86,6 +92,7 @@
       const hay = `${r.sala} ${r.local} ${r.municipio} ${r.zona || ''} ${r.cat} ${r.tema || ''}`.toLowerCase();
       if (!hay.includes(state.q)) return false;
     }
+    if (f.prov && r.prov !== f.prov) return false;
     if (f.zona && r.comarca !== f.zona) return false;
     if (!fitsGroup(r, f.players)) return false;
     // dificultad: la sala sin dato solo entra si el usuario pide verlas (nunca se le asigna un nivel)
@@ -285,8 +292,8 @@
       <div class="rk-head">
         <div class="rk-title">
           <p class="rk-rule">Ranking</p>
-          <h2>El top ${nTop + nVac} <span>${esc(Z_TOP)}</span></h2>
-          <p>Revisado a mano${nVac ? ` (${nVac === 1 ? 'un puesto vacante' : `${nVac} puestos vacantes`} hasta la próxima edición)` : ''}. Debajo, en el directorio, las otras ${nExtra} salas abiertas, sin puesto.</p>
+          <h2>${PROVS ? `Los tops <span>${esc(Z_TOP)}</span>` : `El top ${nTop + nVac} <span>${esc(Z_TOP)}</span>`}</h2>
+          <p>${PROVS ? `Cada provincia tiene su propio top, revisado a mano: aquí no se mezclan puestos de provincias distintas. ${nTop} salas con puesto y ${nExtra} más sin puesto en ${PROVS.length} provincias.` : `Revisado a mano${nVac ? ` (${nVac === 1 ? 'un puesto vacante' : `${nVac} puestos vacantes`} hasta la próxima edición)` : ''}. Debajo, en el directorio, las otras ${nExtra} salas abiertas, sin puesto.`}</p>
           <p class="rk-reco">¿No sabéis cuál elegir? <a href="/recomendador/?z=${esc(ZONE.slug)}">Recomiéndame una sala <span aria-hidden="true">→</span></a></p>
         </div>
         <div class="played${nDone ? ' has-some' : ''}">
@@ -306,6 +313,7 @@
       wrap.appendChild(el('div', 'empty', `<strong>Sin resultados</strong>Prueba a relajar algún filtro o deja que <a href="/recomendador/?z=${esc(ZONE.slug)}">el recomendador</a> os proponga cinco salas.`));
       return;
     }
+    if (PROVS) { renderProvincias(wrap, visible); return; }
     pend.forEach(r => wrap.appendChild(card(r)));
     // puestos vacantes: salas cerradas que conservan su número hasta la próxima edición del ranking
     // (solo cuando se ve el ranking completo, para no confundir con los filtros)
@@ -329,6 +337,31 @@
     wrap.appendChild(el('div', 'list-foot', `<strong>¿Falta tu escape room?</strong><span>Si tienes una sala que no está en el mapa o ves un dato que no cuadra, cuéntanoslo: lo revisamos a mano.</span><a class="btn-gold" href="/contacto/">Escríbenos →</a>`));
   }
 
+  // 30/10: vista Ranking del mapa de comunidad: un bloque por provincia con su top (los 10 primeros, o entero con ?rk=completo) y
+  // enlaces a su top estático y a su mapa. Las salas sin puesto solo se cuentan (están en el directorio de cada provincia).
+  function renderProvincias(wrap, visible) {
+    PROVS.forEach(p => {
+      const rooms = visible.filter(r => r.prov === p.slug);
+      const ranked = rooms.filter(r => r.rank).sort((a, b) => a.rank - b.rank);
+      const rest = rooms.filter(r => !r.rank).sort((a, b) => a.sala.localeCompare(b.sala, 'es'));
+      const show = RK_FULL ? ranked : ranked.slice(0, 10);
+      const sinFiltro = state.rooms.filter(r => r.prov === p.slug);
+      const txt = !rooms.length ? `Ninguna sala de ${esc(p.nombre)} pasa los filtros actuales.`
+        : `${ranked.length === sinFiltro.filter(r => r.rank).length ? `Top ${p.ntop} completo` : `${ranked.length} de las ${p.ntop} con puesto`}${rest.length ? ` y ${rest.length} sala${rest.length === 1 ? '' : 's'} más sin puesto` : ''}.`;
+      wrap.appendChild(el('div', 'dir-head prov-head', `<p class="rk-rule">${esc(p.nombre)}</p>
+        <h2>El top ${p.ntop} <span>de ${esc(p.nombre)}</span></h2>
+        <p>${txt} <a href="/${esc(p.slug)}/mejores/">Ver el top ${p.ntop} completo</a> · <a href="/${esc(p.slug)}/">Abrir el mapa de ${esc(p.nombre)}</a></p>`));
+      show.forEach(r => wrap.appendChild(card(r)));
+      if (!RK_FULL && ranked.length > 10) wrap.appendChild(el('p', 'prov-more', `<a href="/${esc(p.slug)}/#ranking">Ver los ${ranked.length - 10} puestos siguientes de ${esc(p.nombre)} <span aria-hidden="true">→</span></a>`));
+      if (RK_FULL && rest.length) {
+        wrap.appendChild(el('div', 'dir-head', `<p class="rk-rule">Directorio</p><h2>Las demás salas de ${esc(p.nombre)} <span>${rest.length}</span></h2>
+        <p>Abiertas y verificadas una a una, pero sin puesto: no tienen reconocimientos del sector, no han entrado en el top ${p.ntop} o han abierto después de la última edición del ranking. Ordenadas por nombre.</p>`));
+        rest.forEach(r => wrap.appendChild(card(r)));
+      }
+    });
+    wrap.appendChild(el('div', 'list-foot', `<strong>¿Falta tu escape room?</strong><span>Si tienes una sala que no está en el mapa o ves un dato que no cuadra, cuéntanoslo: lo revisamos a mano.</span><a class="btn-gold" href="/contacto/">Escríbenos →</a>`));
+  }
+
   function card(r) {
     const b = el('button', 'card' + (!r.rank ? ' is-plain' : '') + (isDone(r) ? ' is-done' : ''));
     b.style.setProperty('--mk', catVar(r.cat));
@@ -337,7 +370,7 @@
       <img class="card-img" src="${catImg(r.cat, true)}" alt="" loading="lazy" decoding="async" />
       <div class="card-main">
         <div class="card-title">${esc(r.sala)}</div>
-        <div class="card-sub">${esc(r.local)} · ${esc(r.municipio)}</div>
+        <div class="card-sub">${esc(r.local)} · ${esc(r.municipio)}${PROVS && r.provn && r.provn !== r.municipio ? ` · ${esc(r.provn)}` : ''}</div>
         <div class="card-meta">
           ${pill(r.cat, 'pill--cat')}
           ${r.hall ? pill('Hall escape', 'pill--hall') : ''}
@@ -531,10 +564,10 @@
         ${!hasPos(r) ? pill('Ubicación no confirmada', 'pill--warn') : ''}
       </div>
       <h2 class="d-title">${esc(r.sala)}</h2>
-      <div class="d-local">${esc(r.local)} · ${esc(r.municipio)}${zonaLabel(r) ? ` · ${esc(zonaLabel(r))}` : ''}</div>
-      <a class="d-ficha" href="/${ZONE.slug}/sala/${esc(r.id)}/">Ver la ficha completa <span aria-hidden="true">→</span></a>
+      <div class="d-local">${esc(r.local)} · ${esc(r.municipio)}${zonaLabel(r) ? ` · ${esc(zonaLabel(r))}` : ''}${PROVS && r.provn && r.provn !== r.municipio ? ` · ${esc(r.provn)}` : ''}</div>
+      <a class="d-ficha" href="/${esc(r.prov || ZONE.slug)}/sala/${esc(r.id)}/">Ver la ficha completa <span aria-hidden="true">→</span></a>
       ${r.tema ? `<p class="d-tema">${esc(r.tema)}</p>` : ''}
-      ${r.rank && whyText(r) ? `<div class="d-why"><strong>Qué cuenta para su puesto ${r.rank}</strong>${esc(whyText(r))}</div>` : ''}
+      ${r.rank && whyText(r) ? `<div class="d-why"><strong>Qué cuenta para su puesto ${r.rank}${PROVS && r.provn ? ` en ${esc(r.provn)}` : ''}</strong>${esc(whyText(r))}</div>` : ''}
       <button type="button" class="d-done${isDone(r) ? ' is-on' : ''}" data-done="${esc(r.id)}"><span class="d-done-ic" aria-hidden="true">✓</span>${isDone(r) ? 'Ya la has jugado · quitar marca' : 'Ya la he jugado'}</button>
       <dl class="d-grid">${cells}</dl>
       ${r.premios ? `<div class="d-sec"><h3>Reconocimientos</h3><p>${esc(r.premios)}</p></div>` : ''}
@@ -625,6 +658,10 @@
 
   /* ------------- filtros rápidos (segunda fila) ------------- */
   const QF = [
+    ...(PROVS ? [{
+      key: 'prov', label: 'Provincia', hint: 'Provincia del local. El filtro «Zona» se ciñe a la provincia elegida.',
+      opts: [['', `Las ${PROVS.length} provincias`], ...PROVS.map(p => [p.slug, p.nombre])], short: v => (PROV_N[v] || {}).nombre || v
+    }] : []),
     {
       key: 'zona', label: 'Zona', hint: ZONE.zonaHint || 'Comarca del local.',
       opts: [['', Z_TODA]], short: v => v
@@ -671,6 +708,12 @@
     }
   }
 
+  // opciones del filtro «Zona» (comarcas o municipios, según la zona); en un mapa de comunidad, solo las de la provincia elegida
+  function zonaOpts(prov) {
+    const zc = {}; state.rooms.forEach(r => { if (r.comarca && (!prov || r.prov === prov)) zc[r.comarca] = (zc[r.comarca] || 0) + 1; });
+    const toda = prov && PROV_N[prov] ? `Toda la provincia de ${PROV_N[prov].nombre}` : Z_TODA;
+    return [['', toda], ...Object.keys(zc).sort((a, b) => zc[b] - zc[a]).map(z => [z, z])];
+  }
   function closePop() {
     state.pop = null;
     $('#pop').hidden = true;
@@ -684,6 +727,7 @@
     $('#popTitle').textContent = def.label;
     $('#popHint').textContent = def.hint;
     const box = $('#popOpts'); box.innerHTML = '';
+    if (def.key === 'zona' && PROVS) def.opts = zonaOpts(state.f.prov);
     def.opts.forEach(([v, lab]) => {
       const n = countWith(def.key, v);
       const sel = state.f[def.key] === v;
@@ -692,6 +736,7 @@
       b.onclick = () => {
         state.f[def.key] = v;
         if (def.key === 'dif' && !v) state.f.noDif = false;
+        if (def.key === 'prov' && state.f.zona && !zonaOpts(v).some(o => o[0] === state.f.zona)) state.f.zona = '';
         closePop(); buildQChips(); render();
       };
       box.appendChild(b);
@@ -738,7 +783,7 @@
     state.rooms.forEach(r => counts[r.cat] = (counts[r.cat] || 0) + 1);
     $('#legendCats').innerHTML = Object.keys(CATS).filter(k => counts[k])
       .map(k => `<div class="lg-item"><span class="lg-swatch" style="background:${catVar(k)}"></span>${esc(CATS[k].label)} (${counts[k]})</div>`).join('');
-    $('#legendNote').textContent = `Datos contrastados el ${meta.generado} sobre un inventario de ${state.rooms.length} salas físicas abiertas o por confirmar ${Z_DE} (sin VR, sin online y sin juegos al aire libre). Cada marcador es un local: el número es el mejor puesto de sus salas y la cifra pequeña, cuántas salas tiene. Las coordenadas se han verificado portal a portal con el geocodificador oficial de CartoCiudad (IGN); las salas cuya dirección no está confirmada no se pintan en el mapa y aparecen en la lista como «Ubicación no confirmada».`;
+    $('#legendNote').textContent = `Datos contrastados el ${meta.generado} sobre un inventario de ${state.rooms.length} salas físicas abiertas o por confirmar ${Z_DE} (sin VR, sin online y sin juegos al aire libre). Cada marcador es un local: el número es el mejor puesto de sus salas${PROVS ? ' en el top de su provincia (cada provincia tiene su propio top; aquí no se mezclan)' : ''} y la cifra pequeña, cuántas salas tiene. Las coordenadas se han verificado portal a portal con el geocodificador oficial de CartoCiudad (IGN); las salas cuya dirección no está confirmada no se pintan en el mapa y aparecen en la lista como «Ubicación no confirmada».`;
   }
 
   // AdSense se carga cuando el mapa ya está pintado (o a los 4 s como tarde), para no competir con él al arrancar
@@ -774,8 +819,8 @@
     const niveles = new Set(state.rooms.map(r => r.dif).filter(Boolean));
     qdif.opts = [['', 'Cualquiera'], ...['Baja', 'Fácil', 'Media-Baja', 'Media', 'Media-Alta', 'Alta', 'Muy alta'].filter(v => niveles.has(v)).map(v => [v, v])];
     const qz = QF.find(x => x.key === 'zona');
-    const zc = {}; state.rooms.forEach(r => { if (r.comarca) zc[r.comarca] = (zc[r.comarca] || 0) + 1; });
-    qz.opts = [['', Z_TODA], ...Object.keys(zc).sort((a, b) => zc[b] - zc[a]).map(z => [z, z])];
+    qz.opts = zonaOpts('');
+    if (PROVS) { const qp = qs.get('provincia') || qs.get('prov'); if (qp && PROV_N[qp]) state.f.prov = qp; }
     buildChips(); buildQChips(); buildLegend(d.meta); applyTheme();
     render(); // el ranking no depende del mapa: si las teselas fallan, la lista sigue estando
     // ?sala=<id> desde las fichas estáticas: abre la sala y centra el mapa

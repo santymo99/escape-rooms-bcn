@@ -1042,3 +1042,18 @@ input[type="range"]::-moz-range-thumb { width: 20px; height: 20px; border-radius
 /* 29/10: filtro de categoría múltiple. En el móvil, con más de dos marcadas, «Todas» enseña cuántas hay. */
 .chip .ct-n { display: none; }
 @media (max-width: 640px) { .chip .ct-all { display: none; } .chip .ct-n { display: inline; } }
+
+/* 30/10 · mapa de comunidad (/cataluna/): menú de zonas agrupado por comunidad y vista Ranking con un bloque por provincia */
+.zone-menu a.mz-com { border-top: 1px solid rgba(225,175,74,.14); margin-top: 2px; padding-top: 11px; }
+.zone-menu a.mz-com strong { letter-spacing: .04em; }
+.zone-menu a.mz-sub strong { font-size: .72rem; color: #d9b45e; }
+.zone-menu a.mz-sub { padding-block: 7px; }
+.zone-menu a.mz-sub { margin-inline: 12px; background: rgba(225,175,74,.035); border-radius: 8px; }
+.zone-menu a.mz-sub + a:not(.mz-sub) { border-top: 1px solid rgba(225,175,74,.14); margin-top: 4px; padding-top: 11px; }
+.prov-head { margin-top: var(--space-7); }
+.prov-head:first-of-type { margin-top: var(--space-4); }
+.prov-head p a { color: var(--gold); text-decoration: none; border-bottom: 1px solid color-mix(in oklab, var(--gold) 45%, transparent); }
+.prov-head p a:hover { border-bottom-color: var(--gold); }
+.prov-more { max-width: 760px; margin: var(--space-3) auto 0; text-align: center; font-size: var(--text-sm); }
+.prov-more a { color: var(--gold); text-decoration: none; font-weight: 700; }
+.prov-more a:hover { text-decoration: underline; }

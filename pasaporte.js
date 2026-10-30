@@ -38,7 +38,7 @@
     var sel = ids.map(function (i) { return BY[i]; });
     // 05/10: el pasaporte es un librito: tapa que se abre y dos páginas (titular con los hitos y «visados», un sello por provincia)
     var hitos = [1, 5, 10, 25, 50, 100], n = ids.length, sig = hitos.filter(function (x) { return x > n; })[0];
-    var zonasAll = D.zonas.map(function (z) {
+    var zonasAll = D.zonas.filter(function (z) { return !z.p; }).map(function (z) {   // 30/10: las comunidades (con p) no cuentan aparte de sus provincias
       var todas = D.salas.filter(function (s) { return s.z === z.s; }), jug = todas.filter(function (s) { return set[s.i]; });
       var top10 = todas.filter(function (s) { return s.r && s.r <= 10; }), t10 = top10.filter(function (s) { return set[s.i]; }).length;
       return { z: z, todas: todas, jug: jug, top10: top10.length, t10: t10 };

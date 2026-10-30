@@ -3,6 +3,8 @@
 (function () {
   var D = window.GPS_RECO; if (!D) return;
   var Z = {}; D.zonas.forEach(function (z) { Z[z.s] = z; });
+  // 30/10: una zona con `p` es una comunidad (Cataluña): sus salas son las de sus provincias
+  function enZona(s, z) { return !!z && (Z[z] && Z[z].p ? Z[z].p.indexOf(s.z) >= 0 : s.z === z); }
   D.salas.forEach(function (s) { var c = D.cats[s.c] || D.cats['Clásico']; s.u = '/' + s.z + '/sala/' + s.i + '/'; s.v = c[1];
     s.img = s.o ? '/img/salas/' + s.i + '-640.webp' : '/img/cat/' + c[0] + '-640.webp'; });
   var CAT = { 'Terror': 'de terror', 'Aventura': 'de aventura', 'Thriller/Misterio': 'de thriller y misterio', 'Ciencia ficción': 'de ciencia ficción',
@@ -26,7 +28,7 @@
   if (q.get('pr')) S.p = lista(q.get('pr'), TP); else if (+q.get('p')) S.p = TP.filter(function (v) { return v <= +q.get('p'); });
   function tD(m) { return m <= 60 ? 60 : m <= 75 ? 75 : m <= 90 ? 90 : 91; }
   function tP(e) { return e <= 20 ? 20 : e <= 25 ? 25 : e <= 30 ? 30 : 31; }
-  if (q.get('m') && S.z) S.m = q.get('m').split('|').filter(function (m) { return D.salas.some(function (s) { return s.z === S.z && s.m === m; }); });
+  if (q.get('m') && S.z) S.m = q.get('m').split('|').filter(function (m) { return D.salas.some(function (s) { return enZona(s, S.z) && s.m === m; }); });
   if (['prin', 'hab', 'exp'].indexOf(q.get('l')) >= 0) S.l = q.get('l');
   if (['sala', 'hall'].indexOf(q.get('h')) >= 0) S.h = q.get('h');
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
@@ -49,7 +51,7 @@
   function munis() {
     if (!muniBox) return;
     if (!S.z || S.z === 'cerca') { muniBox.hidden = true; muniBox.innerHTML = ''; return; }
-    var n = {}; D.salas.forEach(function (s) { if (s.z === S.z) n[s.m] = (n[s.m] || 0) + 1; });
+    var n = {}; D.salas.forEach(function (s) { if (enZona(s, S.z)) n[s.m] = (n[s.m] || 0) + 1; });
     var L = Object.keys(n).sort(function (a, b) { return n[b] - n[a] || a.localeCompare(b, 'es'); });
     if (L.length < 2) { muniBox.hidden = true; muniBox.innerHTML = ''; return; }
     var corto = L.length > 12 && !verTodos, V = corto ? L.slice(0, 10) : L;
@@ -67,7 +69,7 @@
     D.salas.forEach(function (s) {
       var dist = null;
       if (st.z === 'cerca') { if (!st.me || s.x == null || s.y == null) return; dist = km(st.me, [s.y, s.x]); if (dist > st.km) return; }
-      else if (st.z && s.z !== st.z) return;
+      else if (st.z && !enZona(s, st.z)) return;
       if (s.a == null || s.b == null) return;
       if (st.n >= 6 ? s.b < 6 : (st.n < s.a || st.n > s.b)) return;
       if (st.m.length && st.m.indexOf(s.m) < 0) return;
