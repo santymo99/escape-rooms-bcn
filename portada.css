@@ -1005,3 +1005,6 @@ h1, h2, h3 { font-family: Michroma, sans-serif; font-weight: 400; letter-spacing
 .p-top .menu-list a.mz-sub strong { font-size: .72rem; }
 .p-top .menu-list a.mz-sub { margin-inline: 12px; background: rgba(225,175,74,.035); border-radius: 8px; }
 .p-top .menu-list a.mz-sub + a:not(.mz-sub) { border-top: 1px solid rgba(225,175,74,.14); margin-top: 4px; padding-top: 11px; }
+/* 31/10 (usuario): en la portada la lista de zonas se abre entera, sin barra de desplazamiento interna. Si no cabe en la
+   pantalla, portada.js baja la página lo justo para verla y aparta «Recomiéndame» y «Categorías». */
+.t-hero .zonas-list { max-height: none; overflow-y: visible; }
