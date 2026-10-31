@@ -1038,6 +1038,8 @@ input[type="range"]::-moz-range-thumb { width: 20px; height: 20px; border-radius
 .top-link:hover { border-color: var(--gold); background: color-mix(in oklab, var(--gold) 16%, var(--bg)); color: var(--gold); }
 .top-link:active { transform: scale(.97); }
 [data-theme="light"] .top-link { color: #8a5a05; }
+/* 31/10: en las provincias de una comunidad con mapa propio, el enlace a ese mapa va justo debajo del del top */
+.top-link + .com-link { top: calc(var(--space-3) + 76px); }
 
 /* 29/10: filtro de categoría múltiple. En el móvil, con más de dos marcadas, «Todas» enseña cuántas hay. */
 .chip .ct-n { display: none; }
