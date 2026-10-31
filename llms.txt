@@ -11,39 +11,69 @@ Cada ficha de sala reúne categoría, número de jugadores, duración, dificulta
 - [Barcelona](https://gpsescape.es/barcelona/): mapa con 224 salas abiertas
 - [Mejores escape rooms de Barcelona](https://gpsescape.es/barcelona/mejores/): top 100 en orden
 - [Todas las salas de Barcelona](https://gpsescape.es/barcelona/salas/): listado completo
+- [Los mejores escape rooms de Mataró](https://gpsescape.es/barcelona/municipio/mataro/): salas del top 100 de Barcelona en Mataró y el resto de la ciudad
+- [Los mejores escape rooms de Badalona](https://gpsescape.es/barcelona/municipio/badalona/): salas del top 100 de Barcelona en Badalona y el resto de la ciudad
+- [Los mejores escape rooms de Terrassa](https://gpsescape.es/barcelona/municipio/terrassa/): salas del top 100 de Barcelona en Terrassa y el resto de la ciudad
+- [Los mejores escape rooms de Cornellà de Llobregat](https://gpsescape.es/barcelona/municipio/cornella-de-llobregat/): salas del top 100 de Barcelona en Cornellà de Llobregat y el resto de la ciudad
+- [Los mejores escape rooms de L'Hospitalet de Llobregat](https://gpsescape.es/barcelona/municipio/l-hospitalet-de-llobregat/): salas del top 100 de Barcelona en L'Hospitalet de Llobregat y el resto de la ciudad
+- [Los mejores escape rooms de Sabadell](https://gpsescape.es/barcelona/municipio/sabadell/): salas del top 100 de Barcelona en Sabadell y el resto de la ciudad
+- [Los mejores escape rooms de Santa Coloma de Gramenet](https://gpsescape.es/barcelona/municipio/santa-coloma-de-gramenet/): salas del top 100 de Barcelona en Santa Coloma de Gramenet y el resto de la ciudad
+- [Los mejores escape rooms de Berga](https://gpsescape.es/barcelona/municipio/berga/): salas del top 100 de Barcelona en Berga y el resto de la ciudad
+- [Los mejores escape rooms de Calella](https://gpsescape.es/barcelona/municipio/calella/): salas del top 100 de Barcelona en Calella y el resto de la ciudad
+- [Los mejores escape rooms de Esplugues de Llobregat](https://gpsescape.es/barcelona/municipio/esplugues-de-llobregat/): salas del top 100 de Barcelona en Esplugues de Llobregat y el resto de la ciudad
+- [Los mejores escape rooms de Granollers](https://gpsescape.es/barcelona/municipio/granollers/): salas del top 100 de Barcelona en Granollers y el resto de la ciudad
 - [Valencia](https://gpsescape.es/valencia/): mapa con 84 salas abiertas
 - [Mejores escape rooms de Valencia](https://gpsescape.es/valencia/mejores/): top 50 en orden
 - [Todas las salas de Valencia](https://gpsescape.es/valencia/salas/): listado completo
+- [Los mejores escape rooms de Ontinyent](https://gpsescape.es/valencia/municipio/ontinyent/): salas del top 50 de Valencia en Ontinyent y el resto de la ciudad
 - [Madrid](https://gpsescape.es/madrid/): mapa con 227 salas abiertas
 - [Mejores escape rooms de Madrid](https://gpsescape.es/madrid/mejores/): top 100 en orden
 - [Todas las salas de Madrid](https://gpsescape.es/madrid/salas/): listado completo
+- [Los mejores escape rooms de Rivas-Vaciamadrid](https://gpsescape.es/madrid/municipio/rivas-vaciamadrid/): salas del top 100 de Madrid en Rivas-Vaciamadrid y el resto de la ciudad
+- [Los mejores escape rooms de San Sebastián de los Reyes](https://gpsescape.es/madrid/municipio/san-sebastian-de-los-reyes/): salas del top 100 de Madrid en San Sebastián de los Reyes y el resto de la ciudad
+- [Los mejores escape rooms de Fuenlabrada](https://gpsescape.es/madrid/municipio/fuenlabrada/): salas del top 100 de Madrid en Fuenlabrada y el resto de la ciudad
+- [Los mejores escape rooms de Móstoles](https://gpsescape.es/madrid/municipio/mostoles/): salas del top 100 de Madrid en Móstoles y el resto de la ciudad
 - [Alicante](https://gpsescape.es/alicante/): mapa con 55 salas abiertas
 - [Mejores escape rooms de Alicante](https://gpsescape.es/alicante/mejores/): top 25 en orden
 - [Todas las salas de Alicante](https://gpsescape.es/alicante/salas/): listado completo
+- [Los mejores escape rooms de Elche](https://gpsescape.es/alicante/municipio/elche/): salas del top 25 de Alicante en Elche y el resto de la ciudad
+- [Los mejores escape rooms de Sant Joan d'Alacant](https://gpsescape.es/alicante/municipio/sant-joan-d-alacant/): salas del top 25 de Alicante en Sant Joan d'Alacant y el resto de la ciudad
 - [País Vasco](https://gpsescape.es/pais-vasco/): mapa con 70 salas abiertas
 - [Mejores escape rooms del País Vasco](https://gpsescape.es/pais-vasco/mejores/): top 25 en orden
 - [Todas las salas del País Vasco](https://gpsescape.es/pais-vasco/salas/): listado completo
+- [Los mejores escape rooms de Bilbao](https://gpsescape.es/pais-vasco/municipio/bilbao/): salas del top 25 del País Vasco en Bilbao y el resto de la ciudad
+- [Los mejores escape rooms de Vitoria-Gasteiz](https://gpsescape.es/pais-vasco/municipio/vitoria-gasteiz/): salas del top 25 del País Vasco en Vitoria-Gasteiz y el resto de la ciudad
 - [Sevilla](https://gpsescape.es/sevilla/): mapa con 52 salas abiertas
 - [Mejores escape rooms de Sevilla](https://gpsescape.es/sevilla/mejores/): top 25 en orden
 - [Todas las salas de Sevilla](https://gpsescape.es/sevilla/salas/): listado completo
 - [Región de Murcia](https://gpsescape.es/murcia/): mapa con 46 salas abiertas
 - [Mejores escape rooms de la Región de Murcia](https://gpsescape.es/murcia/mejores/): top 20 en orden
 - [Todas las salas de la Región de Murcia](https://gpsescape.es/murcia/salas/): listado completo
+- [Los mejores escape rooms de Alhama de Murcia](https://gpsescape.es/murcia/municipio/alhama-de-murcia/): salas del top 20 de la Región de Murcia en Alhama de Murcia y el resto de la ciudad
 - [Asturias](https://gpsescape.es/asturias/): mapa con 27 salas abiertas
 - [Mejores escape rooms de Asturias](https://gpsescape.es/asturias/mejores/): top 15 en orden
 - [Todas las salas de Asturias](https://gpsescape.es/asturias/salas/): listado completo
+- [Los mejores escape rooms de Gijón](https://gpsescape.es/asturias/municipio/gijon/): salas del top 15 de Asturias en Gijón y el resto de la ciudad
+- [Los mejores escape rooms de Siero](https://gpsescape.es/asturias/municipio/siero/): salas del top 15 de Asturias en Siero y el resto de la ciudad
 - [Aragón](https://gpsescape.es/aragon/): mapa con 52 salas abiertas
 - [Mejores escape rooms de Aragón](https://gpsescape.es/aragon/mejores/): top 15 en orden
 - [Todas las salas de Aragón](https://gpsescape.es/aragon/salas/): listado completo
+- [Los mejores escape rooms de Zaragoza](https://gpsescape.es/aragon/municipio/zaragoza/): salas del top 15 de Aragón en Zaragoza y el resto de la ciudad
+- [Los mejores escape rooms de Cuarte de Huerva](https://gpsescape.es/aragon/municipio/cuarte-de-huerva/): salas del top 15 de Aragón en Cuarte de Huerva y el resto de la ciudad
 - [Málaga](https://gpsescape.es/malaga/): mapa con 38 salas abiertas
 - [Mejores escape rooms de Málaga](https://gpsescape.es/malaga/mejores/): top 15 en orden
 - [Todas las salas de Málaga](https://gpsescape.es/malaga/salas/): listado completo
+- [Los mejores escape rooms de Vélez-Málaga](https://gpsescape.es/malaga/municipio/velez-malaga/): salas del top 15 de Málaga en Vélez-Málaga y el resto de la ciudad
 - [Galicia](https://gpsescape.es/galicia/): mapa con 67 salas abiertas
 - [Mejores escape rooms de Galicia](https://gpsescape.es/galicia/mejores/): top 15 en orden
 - [Todas las salas de Galicia](https://gpsescape.es/galicia/salas/): listado completo
+- [Los mejores escape rooms de A Coruña](https://gpsescape.es/galicia/municipio/a-coruna/): salas del top 15 de Galicia en A Coruña y el resto de la ciudad
+- [Los mejores escape rooms de Vigo](https://gpsescape.es/galicia/municipio/vigo/): salas del top 15 de Galicia en Vigo y el resto de la ciudad
 - [Castilla y León](https://gpsescape.es/castilla-y-leon/): mapa con 76 salas abiertas
 - [Mejores escape rooms de Castilla y León](https://gpsescape.es/castilla-y-leon/mejores/): top 20 en orden
 - [Todas las salas de Castilla y León](https://gpsescape.es/castilla-y-leon/salas/): listado completo
+- [Los mejores escape rooms de Valladolid](https://gpsescape.es/castilla-y-leon/municipio/valladolid/): salas del top 20 de Castilla y León en Valladolid y el resto de la ciudad
+- [Los mejores escape rooms de Salamanca](https://gpsescape.es/castilla-y-leon/municipio/salamanca/): salas del top 20 de Castilla y León en Salamanca y el resto de la ciudad
 - [Granada](https://gpsescape.es/granada/): mapa con 33 salas abiertas
 - [Mejores escape rooms de Granada](https://gpsescape.es/granada/mejores/): top 15 en orden
 - [Todas las salas de Granada](https://gpsescape.es/granada/salas/): listado completo
@@ -56,15 +86,20 @@ Cada ficha de sala reúne categoría, número de jugadores, duración, dificulta
 - [Tarragona](https://gpsescape.es/tarragona/): mapa con 17 salas abiertas
 - [Mejores escape rooms de Tarragona](https://gpsescape.es/tarragona/mejores/): top 10 en orden
 - [Todas las salas de Tarragona](https://gpsescape.es/tarragona/salas/): listado completo
+- [Los mejores escape rooms de Reus](https://gpsescape.es/tarragona/municipio/reus/): salas del top 10 de Tarragona en Reus y el resto de la ciudad
+- [Los mejores escape rooms de Salou](https://gpsescape.es/tarragona/municipio/salou/): salas del top 10 de Tarragona en Salou y el resto de la ciudad
 - [Castellón](https://gpsescape.es/castellon/): mapa con 17 salas abiertas
 - [Mejores escape rooms de Castellón](https://gpsescape.es/castellon/mejores/): top 10 en orden
 - [Todas las salas de Castellón](https://gpsescape.es/castellon/salas/): listado completo
+- [Los mejores escape rooms de Orpesa](https://gpsescape.es/castellon/municipio/orpesa/): salas del top 10 de Castellón en Orpesa y el resto de la ciudad
 - [Cantabria](https://gpsescape.es/cantabria/): mapa con 26 salas abiertas
 - [Mejores escape rooms de Cantabria](https://gpsescape.es/cantabria/mejores/): top 10 en orden
 - [Todas las salas de Cantabria](https://gpsescape.es/cantabria/salas/): listado completo
+- [Los mejores escape rooms de Santander](https://gpsescape.es/cantabria/municipio/santander/): salas del top 10 de Cantabria en Santander y el resto de la ciudad
 - [Navarra](https://gpsescape.es/navarra/): mapa con 14 salas abiertas
 - [Mejores escape rooms de Navarra](https://gpsescape.es/navarra/mejores/): top 10 en orden
 - [Todas las salas de Navarra](https://gpsescape.es/navarra/salas/): listado completo
+- [Los mejores escape rooms de Pamplona](https://gpsescape.es/navarra/municipio/pamplona/): salas del top 10 de Navarra en Pamplona y el resto de la ciudad
 
 ## Herramientas
 
