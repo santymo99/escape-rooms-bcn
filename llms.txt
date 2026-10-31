@@ -1,6 +1,6 @@
 # GPS Escape
 
-> Guía independiente de escape rooms físicos en España por provincias: mapa, fichas revisadas a mano y un top propio en cada zona. 1110 salas abiertas en 17 zonas. Solo se publican salas abiertas y ningún local paga por aparecer ni por su puesto.
+> Guía independiente de escape rooms físicos en España por provincias: mapa, fichas revisadas a mano y un top propio en cada zona. 1150 salas abiertas en 19 zonas. Solo se publican salas abiertas y ningún local paga por aparecer ni por su puesto.
 
 Cada ficha de sala reúne categoría, número de jugadores, duración, dificultad, precio orientativo cuando el local lo publica, ubicación y enlace a la web del local para reservar.
 
@@ -59,6 +59,12 @@ Cada ficha de sala reúne categoría, número de jugadores, duración, dificulta
 - [Castellón](https://gpsescape.es/castellon/): mapa con 17 salas abiertas
 - [Mejores escape rooms de Castellón](https://gpsescape.es/castellon/mejores/): top 10 en orden
 - [Todas las salas de Castellón](https://gpsescape.es/castellon/salas/): listado completo
+- [Cantabria](https://gpsescape.es/cantabria/): mapa con 26 salas abiertas
+- [Mejores escape rooms de Cantabria](https://gpsescape.es/cantabria/mejores/): top 10 en orden
+- [Todas las salas de Cantabria](https://gpsescape.es/cantabria/salas/): listado completo
+- [Navarra](https://gpsescape.es/navarra/): mapa con 14 salas abiertas
+- [Mejores escape rooms de Navarra](https://gpsescape.es/navarra/mejores/): top 10 en orden
+- [Todas las salas de Navarra](https://gpsescape.es/navarra/salas/): listado completo
 
 ## Herramientas
 
