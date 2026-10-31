@@ -1062,3 +1062,7 @@ input[type="range"]::-moz-range-thumb { width: 20px; height: 20px; border-radius
 .prov-more { max-width: 760px; margin: var(--space-3) auto 0; text-align: center; font-size: var(--text-sm); }
 .prov-more a { color: var(--gold); text-decoration: none; font-weight: 700; }
 .prov-more a:hover { text-decoration: underline; }
+
+/* 31/10: zona táctil de 44 × 44 px en los puntos pequeños (salas sin puesto y mapas de comunidad), sin cambiar su aspecto.
+   Los pines con número quedan por encima (más z-index), así que no les quitan el toque. */
+.mk.is-plain::after { content: ""; position: absolute; left: 50%; top: 50%; width: 44px; height: 44px; transform: translate(-50%, -50%); border-radius: 50%; }

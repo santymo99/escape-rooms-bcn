@@ -226,6 +226,38 @@
     node.setAttribute('aria-label', `${g.local}, ${g.municipio}: ${rooms.length} ${rooms.length === 1 ? 'sala' : 'salas'}${best.rank ? `, mejor puesto nº ${best.rank}${PROVS && best.provn ? ` de ${best.provn}` : ''}` : ''}`);
   }
 
+  // 31/10 (Santi): pines solapados. Si hay otros marcadores visibles a menos de CERCA px del tocado y el mapa aún se puede
+  // acercar, se hace zoom centrado en el grupo lo justo para separarlos (2 niveles como mínimo) y no se abre nada. Devuelve
+  // true si ha hecho zoom. CERCA es mayor que el radio de la zona táctil de los puntos (22 px), así que tras el zoom el toque
+  // en el centro de un punto ya no lo puede capturar el vecino.
+  const CERCA = 24;
+  function separar(node) {
+    const map = state.map; if (!map) return false;
+    const me = [...state.markers.values()].find(m => m.node === node); if (!me) return false;
+    const p = map.project(me.mk.getLngLat());
+    const cerca = [];
+    state.markers.forEach(m => {
+      if (m === me || m.node.style.display === 'none') return;
+      const q = map.project(m.mk.getLngLat()), d = Math.hypot(q.x - p.x, q.y - p.y);
+      if (d < CERCA) cerca.push({ m, d });
+    });
+    const z = map.getZoom(), zmax = map.getMaxZoom();
+    if (!cerca.length || z >= zmax - 0.25) return false;
+    const dmin = Math.max(0.5, Math.min(...cerca.map(x => x.d)));
+    const dz = Math.max(2, Math.ceil(Math.log2((CERCA + 6) / dmin)));
+    // el grupo entero tiene que seguir a la vista: el zoom no pasa del que encuadra todos sus pines (con margen para el
+    // contador y el enlace de arriba y la barra Mapa|Ranking de abajo). Si aún quedan pegados, el siguiente toque acerca más.
+    const pts = [me, ...cerca.map(x => x.m)].map(m => m.mk.getLngLat());
+    const bounds = pts.reduce((bb, l) => bb.extend(l), new maplibregl.LngLatBounds(pts[0], pts[0]));
+    const W = map.getContainer().clientWidth, H = map.getContainer().clientHeight;
+    const pad = { top: Math.min(110, H * 0.2), bottom: Math.min(110, H * 0.2), left: Math.min(60, W * 0.15), right: Math.min(70, W * 0.18) };
+    const fit = map.cameraForBounds(bounds, { padding: pad, maxZoom: zmax });
+    const zoom = Math.min(zmax, z + dz, fit && fit.zoom != null ? Math.max(fit.zoom, z + 1) : z + dz);
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    map.easeTo({ center: bounds.getCenter(), zoom, duration: reduce ? 0 : 320 });
+    return true;
+  }
+
   function buildMarkers() {
     if (state.markers.size) return; // idempotente: evita duplicar si 'load' y el fallback coinciden
     const byPos = new Map();
@@ -236,7 +268,9 @@
       node.setAttribute('role', 'button');
       node.setAttribute('tabindex', '0');
       const open = e => { e.stopPropagation(); openGroup(g.id, true); };
-      node.addEventListener('click', open);
+      // 31/10: con el ratón o el dedo, si el pin tiene otros pegados en pantalla, primero se acerca el mapa para separarlos
+      // (antes el pin de encima se quedaba el toque y el de debajo no se podía abrir). Con el teclado se abre directamente.
+      node.addEventListener('click', e => { e.stopPropagation(); if (!separar(node)) openGroup(g.id, true); });
       node.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') open(e); });
       const mk = new maplibregl.Marker({ element: node, anchor: 'center' })
         .setLngLat(jitter(g, i)).addTo(state.map);
