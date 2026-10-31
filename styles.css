@@ -1005,9 +1005,6 @@ input[type="range"]::-moz-range-thumb { width: 20px; height: 20px; border-radius
 [data-theme="light"] .played-txt a { color: #8a5a05; }
 .played-txt a { font-weight: 700; text-underline-offset: 3px; }
 /* 08/10: marca de hall escape */
-/* 31/10: puesto con su provincia en el panel de sala de los mapas de comunidad («n.º 1 de Lleida») */
-.pill--rk { border-color: rgba(225,175,74,.55); color: var(--gold); background: rgba(225,175,74,.10); font-weight: 700; }
-[data-theme="light"] .pill--rk { color: #8a5a05; }
 .pill--hall { border-color: rgba(225,175,74,.55); color: var(--gold); background: rgba(225,175,74,.10); font-weight: 600; }
 
 /* 15/10: enlace al recomendador bajo el titular del ranking de cada zona (subrayado dorado: el texto mantiene contraste en claro) */

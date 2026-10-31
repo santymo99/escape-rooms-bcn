@@ -211,19 +211,16 @@
     // color = categoría de esa sala, badge = cuántas salas hay dentro (solo si más de una)
     const { node, g } = m;
     const best = bestOf(rooms);
-    // 31/10 (usuario, opción B): en los mapas de comunidad los pines van sin número (cada provincia tiene su top y los puestos se
-    // repetían); solo el color de la categoría. El puesto se ve al abrir el local o la sala, con su provincia.
-    const num = best.rank && !PROVS;
     const keep = [...node.classList].filter(c => c.startsWith('maplibregl')).join(' '); // clases de MapLibre: posicionan el marcador
-    node.className = keep + ' mk' + (!num ? ' is-plain' : '') + (num && best.rank <= 10 ? ' is-top10' : '')
+    node.className = keep + ' mk' + (!best.rank ? ' is-plain' : '') + (best.rank && best.rank <= 10 ? ' is-top10' : '')
       + (rooms.length > 1 ? ' is-multi' : '') + (rooms.every(isDone) ? ' is-done' : '') + ((state.sel && rooms.some(r => r.id === state.sel)) || state.openLocal === g.id ? ' is-sel' : '');
     node.style.setProperty('--mk', catVar(best.cat));
     // 15/10: donde se amontonan, el mejor puesto queda encima y se lee (antes mandaba el orden de creación)
     node.style.zIndex = node.classList.contains('is-sel') ? 2000 : best.rank ? String(1500 - best.rank) : '1';
     // local con varias salas: un segundo disco apilado detrás (sin cifra, para no confundir con el puesto)
     node.innerHTML = (rooms.length > 1 ? '<div class="mk-stack"></div>' : '')
-      + (num ? `<div class="mk-pin">${best.rank}</div>` : '<div class="mk-dot"></div>');
-    node.setAttribute('aria-label', `${g.local}, ${g.municipio}: ${rooms.length} ${rooms.length === 1 ? 'sala' : 'salas'}${best.rank ? `, mejor puesto nº ${best.rank}${PROVS && best.provn ? ` de ${best.provn}` : ''}` : ''}`);
+      + (best.rank ? `<div class="mk-pin">${best.rank}</div>` : '<div class="mk-dot"></div>');
+    node.setAttribute('aria-label', `${g.local}, ${g.municipio}: ${rooms.length} ${rooms.length === 1 ? 'sala' : 'salas'}${best.rank ? `, mejor puesto nº ${best.rank}` : ''}`);
   }
 
   function buildMarkers() {
@@ -482,7 +479,7 @@
     const pp = rooms.every(r => r.pmin != null) ? [Math.min(...rooms.map(r => r.pmin)), Math.max(...rooms.map(r => r.pmin))] : null;
     const facts = [
       `<span><b>${rooms.length}</b> ${rooms.length === 1 ? 'sala' : 'salas'}</span>`,
-      ranked.length ? `<span>Mejor puesto <b>nº ${Math.min(...ranked)}${PROVS && rooms[0].provn ? ` de ${esc(rooms[0].provn)}` : ''}</b></span>` : '',
+      ranked.length ? `<span>Mejor puesto <b>nº ${Math.min(...ranked)}</b></span>` : '',
       jug ? `<span><b>${jug[0] === jug[1] ? jug[0] : `${jug[0]} a ${jug[1]}`}</b> jugadores</span>` : '',
       pp ? `<span><b>${pp[0] === pp[1] ? priceNum(pp[0]) : `${priceNum(pp[0])}-${priceNum(pp[1])}`} €</b> por persona</span>` : ''
     ].filter(Boolean).join('');
@@ -560,7 +557,7 @@
 
     return `
       <div class="d-eyebrow">
-        ${PROVS && r.rank && r.provn ? `<span class="pill pill--rk">n.º ${r.rank} de ${esc(r.provn)}</span>` : `<span class="d-rank${!r.rank ? ' is-plain' : ''}" style="--mk:${catVar(r.cat)}">${r.rank || '·'}</span>`}
+        <span class="d-rank${!r.rank ? ' is-plain' : ''}" style="--mk:${catVar(r.cat)}">${r.rank || '·'}</span>
         <span class="pill pill--cat" style="--mk:${catVar(r.cat)}">${esc(r.cat || 'Sin datos')}</span>
         ${r.hall ? '<span class="pill pill--hall" title="Un juego de escape en el que no hay que salir de ninguna sala: pruebas y enigmas contra el reloj, a menudo para grupos grandes o varios equipos a la vez.">Hall escape*</span>' : ''}
 
@@ -786,7 +783,7 @@
     state.rooms.forEach(r => counts[r.cat] = (counts[r.cat] || 0) + 1);
     $('#legendCats').innerHTML = Object.keys(CATS).filter(k => counts[k])
       .map(k => `<div class="lg-item"><span class="lg-swatch" style="background:${catVar(k)}"></span>${esc(CATS[k].label)} (${counts[k]})</div>`).join('');
-    $('#legendNote').textContent = `Datos contrastados el ${meta.generado} sobre un inventario de ${state.rooms.length} salas físicas abiertas o por confirmar ${Z_DE} (sin VR, sin online y sin juegos al aire libre). Cada marcador es un local${PROVS ? ', con el color de la categoría de su mejor sala. Aquí los marcadores no llevan número porque cada provincia tiene su propio top: el puesto de cada sala en el de su provincia se ve al abrirla. La cifra pequeña es' : ': el número es el mejor puesto de sus salas y la cifra pequeña,'} cuántas salas tiene. Las coordenadas se han verificado portal a portal con el geocodificador oficial de CartoCiudad (IGN); las salas cuya dirección no está confirmada no se pintan en el mapa y aparecen en la lista como «Ubicación no confirmada».`;
+    $('#legendNote').textContent = `Datos contrastados el ${meta.generado} sobre un inventario de ${state.rooms.length} salas físicas abiertas o por confirmar ${Z_DE} (sin VR, sin online y sin juegos al aire libre). Cada marcador es un local: el número es el mejor puesto de sus salas${PROVS ? ' en el top de su provincia (cada provincia tiene su propio top; aquí no se mezclan)' : ''} y la cifra pequeña, cuántas salas tiene. Las coordenadas se han verificado portal a portal con el geocodificador oficial de CartoCiudad (IGN); las salas cuya dirección no está confirmada no se pintan en el mapa y aparecen en la lista como «Ubicación no confirmada».`;
   }
 
   // AdSense se carga cuando el mapa ya está pintado (o a los 4 s como tarde), para no competir con él al arrancar
