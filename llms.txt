@@ -1,6 +1,6 @@
 # GPS Escape
 
-> Guía independiente de escape rooms físicos en España por provincias: mapa, fichas revisadas a mano y un top propio en cada zona. 1150 salas abiertas en 19 zonas. Solo se publican salas abiertas y ningún local paga por aparecer ni por su puesto.
+> Guía independiente de escape rooms físicos en España por provincias: mapa, fichas revisadas a mano y un top propio en cada zona. 1161 salas abiertas en 20 zonas. Solo se publican salas abiertas y ningún local paga por aparecer ni por su puesto.
 
 Cada ficha de sala reúne categoría, número de jugadores, duración, dificultad, precio orientativo cuando el local lo publica, ubicación y enlace a la web del local para reservar.
 
@@ -100,6 +100,10 @@ Cada ficha de sala reúne categoría, número de jugadores, duración, dificulta
 - [Mejores escape rooms de Navarra](https://gpsescape.es/navarra/mejores/): top 10 en orden
 - [Todas las salas de Navarra](https://gpsescape.es/navarra/salas/): listado completo
 - [Los mejores escape rooms de Pamplona](https://gpsescape.es/navarra/municipio/pamplona/): salas del top 10 de Navarra en Pamplona y el resto de la ciudad
+- [La Rioja](https://gpsescape.es/la-rioja/): mapa con 11 salas abiertas
+- [Mejores escape rooms de La Rioja](https://gpsescape.es/la-rioja/mejores/): top 10 en orden
+- [Todas las salas de La Rioja](https://gpsescape.es/la-rioja/salas/): listado completo
+- [Los mejores escape rooms de Logroño](https://gpsescape.es/la-rioja/municipio/logrono/): salas del top 10 de La Rioja en Logroño y el resto de la ciudad
 
 ## Herramientas
 
