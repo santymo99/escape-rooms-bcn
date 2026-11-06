@@ -59,313 +59,243 @@
           <div class="menu-secs"><a class="ms-zona" href="/#mapas">Elige tu zona</a><a href="/recomendador/">Recomiéndame una sala</a><a href="/pasaporte/">Mi pasaporte</a><a href="/articulos/">Artículos</a><a href="/#categorias">Categorías</a><a href="/como-puntuamos/">Cómo puntuamos</a><a href="/contacto/">Contacto</a></div>
         </div>
       </div></nav></div></header>
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;700&family=Bodoni+Moda:ital,opsz,wght@0,6..96,500;0,6..96,700;1,6..96,500&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,700;12..96,800&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;500&family=Special+Elite&display=swap" rel="stylesheet" />
 <style>
-/* ===== Prototipo de ficha (06/11): tres direcciones. Solo para /prueba/, no se enlaza ni se indexa. ===== */
-.px { --cat: var(--c-terror); }
-.px .v { display: none; }
-body[data-v="a"] .v-a, body[data-v="b"] .v-b, body[data-v="c"] .v-c { display: block; }
-.px-sw { position: fixed; z-index: 90; left: 50%; bottom: 14px; transform: translateX(-50%); display: flex; gap: 4px; padding: 5px; border-radius: 999px; background: rgba(9,11,16,.92); border: 1px solid var(--line); backdrop-filter: blur(8px); box-shadow: 0 10px 30px rgba(0,0,0,.5); }
-.px-sw button { font: 600 .82rem/1 Satoshi, system-ui, sans-serif; color: var(--ink-2); background: none; border: 0; border-radius: 999px; padding: .7em 1em; cursor: pointer; min-height: 40px; white-space: nowrap; }
+/* ===== Prueba de ficha, 2.ª vuelta (06/11): cabecera de cine (A) + informe y sellos (B), con selector de tipografías. Sin indexar. ===== */
+body { --f-title: Michroma, sans-serif; --f-body: Satoshi, system-ui, sans-serif; --f-mono: Satoshi, system-ui, sans-serif; --f-num: Michroma, sans-serif; --t-up: uppercase; --t-ls: .01em; --t-w: 400; --t-size: 1; }
+body[data-f="cine"] { --f-title: "Bodoni Moda", serif; --f-body: "Instrument Sans", system-ui, sans-serif; --f-mono: "IBM Plex Mono", monospace; --f-num: "Bodoni Moda", serif; --t-up: none; --t-ls: -.01em; --t-w: 700; --t-size: 1.18; }
+body[data-f="expediente"] { --f-title: Anton, sans-serif; --f-body: Archivo, system-ui, sans-serif; --f-mono: "Special Elite", monospace; --f-num: Anton, sans-serif; --t-up: uppercase; --t-ls: .01em; --t-w: 400; --t-size: 1.28; }
+body[data-f="grotesca"] { --f-title: "Bricolage Grotesque", sans-serif; --f-body: "Bricolage Grotesque", system-ui, sans-serif; --f-mono: "JetBrains Mono", monospace; --f-num: "Bricolage Grotesque", sans-serif; --t-up: none; --t-ls: -.03em; --t-w: 800; --t-size: 1.22; }
+.px { --cat: var(--c-terror); --cat-ink: #ffb3b7; font-family: var(--f-body); }
+.px .btn { font-family: var(--f-body); }
+
+/* selector */
+.px-sw { position: fixed; z-index: 90; left: 50%; bottom: 14px; transform: translateX(-50%); display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; padding: 5px; border-radius: 22px; background: rgba(9,11,16,.94); border: 1px solid var(--line); backdrop-filter: blur(8px); box-shadow: 0 10px 30px rgba(0,0,0,.5); max-width: calc(100vw - 20px); }
+.px-sw button { font: 600 .8rem/1 Satoshi, system-ui, sans-serif; color: var(--ink-2); background: none; border: 0; border-radius: 999px; padding: .75em .95em; cursor: pointer; min-height: 38px; white-space: nowrap; }
 .px-sw button[aria-pressed="true"] { background: var(--gold); color: var(--gold-ink); }
+.px-sw .lab { font: 600 .68rem/1 Satoshi, sans-serif; color: var(--ink-3); letter-spacing: .12em; text-transform: uppercase; align-self: center; padding: 0 4px 0 8px; }
 .px-sw .sep { width: 1px; background: var(--line); margin: 6px 2px; }
 body.no-foto .px-photo { display: none !important; }
 body:not(.no-foto) .px-nophoto { display: none !important; }
-.px-mono { font-family: Michroma, sans-serif; font-weight: 400; letter-spacing: .02em; }
-.px-k { font: 500 .72rem/1.2 Satoshi, sans-serif; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); }
 
-/* ---------- Fondo sin foto (común): atmósfera del color de la categoría + brújula ---------- */
-.px-nophoto { position: absolute; inset: 0; overflow: hidden;
-  background: radial-gradient(120% 90% at 78% 10%, color-mix(in oklab, var(--cat) 34%, transparent), transparent 60%),
-              radial-gradient(80% 70% at 10% 100%, color-mix(in oklab, var(--cat) 14%, transparent), transparent 70%), #0c0e13; }
-.px-nophoto svg { position: absolute; right: -8%; top: 50%; width: min(80vh, 760px); transform: translateY(-50%) rotate(-12deg); opacity: .13; }
-.px-nophoto .w { position: absolute; left: 4%; bottom: 8%; font: 400 clamp(4rem, 14vw, 11rem)/.8 Michroma, sans-serif; color: color-mix(in oklab, var(--cat) 30%, transparent); letter-spacing: -.02em; text-transform: uppercase; white-space: nowrap; }
+/* grano de película (todo el bloque de cabecera) */
+.grain::before { content: ""; position: absolute; inset: -50%; z-index: 3; pointer-events: none; opacity: .14; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E"); }
 
-/* ===================== A · CARTEL ===================== */
-.a-hero { position: relative; overflow: hidden; min-height: min(78vh, 720px); display: flex; align-items: flex-end; margin-top: -1px; isolation: isolate; }
-.a-hero .px-photo { position: absolute; inset: 0; z-index: -1; }
-.a-hero .px-photo img { width: 100%; height: 100%; object-fit: cover; animation: a-zoom 14s var(--ease-out) both; }
-@keyframes a-zoom { from { transform: scale(1.06); } to { transform: scale(1); } }
-.a-hero::after { content: ""; position: absolute; inset: 0; z-index: -1; background:
-  linear-gradient(180deg, rgba(9,11,16,.55) 0%, rgba(9,11,16,0) 22%, rgba(9,11,16,0) 45%, var(--bg) 100%),
-  linear-gradient(90deg, rgba(9,11,16,.85) 0%, rgba(9,11,16,.25) 55%, rgba(9,11,16,0) 100%),
-  radial-gradient(70% 60% at 85% 100%, color-mix(in oklab, var(--cat) 28%, transparent), transparent 70%); }
-.a-hero .px-nophoto { z-index: -2; }
-.a-in { width: 100%; max-width: var(--wrap); margin: 0 auto; padding: 0 20px 34px; display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: end; }
-.a-crumb { font: 500 .8rem/1 Satoshi, sans-serif; color: var(--ink-2); margin-bottom: 18px; }
-.a-crumb a { color: inherit; text-decoration: none; } .a-crumb a:hover { color: var(--ink); }
-.a-kick { font: 700 .75rem/1 Satoshi, sans-serif; letter-spacing: .16em; text-transform: uppercase; color: var(--cat); display: inline-flex; align-items: center; gap: 10px; }
-.a-kick::before { content: ""; width: 26px; height: 2px; background: var(--cat); }
-.a-hero h1 { font: 400 clamp(2.1rem, 5.4vw, 4.2rem)/1.02 Michroma, sans-serif; margin: 14px 0 12px; letter-spacing: -.01em; text-shadow: 0 2px 24px rgba(0,0,0,.6); }
-.a-sub { font: 500 1.05rem/1.4 Satoshi, sans-serif; color: var(--ink-2); display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
-.a-sub .st { font-size: .78rem; }
-.a-rank { text-align: right; position: relative; }
-.a-rank b { display: block; font: 400 clamp(5rem, 12vw, 9.5rem)/.8 Michroma, sans-serif; color: transparent; -webkit-text-stroke: 1.5px var(--gold); text-shadow: 0 0 40px rgba(225,175,74,.25); }
-.a-rank span { display: block; margin-top: 10px; font: 600 .85rem/1.3 Satoshi, sans-serif; color: var(--gold); }
-.a-rank span small { display: block; color: var(--ink-3); font-weight: 500; }
-.a-cap { max-width: var(--wrap); margin: 0 auto; padding: 0 20px; font: .72rem/1 Satoshi, sans-serif; color: var(--ink-3); }
+/* ---------- cabecera ---------- */
+.h { position: relative; min-height: min(80vh, 760px); display: flex; align-items: flex-end; overflow: hidden; isolation: isolate; }
+.h .px-photo { position: absolute; inset: 0; z-index: -2; }
+.h .px-photo img { width: 100%; height: 100%; object-fit: cover; filter: saturate(.75) contrast(1.08); animation: h-zoom 16s var(--ease-out) both; }
+@keyframes h-zoom { from { transform: scale(1.07); } to { transform: scale(1); } }
+@media (prefers-reduced-motion: reduce) { .h .px-photo img { animation: none; } }
+.h::after { content: ""; position: absolute; inset: 0; z-index: -1; background:
+  linear-gradient(180deg, rgba(9,11,16,.6) 0%, rgba(9,11,16,0) 20%, rgba(9,11,16,0) 42%, var(--bg) 100%),
+  linear-gradient(90deg, rgba(9,11,16,.9) 0%, rgba(9,11,16,.3) 55%, rgba(9,11,16,0) 100%),
+  radial-gradient(60% 55% at 80% 95%, color-mix(in oklab, var(--cat) 35%, transparent), transparent 70%); }
+.px-nophoto { position: absolute; inset: 0; z-index: -2; overflow: hidden;
+  background: radial-gradient(110% 90% at 80% 5%, color-mix(in oklab, var(--cat) 40%, transparent), transparent 62%), radial-gradient(70% 60% at 0% 100%, color-mix(in oklab, var(--cat) 16%, transparent), transparent 70%), #0d0d11; }
+.px-nophoto svg { position: absolute; right: -10%; top: 46%; width: min(86vh, 820px); transform: translateY(-50%) rotate(-14deg); opacity: .12; }
+.px-nophoto .w { position: absolute; left: 3%; top: 16%; font: var(--t-w) clamp(4.5rem, 16vw, 13rem)/.8 var(--f-title); text-transform: uppercase; color: color-mix(in oklab, var(--cat) 26%, transparent); white-space: nowrap; letter-spacing: -.02em; }
+.h-in { position: relative; z-index: 4; width: 100%; max-width: var(--wrap); margin: 0 auto; padding: 0 20px 30px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 28px; align-items: end; }
+.crumb { font: 500 .8rem/1 var(--f-body); color: var(--ink-2); margin: 0 0 20px; }
+.crumb a { color: inherit; text-decoration: none; }
+.kick { display: inline-flex; align-items: center; gap: 10px; font: 500 .78rem/1 var(--f-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--cat-ink); }
+.kick::before { content: ""; width: 9px; height: 9px; background: var(--cat); transform: rotate(45deg); box-shadow: 0 0 14px var(--cat); }
+.h h1 { font: var(--t-w) calc(clamp(2.3rem, 5.6vw, 4.4rem) * var(--t-size))/1 var(--f-title); text-transform: var(--t-up); letter-spacing: var(--t-ls); margin: 14px 0 12px; text-shadow: 0 2px 30px rgba(0,0,0,.65); }
+body[data-f="actual"] .h h1 { text-transform: none; }
+.sub { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font: 500 1.05rem/1.3 var(--f-body); color: var(--ink-2); }
+.cap { position: relative; z-index: 4; max-width: var(--wrap); margin: 0 auto; padding: 0 20px; font: .72rem/1 var(--f-body); color: var(--ink-3); }
 
-.a-strip { max-width: var(--wrap); margin: 22px auto 0; padding: 0 20px; }
-.a-strip ul { list-style: none; margin: 0; padding: 18px 0; display: grid; grid-template-columns: repeat(5, auto); justify-content: space-between; gap: 18px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-.a-strip li { display: grid; gap: 6px; }
-.a-strip li b { font: 400 1.55rem/1 Michroma, sans-serif; color: var(--ink); white-space: nowrap; }
-.a-strip li b i { font: 500 .9rem/1 Satoshi, sans-serif; font-style: normal; color: var(--ink-2); margin-left: 4px; }
-.a-strip li.is-cat b { color: var(--cat); }
+/* sello del puesto */
+.seal { position: relative; width: 170px; aspect-ratio: 1; display: grid; place-items: center; text-align: center; transform: rotate(-8deg); }
+.seal svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.seal .n { font: var(--t-w) calc(4.4rem * var(--t-size))/.8 var(--f-num); background: linear-gradient(170deg, #fff1c9 0%, #f0c25c 38%, #b9862a 70%, #f6d27a 100%); -webkit-background-clip: text; background-clip: text; color: transparent; filter: drop-shadow(0 4px 18px rgba(225,175,74,.35)); }
+.seal .l { display: block; font: 500 .66rem/1.25 var(--f-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--gold); margin-top: 8px; }
 
-.a-body { max-width: var(--wrap); margin: 0 auto; padding: 40px 20px 30px; display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 56px; align-items: start; }
-.a-lead { font: 500 clamp(1.15rem, 1.6vw, 1.35rem)/1.55 Satoshi, sans-serif; color: var(--ink); margin: 0 0 26px; max-width: 60ch; }
-.a-modes { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 0 0 40px; }
-.a-mode { padding: 16px 18px; border-radius: var(--r-md); background: linear-gradient(180deg, color-mix(in oklab, var(--cat) 10%, var(--surface)), var(--surface)); border: 1px solid color-mix(in oklab, var(--cat) 25%, var(--line)); }
-.a-mode:nth-child(2) { background: var(--surface); border-color: var(--line); }
-.a-mode b { display: block; font: 700 1rem/1.2 Satoshi, sans-serif; margin-bottom: 4px; }
-.a-mode p { margin: 0; color: var(--ink-2); font: .92rem/1.45 Satoshi, sans-serif; }
-.a-h { font: 400 .82rem/1.3 Michroma, sans-serif; color: var(--gold); letter-spacing: .08em; text-transform: uppercase; margin: 0 0 14px; }
-.a-why { position: relative; padding: 4px 0 4px 74px; margin: 0 0 44px; min-height: 64px; }
-.a-why::before { content: attr(data-n); position: absolute; left: 0; top: -4px; font: 400 3.6rem/1 Michroma, sans-serif; color: var(--gold); opacity: .9; }
-.a-why p { margin: 0; font: 1.05rem/1.6 Satoshi, sans-serif; color: var(--ink-2); max-width: 58ch; }
-.a-awards { list-style: none; margin: 0 0 40px; padding: 0; display: grid; gap: 0; }
-.a-awards li { display: grid; grid-template-columns: 74px 1fr; gap: 0 16px; padding: 14px 0; border-top: 1px solid var(--line-soft); align-items: baseline; }
-.a-awards li:last-child { border-bottom: 1px solid var(--line-soft); }
-.a-awards .y { font: 400 .95rem/1 Michroma, sans-serif; color: var(--ink-3); }
-.a-awards .t { font: 700 1rem/1.35 Satoshi, sans-serif; } .a-awards .t small { display: block; font-weight: 500; color: var(--ink-2); font-size: .92rem; margin-top: 2px; }
-.a-where p { margin: 0 0 6px; color: var(--ink-2); } .a-where a { color: var(--gold); }
+/* franja de datos (informe) */
+.strip { max-width: var(--wrap); margin: 18px auto 0; padding: 0 20px; position: relative; z-index: 4; }
+.strip dl { margin: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border-top: 1px solid rgba(225,175,74,.35); border-bottom: 1px solid rgba(225,175,74,.35); position: relative; }
+.strip dl::before, .strip dl::after { content: ""; position: absolute; top: -4px; width: 7px; height: 7px; background: var(--gold); transform: rotate(45deg); }
+.strip dl::before { left: -3px; } .strip dl::after { right: -3px; }
+.strip div { padding: 18px 16px 16px; border-left: 1px dashed rgba(255,255,255,.12); }
+.strip div:first-child { border-left: 0; padding-left: 0; }
+.strip dt { font: 500 .7rem/1 var(--f-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 10px; }
+.strip dd { margin: 0; font: var(--t-w) calc(1.6rem * var(--t-size))/1 var(--f-title); letter-spacing: var(--t-ls); white-space: nowrap; }
+.strip dd small { font: 500 .85rem/1 var(--f-body); color: var(--ink-2); margin-left: 5px; letter-spacing: 0; }
+.strip .is-cat dd { color: var(--cat); }
 
-.a-card { position: sticky; top: 90px; padding: 22px; border-radius: var(--r-lg); background: linear-gradient(180deg, #1b1f27, #13161c); border: 1px solid var(--line); box-shadow: 0 30px 60px -30px rgba(0,0,0,.8); }
-.a-card .price { font: 400 2rem/1 Michroma, sans-serif; } .a-card .price small { font: 500 .95rem Satoshi, sans-serif; color: var(--ink-2); margin-left: 6px; }
-.a-card .grp { margin: 8px 0 18px; color: var(--ink-3); font-size: .88rem; }
-.a-card .btn { width: 100%; justify-content: center; }
-.a-card .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px; }
-.a-card .row2 .btn { font-size: .9rem; padding-left: .6em; padding-right: .6em; }
-.a-card .ok { margin: 16px 0 0; padding-top: 14px; border-top: 1px solid var(--line-soft); font-size: .82rem; color: var(--ink-3); line-height: 1.45; }
+/* cuerpo */
+.body { max-width: var(--wrap); margin: 0 auto; padding: 46px 20px 40px; display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 60px; align-items: start; }
+.lead { font: 500 calc(1.3rem * (1 + (var(--t-size) - 1) * .3))/1.5 var(--f-body); color: var(--ink); margin: 0 0 30px; max-width: 34ch; }
+body[data-f="cine"] .lead { font-family: "Bodoni Moda", serif; font-style: italic; font-weight: 500; font-size: 1.55rem; line-height: 1.4; }
+.sec-h { margin: 0 0 18px; display: grid; gap: 6px; }
+.sec-h small { font: 500 .72rem/1 var(--f-mono); letter-spacing: .16em; text-transform: uppercase; color: var(--gold); }
+.sec-h span { font: var(--t-w) calc(1.5rem * var(--t-size))/1.1 var(--f-title); text-transform: var(--t-up); letter-spacing: var(--t-ls); color: var(--ink); }
+body[data-f="actual"] .sec-h span { font-size: 1.05rem; text-transform: uppercase; }
+section.blk { margin: 0 0 52px; }
+
+/* modos: interruptor */
+.modes { border: 1px solid var(--line); border-radius: 16px; overflow: hidden; background: #0f1116; }
+.modes [role="tablist"] { display: grid; grid-template-columns: 1fr 1fr; }
+.modes button { appearance: none; border: 0; background: none; color: var(--ink-2); padding: 16px; font: 700 1rem/1 var(--f-body); cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; border-bottom: 1px solid var(--line); transition: background .2s var(--ease-out), color .2s var(--ease-out); }
+.modes button[aria-selected="true"] { color: #fff; background: linear-gradient(180deg, color-mix(in oklab, var(--cat) 34%, transparent), color-mix(in oklab, var(--cat) 8%, transparent)); box-shadow: inset 0 -2px 0 var(--cat); }
+.modes button + button[aria-selected="true"] { background: linear-gradient(180deg, rgba(90,163,236,.28), rgba(90,163,236,.05)); box-shadow: inset 0 -2px 0 var(--c-misterio); }
+.modes button i { width: 8px; height: 8px; border-radius: 50%; background: currentColor; opacity: .8; }
+.modes .pane { padding: 18px 20px 20px; font: 1rem/1.55 var(--f-body); color: var(--ink-2); }
+.modes .pane[hidden] { display: none; }
+.modes .pane b { color: var(--ink); }
+
+/* qué cuenta */
+.why { position: relative; padding: 22px 24px 22px 92px; background: linear-gradient(100deg, rgba(225,175,74,.10), rgba(225,175,74,0) 60%); border-left: 0; }
+.why .n { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); font: var(--t-w) calc(4rem * var(--t-size))/.8 var(--f-num); background: linear-gradient(170deg, #fff1c9 0%, #f0c25c 40%, #b9862a 75%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.why p { margin: 0; font: 1.05rem/1.6 var(--f-body); color: var(--ink-2); }
+
+/* sellos de premios */
+.seals { display: flex; flex-wrap: wrap; gap: 16px 18px; }
+.aw { position: relative; width: 142px; aspect-ratio: 1; display: grid; place-items: center; text-align: center; padding: 30px 26px; transform: rotate(var(--r, 0deg)); transition: transform .25s var(--ease-out); }
+.aw:hover { transform: rotate(0deg) scale(1.04); }
+.aw svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.aw b { display: block; font: var(--t-w) calc(.74rem * var(--t-size))/1.1 var(--f-title); text-transform: var(--t-up); color: var(--gold); letter-spacing: var(--t-ls); }
+.aw em { display: block; font: 500 .7rem/1.1 var(--f-mono); color: var(--ink-3); font-style: normal; margin: 2px 0 6px; letter-spacing: .1em; }
+.aw span { display: block; font: 600 .72rem/1.2 var(--f-body); color: var(--ink-2); }
+
+/* dónde */
+.where { font: 1rem/1.6 var(--f-body); color: var(--ink-2); } .where a { color: var(--gold); }
+.where small { display: block; font-family: var(--f-mono); color: var(--ink-3); font-size: .78rem; margin-top: 6px; letter-spacing: .02em; }
+
+/* tarjeta de reserva con marcas de mira */
+.card { position: sticky; top: 90px; padding: 26px 24px 22px; background: linear-gradient(180deg, #16181e, #0f1115); border: 1px solid rgba(255,255,255,.07); }
+.card::before, .card::after { content: ""; position: absolute; width: 18px; height: 18px; border: 2px solid var(--gold); }
+.card::before { top: -7px; left: -7px; border-right: 0; border-bottom: 0; }
+.card::after { bottom: -7px; right: -7px; border-left: 0; border-top: 0; }
+.card .k { font: 500 .7rem/1 var(--f-mono); letter-spacing: .16em; text-transform: uppercase; color: var(--ink-3); }
+.card .price { display: flex; align-items: baseline; gap: 8px; margin: 10px 0 4px; }
+.card .price b { font: var(--t-w) calc(2.6rem * var(--t-size))/1 var(--f-num); background: linear-gradient(170deg, #fff1c9, #f0c25c 45%, #c08c2e); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.card .price span { font: 500 1rem var(--f-body); color: var(--ink-2); }
+.card .grp { margin: 0 0 20px; color: var(--ink-3); font: .88rem var(--f-body); }
+.card .btn { width: 100%; justify-content: center; }
+.card .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px; }
+.card .row2 .btn { font-size: .88rem; padding-left: .5em; padding-right: .5em; }
+.card .ok { margin: 18px 0 0; padding-top: 14px; border-top: 1px dashed var(--line); font: .8rem/1.45 var(--f-mono); color: var(--ink-3); }
 
 @media (max-width: 860px) {
-  .a-hero { min-height: 74vh; }
-  .a-in { grid-template-columns: 1fr auto; padding-bottom: 24px; gap: 12px; }
-  .a-in > div:first-child { min-width: 0; }
-  .a-rank b { font-size: 4.2rem; }
-  .a-rank span { font-size: .74rem; margin-top: 6px; }
-  .a-strip li b { font-size: 1.3rem; }
-  .px-sw button { font-size: .74rem; padding: .7em .75em; }
-  .a-strip ul { grid-template-columns: 1fr 1fr; gap: 18px 12px; }
-  .a-strip li:last-child { grid-column: 1 / -1; }
-  .a-body { grid-template-columns: 1fr; gap: 0; padding-top: 28px; }
-  .a-card { position: static; order: -1; margin-bottom: 34px; }
-  .a-modes { grid-template-columns: 1fr; }
+  .h { min-height: 76vh; }
+  .h-in { grid-template-columns: minmax(0, 1fr) auto; gap: 10px; padding-bottom: 22px; }
+  .seal { width: 112px; }
+  .seal .n { font-size: calc(2.9rem * var(--t-size)); }
+  .seal .l { font-size: .56rem; margin-top: 5px; }
+  .strip dl { grid-template-columns: 1fr 1fr; }
+  .strip div { border-left: 0; padding: 14px 0; border-top: 1px dashed rgba(255,255,255,.12); }
+  .strip div:nth-child(-n+2) { border-top: 0; }
+  .strip div:nth-child(even) { padding-left: 14px; border-left: 1px dashed rgba(255,255,255,.12); }
+  .strip div:last-child { grid-column: 1 / -1; padding-left: 0; border-left: 0; }
+  .strip dd { font-size: calc(1.3rem * var(--t-size)); }
+  .body { grid-template-columns: 1fr; gap: 0; padding-top: 30px; }
+  .card { position: relative; top: 0; order: -1; margin: 0 6px 44px; }
+  .seals { gap: 10px 12px; justify-content: center; }
+  .aw { width: 128px; padding: 26px 22px; }
+  .px-sw { flex-wrap: nowrap; overflow-x: auto; border-radius: 999px; left: 10px; right: 10px; transform: none; max-width: none; justify-content: flex-start; scrollbar-width: none; }
+  .px-sw button { font-size: .72rem; padding: .7em .7em; min-height: 34px; flex: none; }
+  .px-sw .lab { display: none; }
 }
-
-/* ===================== B · EXPEDIENTE ===================== */
-.b-wrap { max-width: var(--wrap); margin: 0 auto; padding: 96px 20px 40px; }
-.b-top { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 48px; align-items: center; }
-.b-photo { position: relative; transform: rotate(-1.6deg); padding: 12px 12px 46px; background: #e9e4d8; border-radius: 4px; box-shadow: 0 30px 60px -20px rgba(0,0,0,.9); }
-.b-photo img, .b-photo .px-nophoto { display: block; width: 100%; aspect-ratio: 4/3; object-fit: cover; position: relative; }
-.b-photo .px-nophoto { position: relative; }
-.b-photo figcaption { position: absolute; left: 16px; right: 16px; bottom: 13px; font: 500 .78rem/1.2 Satoshi, sans-serif; color: #4a463e; }
-.b-photo::before { content: ""; position: absolute; top: -12px; left: 50%; width: 110px; height: 26px; transform: translateX(-50%) rotate(2deg); background: rgba(225,175,74,.35); }
-.b-stamp { position: absolute; right: -18px; top: 22px; transform: rotate(9deg); border: 3px solid var(--cat); color: var(--cat); padding: 8px 14px 6px; font: 400 .8rem/1.15 Michroma, sans-serif; text-transform: uppercase; text-align: center; letter-spacing: .06em; background: rgba(9,11,16,.55); mix-blend-mode: normal; box-shadow: inset 0 0 0 2px rgba(9,11,16,.3); }
-.b-stamp b { display: block; font-size: 2.2rem; line-height: 1; margin: 2px 0; }
-.b-file { font: 500 .78rem/1 Satoshi, sans-serif; letter-spacing: .2em; color: var(--ink-3); text-transform: uppercase; display: flex; gap: 12px; align-items: center; }
-.b-file::after { content: ""; flex: 1; height: 1px; background: repeating-linear-gradient(90deg, var(--line) 0 6px, transparent 6px 10px); }
-.b-top h1 { font: 400 clamp(2rem, 4.6vw, 3.4rem)/1.05 Michroma, sans-serif; margin: 16px 0 8px; }
-.b-local { color: var(--ink-2); font-weight: 500; margin: 0 0 22px; display: flex; gap: 10px; align-items: center; }
-.b-top .lead { font: 1.08rem/1.6 Satoshi, sans-serif; color: var(--ink-2); margin: 0 0 24px; }
-.b-dl { margin: 0 0 26px; display: grid; gap: 0; font: 1rem/1.3 Satoshi, sans-serif; }
-.b-dl div { display: flex; align-items: baseline; gap: 10px; padding: 9px 0; }
-.b-dl dt { color: var(--ink-3); white-space: nowrap; }
-.b-dl dt::after { content: ""; }
-.b-dl div::before { content: none; }
-.b-dl .dots { flex: 1; border-bottom: 1px dotted #444851; transform: translateY(-4px); min-width: 20px; }
-.b-dl dd { margin: 0; font-weight: 700; text-align: right; }
-.b-dl dd.is-cat { color: var(--cat); }
-.b-actions { display: flex; flex-wrap: wrap; gap: 10px; }
-.b-sec { display: grid; grid-template-columns: 240px 1fr; gap: 40px; padding: 34px 0; border-top: 1px dashed var(--line); }
-.b-sec:first-of-type { margin-top: 56px; }
-.b-sec h2 { font: 400 .82rem/1.4 Michroma, sans-serif; color: var(--gold); text-transform: uppercase; letter-spacing: .08em; margin: 0; }
-.b-sec p { margin: 0; color: var(--ink-2); font: 1.02rem/1.6 Satoshi, sans-serif; max-width: 62ch; }
-.b-seals { display: flex; flex-wrap: wrap; gap: 14px; }
-.b-seal { width: 138px; aspect-ratio: 1; border-radius: 50%; display: grid; place-items: center; text-align: center; padding: 14px; border: 1.5px solid color-mix(in oklab, var(--gold) 60%, transparent); box-shadow: inset 0 0 0 5px var(--bg), inset 0 0 0 6px rgba(225,175,74,.35); background: radial-gradient(circle at 50% 35%, rgba(225,175,74,.10), transparent 70%); transform: rotate(var(--r, 0deg)); }
-.b-seal b { font: 400 .78rem/1.2 Michroma, sans-serif; color: var(--gold); display: block; }
-.b-seal span { font: 600 .78rem/1.25 Satoshi, sans-serif; color: var(--ink-2); display: block; margin-top: 6px; }
-@media (max-width: 860px) {
-  .b-top { grid-template-columns: 1fr; gap: 30px; }
-  .b-photo { margin: 6px 6px 0; }
-  .b-stamp { right: -4px; top: 12px; }
-  .b-sec { grid-template-columns: 1fr; gap: 14px; }
-  .b-seal { width: 118px; }
-}
-
-/* ===================== C · REVISTA ===================== */
-.c-hero { position: relative; height: min(64vh, 600px); overflow: hidden; }
-.c-hero img { width: 100%; height: 100%; object-fit: cover; }
-.c-hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(9,11,16,0) 35%, var(--bg) 100%); }
-.c-head { position: relative; max-width: 860px; margin: -150px auto 0; padding: 0 20px; text-align: center; z-index: 2; }
-.c-cat { display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px; border-radius: 999px; background: color-mix(in oklab, var(--cat) 18%, rgba(9,11,16,.7)); border: 1px solid color-mix(in oklab, var(--cat) 50%, transparent); color: #ffd9db; font: 700 .76rem/1 Satoshi, sans-serif; letter-spacing: .12em; text-transform: uppercase; backdrop-filter: blur(6px); }
-.c-cat i { width: 8px; height: 8px; border-radius: 50%; background: var(--cat); }
-.c-head h1 { font: 400 clamp(2.2rem, 6vw, 4.4rem)/1.02 Michroma, sans-serif; margin: 18px 0 10px; }
-.c-head .by { color: var(--ink-2); font-weight: 500; }
-.c-spec { margin: 26px auto 0; display: flex; justify-content: center; flex-wrap: wrap; gap: 8px 0; font: 600 1rem/1 Satoshi, sans-serif; color: var(--ink); }
-.c-spec span { padding: 0 16px; border-left: 1px solid var(--line); } .c-spec span:first-child { border-left: 0; }
-.c-spec span em { font-style: normal; color: var(--ink-3); font-weight: 500; margin-left: 4px; }
-.c-act { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin: 26px 0 0; }
-.c-body { max-width: 760px; margin: 0 auto; padding: 48px 20px 30px; }
-.c-body .lead { font: 500 1.28rem/1.6 Satoshi, sans-serif; color: var(--ink); margin: 0 0 40px; }
-.c-body .lead.x::first-letter { font: 400 3.4em/.8 Michroma, sans-serif; float: left; margin: .08em .12em 0 0; color: var(--cat); }
-.c-quote { position: relative; display: grid; grid-template-columns: auto 1fr; gap: 26px; align-items: center; margin: 0 0 44px; padding: 28px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-.c-quote .n { font: 400 6rem/.8 Michroma, sans-serif; color: var(--gold); }
-.c-quote .n small { display: block; font: 600 .8rem/1.2 Satoshi, sans-serif; color: var(--ink-3); text-align: center; margin-top: 10px; letter-spacing: .1em; text-transform: uppercase; }
-.c-quote p { margin: 0; font: 500 1.12rem/1.6 Satoshi, sans-serif; color: var(--ink-2); }
-.c-quote p b { display: block; font: 400 .78rem/1.3 Michroma, sans-serif; color: var(--gold); letter-spacing: .08em; text-transform: uppercase; margin-bottom: 10px; }
-.c-h { font: 400 .82rem/1.3 Michroma, sans-serif; color: var(--gold); letter-spacing: .08em; text-transform: uppercase; margin: 0 0 16px; text-align: center; }
-.c-awards { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; margin: 0 0 44px; }
-.c-aw { padding: 18px; border-radius: var(--r-md); background: var(--surface); position: relative; overflow: hidden; }
-.c-aw::after { content: ""; position: absolute; right: -30px; top: -30px; width: 90px; height: 90px; border-radius: 50%; border: 1px solid rgba(225,175,74,.25); }
-.c-aw b { display: block; font: 700 1.02rem/1.3 Satoshi, sans-serif; } .c-aw span { display: block; color: var(--ink-3); font-size: .88rem; margin-top: 4px; }
-.c-aw .y { font: 400 .78rem Michroma, sans-serif; color: var(--gold); display: block; margin-bottom: 10px; }
-.c-modes { margin: 0 0 40px; color: var(--ink-2); font: 1.02rem/1.6 Satoshi, sans-serif; }
-.c-modes b { color: var(--ink); }
-@media (max-width: 860px) {
-  .c-hero { height: 52vh; }
-  .c-head { margin-top: -120px; }
-  .c-spec { font-size: .95rem; }
-  .c-spec span { padding: 0 10px; }
-  .c-quote { grid-template-columns: 1fr; text-align: center; gap: 16px; }
-  .c-body .lead { font-size: 1.12rem; }
-}
-.c-hero.nf { background: #0c0e13; } .c-hero .px-nophoto .w { left: 50%; transform: translateX(-50%); bottom: 34%; }
 </style>
 
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="sello" viewBox="0 0 200 200"><circle cx="100" cy="100" r="96" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="100" cy="100" r="86" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="2 5"/><circle cx="100" cy="100" r="74" fill="rgba(9,11,16,.55)" stroke="currentColor" stroke-opacity=".5" stroke-width="1"/></symbol>
+    <symbol id="rosa" viewBox="0 0 64 64"><circle cx="32" cy="32" r="27.5" fill="none" stroke="#fff" stroke-width=".6"/><path fill="#fff" d="M32 9.5 36 29 32 27 28 29ZM54.5 32 35 36 37 32 35 28ZM32 54.5 28 35 32 37 36 35ZM9.5 32 29 28 27 32 29 36Z"/></symbol>
+  </defs>
+</svg>
+
 <main class="page px" style="padding-top:0">
-<!-- ============ A · CARTEL ============ -->
-<div class="v v-a">
-  <section class="a-hero">
+  <section class="h grain">
     <div class="px-photo"><img src="/img/salas/escapop-la-cabana.webp" srcset="/img/salas/escapop-la-cabana-640.webp 640w, /img/salas/escapop-la-cabana.webp 1280w" sizes="100vw" alt="" /></div>
-    <div class="px-nophoto"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="27.5" fill="none" stroke="#fff" stroke-width=".6"/><path fill="#fff" d="M32 9.5 36 29 32 27 28 29ZM54.5 32 35 36 37 32 35 28ZM32 54.5 28 35 32 37 36 35ZM9.5 32 29 28 27 32 29 36Z"/></svg><span class="w">Terror</span></div>
-    <div class="a-in">
+    <div class="px-nophoto"><svg viewBox="0 0 64 64"><use href="#rosa"/></svg><span class="w">Terror</span></div>
+    <div class="h-in">
       <div>
-        <p class="a-crumb"><a href="#">GPS Escape</a> / <a href="#">Canarias</a> / <a href="#">Terror</a></p>
-        <p class="a-kick">Escape room de terror · Granadilla de Abona</p>
+        <p class="crumb"><a href="#">GPS Escape</a> / <a href="#">Canarias</a> / <a href="#">Terror</a></p>
+        <p class="kick">Escape room de terror · Granadilla de Abona</p>
         <h1>La Cabaña</h1>
-        <p class="a-sub">Escapop <span class="st st--ok">Abierta</span></p>
+        <p class="sub">Escapop <span class="st st--ok">Abierta</span></p>
       </div>
-      <div class="a-rank"><b>3</b><span>del top 10<small>de Canarias</small></span></div>
+      <div class="seal" style="color:var(--gold)"><svg><use href="#sello"/></svg><div><span class="n">3</span><span class="l">Top 10<br>Canarias</span></div></div>
     </div>
   </section>
-  <p class="a-cap px-photo">Imagen ilustrativa, no es una fotografía de la sala.</p>
-  <div class="a-strip"><ul>
-    <li><span class="px-k">Duración</span><b>75<i>min</i></b></li>
-    <li><span class="px-k">Jugadores</span><b>2 a 5</b></li>
-    <li><span class="px-k">Precio</span><b>25<i>€ por persona</i></b></li>
-    <li><span class="px-k">Dificultad</span><b>Alta</b></li>
-    <li class="is-cat"><span class="px-k">Categoría</span><b>Terror</b></li>
-  </ul></div>
-  <div class="a-body">
+  <p class="cap px-photo">Imagen ilustrativa, no es una fotografía de la sala.</p>
+
+  <div class="strip"><dl>
+    <div><dt>Duración</dt><dd>75<small>min</small></dd></div>
+    <div><dt>Jugadores</dt><dd>2 a 5</dd></div>
+    <div><dt>Precio</dt><dd>25<small>€ por persona</small></dd></div>
+    <div><dt>Dificultad</dt><dd>Alta</dd></div>
+    <div class="is-cat"><dt>Categoría</dt><dd>Terror</dd></div>
+  </dl></div>
+
+  <div class="body">
     <div>
-      <p class="a-lead">Dos amigos se han perdido en el bosque y hay que entrar en una cabaña abandonada y maldita para rescatarlos.</p>
-      <div class="a-modes">
-        <div class="a-mode"><b>Modo Terror</b><p>Con sustos de los actores.</p></div>
-        <div class="a-mode"><b>Modo Misterio</b><p>Sigue siendo oscura y tenebrosa, pero sin sustos. Con 5 jugadores, solo este modo.</p></div>
-      </div>
-      <h2 class="a-h">Qué cuenta para su puesto</h2>
-      <div class="a-why" data-n="3"><p>Sus premios y menciones (10 Escapes, OcioTerror y TERPECA), las opiniones de sus jugadores, que la partida dure 75 minutos y que puedan jugar hasta 5 personas.</p></div>
-      <h2 class="a-h">Premios y reconocimientos</h2>
-      <ul class="a-awards">
-        <li><span class="y">2026</span><span class="t">10 Escapes<small>n.º 51 de la lista de terror</small></span></li>
-        <li><span class="y">2025</span><span class="t">10 Escapes<small>n.º 39 de la lista de terror</small></span></li>
-        <li><span class="y">2025</span><span class="t">TERPECA<small>Nominada, sin llegar a finalista</small></span></li>
-        <li><span class="y">2021</span><span class="t">Escape Room Awards<small>Nominada por el jurado</small></span></li>
-        <li><span class="y"></span><span class="t">OcioTerror<small>8,5 sobre 10</small></span></li>
-      </ul>
-      <div class="a-where"><h2 class="a-h">Dónde está</h2><p>Paseo Galo Ponte, 7B, 38612 El Médano · <a href="#">Cómo llegar</a></p></div>
+      <p class="lead">Dos amigos se han perdido en el bosque y hay que entrar en una cabaña abandonada y maldita para rescatarlos.</p>
+
+      <section class="blk">
+        <h2 class="sec-h"><small>Cómo se juega</small><span>Dos modos, tú eliges</span></h2>
+        <div class="modes">
+          <div role="tablist" aria-label="Modos de juego">
+            <button role="tab" aria-selected="true" aria-controls="m1" id="t1"><i></i>Modo Terror</button>
+            <button role="tab" aria-selected="false" aria-controls="m2" id="t2"><i></i>Modo Misterio</button>
+          </div>
+          <div class="pane" role="tabpanel" id="m1" aria-labelledby="t1">Con <b>sustos de los actores</b>.</div>
+          <div class="pane" role="tabpanel" id="m2" aria-labelledby="t2" hidden>Sigue siendo oscura y tenebrosa, pero <b>sin sustos de los actores</b>. Con 5 jugadores, solo se puede jugar en este modo.</div>
+        </div>
+      </section>
+
+      <section class="blk">
+        <h2 class="sec-h"><small>Nuestro ranking</small><span>Qué cuenta para su puesto</span></h2>
+        <div class="why"><span class="n">3</span><p>Sus premios y menciones (10 Escapes, OcioTerror y TERPECA), las opiniones de sus jugadores, que la partida dure 75 minutos y que puedan jugar hasta 5 personas.</p></div>
+      </section>
+
+      <section class="blk">
+        <h2 class="sec-h"><small>Premios y reconocimientos</small><span>Lo que dicen los que saben</span></h2>
+        <div class="seals">
+          <div class="aw" style="--r:-6deg;color:var(--gold)"><svg><use href="#sello"/></svg><div><b>10 Escapes</b><em>2026</em><span>n.º 51 en terror</span></div></div>
+          <div class="aw" style="--r:5deg;color:var(--gold)"><svg><use href="#sello"/></svg><div><b>10 Escapes</b><em>2025</em><span>n.º 39 en terror</span></div></div>
+          <div class="aw" style="--r:-3deg;color:var(--gold)"><svg><use href="#sello"/></svg><div><b>TERPECA</b><em>2025</em><span>Nominada</span></div></div>
+          <div class="aw" style="--r:7deg;color:var(--gold)"><svg><use href="#sello"/></svg><div><b>ER Awards</b><em>2021</em><span>Nominada por el jurado</span></div></div>
+          <div class="aw" style="--r:-5deg;color:var(--gold)"><svg><use href="#sello"/></svg><div><b>OcioTerror</b><em>reseña</em><span>8,5 sobre 10</span></div></div>
+        </div>
+      </section>
+
+      <section class="blk">
+        <h2 class="sec-h"><small>Dónde está</small><span>El Médano, Tenerife</span></h2>
+        <p class="where">Paseo Galo Ponte, 7B, 38612 El Médano · <a href="#">Cómo llegar</a><small>Comprobamos que sigue abierta el 05/11/2026.</small></p>
+      </section>
     </div>
-    <aside class="a-card">
-      <div class="price">25<small>€ por persona</small></div>
+
+    <aside class="card">
+      <span class="k">Precio orientativo</span>
+      <div class="price"><b>25</b><span>€ por persona</span></div>
       <p class="grp">Grupo de 4: 100 € en total</p>
       <a class="btn" href="#">Reservar en su web <span aria-hidden="true">↗</span></a>
       <div class="row2"><a class="btn btn--ghost" href="#">Ver en el mapa</a><button class="btn btn--ghost" type="button">✓ La he jugado</button></div>
-      <p class="ok">Comprobamos que sigue abierta el 05/11/2026.</p>
+      <p class="ok">Abierta · comprobado el 05/11/2026</p>
     </aside>
   </div>
-</div>
 
-<!-- ============ B · EXPEDIENTE ============ -->
-<div class="v v-b">
-  <div class="b-wrap">
-    <p class="a-crumb"><a href="#">GPS Escape</a> / <a href="#">Canarias</a> / <a href="#">Terror</a></p>
-    <div class="b-top">
-      <figure class="b-photo">
-        <img class="px-photo" src="/img/salas/escapop-la-cabana.webp" alt="" />
-        <div class="px-nophoto" style="aspect-ratio:4/3"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="27.5" fill="none" stroke="#fff" stroke-width=".6"/><path fill="#fff" d="M32 9.5 36 29 32 27 28 29ZM54.5 32 35 36 37 32 35 28ZM32 54.5 28 35 32 37 36 35ZM9.5 32 29 28 27 32 29 36Z"/></svg><span class="w" style="font-size:4.4rem">Terror</span></div>
-        <figcaption>La Cabaña · imagen ilustrativa, no es una foto de la sala</figcaption>
-        <div class="b-stamp">Puesto<b>3</b>Top 10 Canarias</div>
-      </figure>
-      <div>
-        <p class="b-file">Expediente · Terror · Granadilla de Abona</p>
-        <h1>La Cabaña</h1>
-        <p class="b-local">Escapop <span class="st st--ok">Abierta</span></p>
-        <p class="lead">Dos amigos se han perdido en el bosque y hay que entrar en una cabaña abandonada y maldita para rescatarlos. Se juega en modo Terror, con sustos de actores, o en modo Misterio, sin ellos.</p>
-        <dl class="b-dl">
-          <div><dt>Duración</dt><span class="dots"></span><dd>75 min</dd></div>
-          <div><dt>Jugadores</dt><span class="dots"></span><dd>2 a 5</dd></div>
-          <div><dt>Precio</dt><span class="dots"></span><dd>25 € por persona (grupo de 4)</dd></div>
-          <div><dt>Dificultad</dt><span class="dots"></span><dd>Alta</dd></div>
-          <div><dt>Miedo</dt><span class="dots"></span><dd>Actores · modo sin sustos</dd></div>
-          <div><dt>Categoría</dt><span class="dots"></span><dd class="is-cat">Terror</dd></div>
-        </dl>
-        <div class="b-actions"><a class="btn" href="#">Reservar en su web <span aria-hidden="true">↗</span></a><a class="btn btn--ghost" href="#">Ver en el mapa</a><button class="btn btn--ghost" type="button">✓ La he jugado</button></div>
-      </div>
-    </div>
-    <section class="b-sec"><h2>Qué cuenta para su puesto 3</h2><p>Sus premios y menciones (10 Escapes, OcioTerror y TERPECA), las opiniones de sus jugadores, que la partida dure 75 minutos y que puedan jugar hasta 5 personas.</p></section>
-    <section class="b-sec"><h2>Premios y reconocimientos</h2>
-      <div class="b-seals">
-        <div class="b-seal" style="--r:-6deg"><div><b>10 Escapes 2026</b><span>n.º 51 en terror</span></div></div>
-        <div class="b-seal" style="--r:4deg"><div><b>10 Escapes 2025</b><span>n.º 39 en terror</span></div></div>
-        <div class="b-seal" style="--r:-3deg"><div><b>TERPECA 2025</b><span>Nominada</span></div></div>
-        <div class="b-seal" style="--r:7deg"><div><b>ER Awards 2021</b><span>Nominada por el jurado</span></div></div>
-        <div class="b-seal" style="--r:-5deg"><div><b>OcioTerror</b><span>8,5 sobre 10</span></div></div>
-      </div>
-    </section>
-    <section class="b-sec"><h2>Dónde está</h2><p>Paseo Galo Ponte, 7B, 38612 El Médano · <a href="#" style="color:var(--gold)">Cómo llegar</a><br><small style="color:var(--ink-3)">Comprobamos que sigue abierta el 05/11/2026.</small></p></section>
-  </div>
-</div>
-
-<!-- ============ C · REVISTA ============ -->
-<div class="v v-c">
-  <div class="c-hero"><img class="px-photo" src="/img/salas/escapop-la-cabana.webp" alt="" /><div class="px-nophoto"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="27.5" fill="none" stroke="#fff" stroke-width=".6"/><path fill="#fff" d="M32 9.5 36 29 32 27 28 29ZM54.5 32 35 36 37 32 35 28ZM32 54.5 28 35 32 37 36 35ZM9.5 32 29 28 27 32 29 36Z"/></svg><span class="w">Terror</span></div></div>
-  <header class="c-head">
-    <span class="c-cat"><i></i>Terror · Granadilla de Abona</span>
-    <h1>La Cabaña</h1>
-    <p class="by">Escapop · <span class="st st--ok">Abierta</span></p>
-    <p class="c-spec"><span>75 min</span><span>2 a 5 jugadores</span><span>25 €<em>por persona</em></span><span>Dificultad alta</span></p>
-    <div class="c-act"><a class="btn" href="#">Reservar en su web <span aria-hidden="true">↗</span></a><a class="btn btn--ghost" href="#">Ver en el mapa</a><button class="btn btn--ghost" type="button">✓ La he jugado</button></div>
-  </header>
-  <div class="c-body">
-    <p class="lead">Dos amigos se han perdido en el bosque y hay que entrar en una cabaña abandonada y maldita para rescatarlos.</p>
-    <p class="c-modes">Se juega de dos maneras. En <b>modo Terror</b>, con sustos de los actores. En <b>modo Misterio</b> sigue siendo oscura y tenebrosa, pero sin sustos; con 5 jugadores, solo se puede jugar en este modo.</p>
-    <div class="c-quote"><div class="n">3<small>de 10</small></div><p><b>Qué cuenta para su puesto</b>Sus premios y menciones (10 Escapes, OcioTerror y TERPECA), las opiniones de sus jugadores, que la partida dure 75 minutos y que puedan jugar hasta 5 personas.</p></div>
-    <h2 class="c-h">Premios y reconocimientos</h2>
-    <div class="c-awards">
-      <div class="c-aw"><span class="y">2026</span><b>10 Escapes</b><span>n.º 51 de la lista de terror</span></div>
-      <div class="c-aw"><span class="y">2025</span><b>10 Escapes</b><span>n.º 39 de la lista de terror</span></div>
-      <div class="c-aw"><span class="y">2025</span><b>TERPECA</b><span>Nominada, sin llegar a finalista</span></div>
-      <div class="c-aw"><span class="y">2021</span><b>Escape Room Awards</b><span>Nominada por el jurado</span></div>
-      <div class="c-aw"><span class="y">OcioTerror</span><b>8,5 sobre 10</b><span>Reseña de la sala</span></div>
-    </div>
-    <h2 class="c-h">Dónde está</h2>
-    <p style="text-align:center;color:var(--ink-2)">Paseo Galo Ponte, 7B, 38612 El Médano · <a href="#" style="color:var(--gold)">Cómo llegar</a></p>
-  </div>
-</div>
-
-<nav class="px-sw" aria-label="Comparar propuestas">
-  <button type="button" data-set="a" aria-pressed="true">A · Cartel</button>
-  <button type="button" data-set="b" aria-pressed="false">B · Expediente</button>
-  <button type="button" data-set="c" aria-pressed="false">C · Revista</button>
-  <span class="sep"></span>
-  <button type="button" data-foto aria-pressed="false">Sin foto</button>
-</nav>
-<script>
-(function(){var b=document.body,q=new URLSearchParams(location.search);b.dataset.v=q.get('v')||'a';if(q.get('nf'))b.classList.add('no-foto');
-var bs=document.querySelectorAll('.px-sw [data-set]'),f=document.querySelector('.px-sw [data-foto]');
-function paint(){bs.forEach(function(x){x.setAttribute('aria-pressed',x.dataset.set===b.dataset.v)});f.setAttribute('aria-pressed',b.classList.contains('no-foto'))}
-bs.forEach(function(x){x.onclick=function(){b.dataset.v=x.dataset.set;paint();scrollTo(0,0)}});f.onclick=function(){b.classList.toggle('no-foto');paint()};paint();})();
-</script>
+  <nav class="px-sw" aria-label="Comparar tipografías">
+    <span class="lab">Letra</span>
+    <button type="button" data-f="actual">Actual</button>
+    <button type="button" data-f="cine">Cine negro</button>
+    <button type="button" data-f="expediente">Expediente</button>
+    <button type="button" data-f="grotesca">Grotesca</button>
+    <span class="sep"></span>
+    <button type="button" data-foto>Sin foto</button>
+  </nav>
+  <script>
+  (function(){var b=document.body,q=new URLSearchParams(location.search);b.dataset.f=q.get('f')||'cine';if(q.get('nf'))b.classList.add('no-foto');
+  var fs=document.querySelectorAll('.px-sw [data-f]'),ft=document.querySelector('.px-sw [data-foto]');
+  function paint(){fs.forEach(function(x){x.setAttribute('aria-pressed',x.dataset.f===b.dataset.f)});ft.setAttribute('aria-pressed',b.classList.contains('no-foto'))}
+  fs.forEach(function(x){x.onclick=function(){b.dataset.f=x.dataset.f;paint()}});ft.onclick=function(){b.classList.toggle('no-foto');paint()};paint();
+  var tabs=document.querySelectorAll('.modes [role=tab]');tabs.forEach(function(t){t.onclick=function(){tabs.forEach(function(u){var on=u===t;u.setAttribute('aria-selected',on);document.getElementById(u.getAttribute('aria-controls')).hidden=!on})}});})();
+  </script>
 </main>
 <footer class="foot t-foot">
   <div class="wrap t-foot-cols t-rise">
