@@ -53,7 +53,7 @@
 })();
 // 04/10: barra fija de reserva de las fichas (móvil): aparece cuando los botones de la ficha quedan por encima de la pantalla.
 (function () {
-  var bar = document.querySelector('.f-sticky'), act = document.querySelector('.ficha > .actions');
+  var bar = document.querySelector('.f-sticky'), act = document.querySelector('.f-act') || document.querySelector('.ficha > .actions');
   if (!bar || !act || !('IntersectionObserver' in window)) return;
   new IntersectionObserver(function (es) { var e = es[0]; bar.classList.toggle('is-on', !e.isIntersecting && e.boundingClientRect.top < 0); }).observe(act);
 })();
