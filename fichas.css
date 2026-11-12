@@ -392,3 +392,7 @@ body.pg-qs .wrap.ficha .blk > p { text-align: left; }
   .f-why b { text-align: left; font-size: 3rem; }
 }
 @media (prefers-reduced-motion: reduce) { .fh-img img { animation: none; } }
+/* 12/11: preguntas frecuentes de las páginas «Los mejores…» */
+.blk.faq h3 { font-family: Satoshi, system-ui, sans-serif; font-weight: 600; font-size: 1rem; line-height: 1.4; color: var(--ink); margin: 20px 0 6px; max-width: 70ch; }
+.blk.faq h3:first-of-type { margin-top: 4px; }
+.blk p + p { margin-top: 10px; }
