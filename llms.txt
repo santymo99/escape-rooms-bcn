@@ -1,6 +1,6 @@
 # GPS Escape
 
-> Guía independiente de escape rooms físicos en España por provincias: mapa, fichas revisadas a mano y un top propio en cada zona. 1194 salas abiertas en 21 zonas. Solo se publican salas abiertas y ningún local paga por aparecer ni por su puesto.
+> Guía independiente de escape rooms físicos en España por provincias: mapa, fichas revisadas a mano y un top propio en cada zona. 1205 salas abiertas en 22 zonas. Solo se publican salas abiertas y ningún local paga por aparecer ni por su puesto.
 
 Cada ficha de sala reúne categoría, número de jugadores, duración, dificultad, precio orientativo cuando el local lo publica, ubicación y enlace a la web del local para reservar.
 
@@ -106,6 +106,10 @@ Cada ficha de sala reúne categoría, número de jugadores, duración, dificulta
 - [Canarias](https://gpsescape.es/canarias/): mapa con 34 salas abiertas
 - [Mejores escape rooms de Canarias](https://gpsescape.es/canarias/mejores/): top 10 en orden
 - [Todas las salas de Canarias](https://gpsescape.es/canarias/salas/): listado completo
+- [Baleares](https://gpsescape.es/baleares/): mapa con 11 salas abiertas
+- [Mejores escape rooms de Baleares](https://gpsescape.es/baleares/mejores/): top 10 en orden
+- [Todas las salas de Baleares](https://gpsescape.es/baleares/salas/): listado completo
+- [Los mejores escape rooms de Palma](https://gpsescape.es/baleares/municipio/palma/): salas del top 10 de Baleares en Palma y el resto de la ciudad
 
 ## Herramientas
 
