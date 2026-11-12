@@ -1,6 +1,6 @@
 # GPS Escape
 
-> Guía independiente de escape rooms físicos en España por provincias: mapa, fichas revisadas a mano y un top propio en cada zona. 1222 salas abiertas en 23 zonas. Solo se publican salas abiertas y ningún local paga por aparecer ni por su puesto.
+> Guía independiente de escape rooms físicos en España por provincias: mapa, fichas revisadas a mano y un top propio en cada zona. 1242 salas abiertas en 24 zonas. Solo se publican salas abiertas y ningún local paga por aparecer ni por su puesto.
 
 Cada ficha de sala reúne categoría, número de jugadores, duración, dificultad, precio orientativo cuando el local lo publica, ubicación y enlace a la web del local para reservar.
 
@@ -113,6 +113,12 @@ Cada ficha de sala reúne categoría, número de jugadores, duración, dificulta
 - [Almería](https://gpsescape.es/almeria/): mapa con 17 salas abiertas
 - [Mejores escape rooms de Almería](https://gpsescape.es/almeria/mejores/): top 10 en orden
 - [Todas las salas de Almería](https://gpsescape.es/almeria/salas/): listado completo
+- [Castilla-La Mancha](https://gpsescape.es/castilla-la-mancha/): mapa con 20 salas abiertas
+- [Mejores escape rooms de Castilla-La Mancha](https://gpsescape.es/castilla-la-mancha/mejores/): top 10 en orden
+- [Todas las salas de Castilla-La Mancha](https://gpsescape.es/castilla-la-mancha/salas/): listado completo
+- [Los mejores escape rooms de Albacete](https://gpsescape.es/castilla-la-mancha/municipio/albacete/): salas del top 10 de Castilla-La Mancha en Albacete y el resto de la ciudad
+- [Los mejores escape rooms de Cuenca](https://gpsescape.es/castilla-la-mancha/municipio/cuenca/): salas del top 10 de Castilla-La Mancha en Cuenca y el resto de la ciudad
+- [Los mejores escape rooms de Talavera de la Reina](https://gpsescape.es/castilla-la-mancha/municipio/talavera-de-la-reina/): salas del top 10 de Castilla-La Mancha en Talavera de la Reina y el resto de la ciudad
 
 ## Herramientas
 
