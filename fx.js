@@ -64,7 +64,7 @@
 
   // ---------- Cabeceras de las páginas de lectura ----------
   if (lectura) {
-    var head = document.querySelector('.a-head, .l-head');
+    var head = document.querySelector('.a-head, .l-head, .gh .fh-in');
     if (head) {
       var tlh = gsap.timeline({ defaults: { ease: EO } });
       // la entradilla y los datos de cabecera se quedan quietos y visibles desde el principio (son el LCP): solo se animan

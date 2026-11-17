@@ -396,3 +396,84 @@ body.pg-qs .wrap.ficha .blk > p { text-align: left; }
 .blk.faq h3 { font-family: Satoshi, system-ui, sans-serif; font-weight: 600; font-size: 1rem; line-height: 1.4; color: var(--ink); margin: 20px 0 6px; max-width: 70ch; }
 .blk.faq h3:first-of-type { margin-top: 4px; }
 .blk p + p { margin-top: 10px; }
+
+/* =====================================================================================================================
+   17/11 · Guía «Cartelera» (A con toque de C, prototipo en /prueba/guia-2026/): cabecera de cine de la ficha «Cine negro»
+   con la imagen de la categoría, las tres primeras salas como carteles (foto, datos clave y «Por qué está aquí») y el resto
+   en lista numerada compacta. Alineado a la izquierda como la ficha. Movimiento de nivel 6 (GSAP en fx.js).
+   ===================================================================================================================== */
+.gx .fh.gh { min-height: clamp(420px, 60vh, 580px); }
+.gx .fh h1 { max-width: 17em; }
+.pg-lee .gx .crumbs { justify-content: flex-start; }
+.gh-sub { margin: 4px 0 0; font: 500 .74rem/1.4 var(--ff-m); letter-spacing: .14em; text-transform: uppercase; color: var(--ink-2); text-shadow: 0 1px 10px rgba(0,0,0,.6); }
+.gx .blk > h2, .pg-lee .gx .blk > h2 { text-align: left; }
+.gx-intro { margin: 34px 0 0; max-width: 70ch; }
+.gx-intro p { margin: 0 0 14px; color: var(--ink-2); font-size: 1.04rem; line-height: 1.65; }
+.gx-intro p:first-child { font: italic 500 clamp(1.2rem, 1.8vw, 1.42rem)/1.5 var(--ff-t); color: var(--ink); margin-bottom: 18px; }
+.gx-intro .actions { margin-top: 22px; }
+.gx .blk.gx-cartel { margin-top: 52px; }
+
+/* carteles: subgrid para que foto, título, datos y «por qué» queden alineados entre los tres */
+.gx-posters { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 22px; row-gap: 0; }
+.gx-posters > li { display: grid; grid-row: span 6; grid-template-rows: subgrid; }
+.gp { position: relative; display: grid; grid-row: span 6; grid-template-rows: subgrid; color: var(--ink); text-decoration: none;
+  background: linear-gradient(180deg, #16181e, #0f1115); border: 1px solid rgba(255,255,255,.07);
+  transition: transform .25s cubic-bezier(.23, 1, .32, 1), border-color .25s ease; }
+.gp::before, .gp::after { content: ""; position: absolute; z-index: 2; width: 16px; height: 16px; border: 2px solid var(--gold); pointer-events: none; transition: transform .25s cubic-bezier(.23, 1, .32, 1); }
+.gp::before { top: -6px; left: -6px; border-right: 0; border-bottom: 0; }
+.gp::after { bottom: -6px; right: -6px; border-left: 0; border-top: 0; }
+.gp-img { position: relative; display: block; aspect-ratio: 16 / 10; overflow: hidden; background: #0b0d12; }
+.gp-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s cubic-bezier(.23, 1, .32, 1); }
+.gp-img::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(9,11,16,0) 45%, rgba(15,17,21,.92) 100%), radial-gradient(70% 60% at 0% 100%, color-mix(in oklab, var(--c) 28%, transparent), transparent 70%); }
+.gp-n { position: absolute; z-index: 1; left: 16px; bottom: 6px; font: 700 4.6rem/.9 var(--ff-t); background: var(--foil); -webkit-background-clip: text; background-clip: text; color: transparent; filter: drop-shadow(0 4px 14px rgba(0,0,0,.7)); }
+.gp-k { display: flex; align-items: center; gap: 9px; padding: 16px 20px 0; font: 500 .68rem/1.3 var(--ff-m); letter-spacing: .14em; text-transform: uppercase; color: color-mix(in oklab, var(--c) 55%, #fff); }
+.gp-k::before { content: ""; flex: none; width: 7px; height: 7px; background: var(--c); transform: rotate(45deg); }
+.gp-t { padding: 8px 20px 0; font: 700 1.6rem/1.1 var(--ff-t); letter-spacing: -.005em; text-wrap: balance; }
+.gp-l { padding: 6px 20px 0; font-size: .94rem; line-height: 1.4; color: var(--ink-2); }
+.gp-d { margin: 16px 20px 0; display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); border-top: 1px solid rgba(225,175,74,.32); border-bottom: 1px solid rgba(225,175,74,.32); align-self: start; }
+.gp-d > div { padding: 11px 0 10px 12px; border-left: 1px dashed rgba(255,255,255,.12); min-width: 0; }
+.gp-d > div:first-child { padding-left: 0; border-left: 0; }
+.gp-d dt { margin: 0 0 6px; font: 500 .6rem/1 var(--ff-m); letter-spacing: .13em; text-transform: uppercase; color: var(--ink-3); }
+.gp-d dd { margin: 0; font: 600 1.04rem/1.2 var(--ff-b); color: var(--ink); }
+.gp-d dd small { display: block; margin-top: 3px; font: 500 .74rem/1.2 var(--ff-b); color: var(--ink-3); }
+.gp-w { margin: 0; padding: 16px 20px 20px; font-size: .93rem; line-height: 1.55; color: var(--ink-2); }
+.gp-w b { display: block; margin: 0 0 6px; font: 500 .64rem/1.2 var(--ff-m); letter-spacing: .14em; text-transform: uppercase; color: var(--gold); }
+@media (hover: hover) and (pointer: fine) {
+  .gp:hover { transform: translateY(-4px); border-color: rgba(225,175,74,.35); }
+  .gp:hover::before { transform: translate(-3px, -3px); } .gp:hover::after { transform: translate(3px, 3px); }
+  .gp:hover .gp-img img { transform: scale(1.04); }
+}
+.gp:active { transform: scale(.99); }
+.gp:focus-visible, .gl:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
+
+/* el resto: lista numerada compacta, dos columnas en el ordenador */
+.gx .blk.gx-resto { margin-top: 56px; }
+.gx-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 48px; border-top: 1px solid rgba(225,175,74,.32); }
+.gl { display: grid; grid-template-columns: 52px minmax(0, 1fr); gap: 0 14px; align-items: start; padding: 14px 4px 14px 0; border-bottom: 1px dashed rgba(255,255,255,.1); color: var(--ink); text-decoration: none; transition: background .2s ease; }
+.gl-n { grid-row: span 2; padding-top: 2px; font: 700 1.9rem/1 var(--ff-t); text-align: right; background: var(--foil); -webkit-background-clip: text; background-clip: text; color: transparent; font-variant-numeric: lining-nums; }
+.gl-t { min-width: 0; }
+.gl-t strong { display: flex; align-items: baseline; gap: 9px; font: 600 1.04rem/1.3 var(--ff-b); color: var(--ink); transition: color .15s ease; }
+.gl-t strong::before { content: ""; flex: none; width: 6px; height: 6px; background: var(--c); transform: translateY(-2px) rotate(45deg); }
+.gl-t small { display: block; margin-top: 2px; padding-left: 15px; font-size: .86rem; color: var(--ink-2); }
+.gl-t small.gl-tag { color: var(--gold); font: 500 .66rem/1.4 var(--ff-m); letter-spacing: .1em; text-transform: uppercase; }
+.gl-m { grid-column: 2; display: flex; flex-wrap: wrap; gap: 2px 10px; margin-top: 6px; padding-left: 15px; font: 500 .7rem/1.4 var(--ff-m); letter-spacing: .04em; color: var(--ink-3); }
+.gl-r { color: var(--gold); letter-spacing: .1em; text-transform: uppercase; font-size: .62rem; line-height: 1.75; }
+@media (hover: hover) and (pointer: fine) { .gl:hover { background: linear-gradient(90deg, rgba(225,175,74,.07), transparent 70%); } .gl:hover .gl-t strong { color: #f0c25c; } }
+.gx-crit { margin-top: 40px; }
+.gx .g-reco { margin-top: 36px; }
+
+@media (max-width: 860px) {
+  .gx .fh.gh { min-height: 0; }
+  .gx-intro { margin-top: 22px; }
+  .gx .blk.gx-cartel { margin-top: 40px; }
+  .gx-posters { grid-template-columns: 1fr; row-gap: 30px; }
+  .gx-posters > li, .gp { display: flex; flex-direction: column; grid-row: auto; }
+  .gp { margin: 0 6px; }
+  .gp-n { font-size: 3.9rem; }
+  .gp-t { font-size: 1.45rem; }
+  .gx-list { grid-template-columns: 1fr; }
+  .gl { grid-template-columns: 44px minmax(0, 1fr); }
+  .gl-n { font-size: 1.6rem; }
+  .gp-d > div { padding-left: 10px; }
+}
+@media (prefers-reduced-motion: reduce) { .gp, .gp-img img, .gp::before, .gp::after { transition: none; } }
