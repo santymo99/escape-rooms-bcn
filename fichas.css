@@ -477,3 +477,42 @@ body.pg-qs .wrap.ficha .blk > p { text-align: left; }
   .gp-d > div { padding-left: 10px; }
 }
 @media (prefers-reduced-motion: reduce) { .gp, .gp-img img, .gp::before, .gp::after { transition: none; } }
+/* 17/11 · final de la guía «Cartelera» (Santi: lo de abajo «parecía hecho con IA»): ficha técnica del criterio entre reglas
+   doradas, «También en cartel» como índice con el número de salas y «Recomiéndame» como un tráiler sobre la imagen de la guía */
+.gx-k { margin: 0 0 10px; font: 500 .68rem/1.3 var(--ff-m); letter-spacing: .16em; text-transform: uppercase; color: var(--gold); }
+.gx-crit { margin: 44px 0 0; padding: 20px 0; display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 8px 32px; border-top: 1px solid rgba(225,175,74,.32); border-bottom: 1px solid rgba(225,175,74,.32); }
+.gx-crit .gx-k { margin: 3px 0 0; color: var(--ink-3); }
+.gx-crit p:not(.gx-k) { margin: 0; max-width: 70ch; font-size: .95rem; line-height: 1.6; color: var(--ink-2); }
+.gx-crit strong { color: var(--ink); font-weight: 600; }
+.gx .blk.gx-mas { margin-top: 56px; }
+.gx-mas-l { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 48px; border-top: 1px solid rgba(225,175,74,.32); }
+.gx-mas-l a { display: flex; align-items: baseline; justify-content: space-between; gap: 18px; padding: 16px 2px 15px 0; border-bottom: 1px dashed rgba(255,255,255,.1); color: var(--ink); text-decoration: none; }
+.gx-mas-l strong { font: 700 1.16rem/1.25 var(--ff-t); text-wrap: balance; transition: color .15s ease; }
+.gx-mas-l span { flex: none; font: 500 .7rem/1 var(--ff-m); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); white-space: nowrap; }
+.gx-mas-l b { display: inline-block; margin-left: 6px; font-weight: 500; color: var(--gold); transition: transform .2s cubic-bezier(.23, 1, .32, 1); }
+.gx-todas { margin: 18px 0 0; }
+.gx-todas a { font: 500 .74rem/1.3 var(--ff-m); letter-spacing: .14em; text-transform: uppercase; color: var(--gold); text-decoration: none; }
+.gx-todas a span { display: inline-block; transition: transform .2s cubic-bezier(.23, 1, .32, 1); }
+@media (hover: hover) and (pointer: fine) {
+  .gx-mas-l a:hover strong { color: #f0c25c; } .gx-mas-l a:hover b, .gx-todas a:hover span { transform: translateX(4px); }
+}
+.gx-mas-l a:focus-visible, .gx-todas a:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
+.gx-reco { position: relative; isolation: isolate; overflow: hidden; margin: 56px 0 0; padding: 40px 44px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 20px 40px; align-items: center;
+  border: 1px solid rgba(225,175,74,.22); background: #0d0f14; }
+.gx-reco-bg { position: absolute; inset: 0; z-index: -1; }
+.gx-reco-bg img { width: 100%; height: 100%; object-fit: cover; opacity: .28; filter: saturate(.7); }
+.gx-reco-bg::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, #0d0f14 0%, rgba(13,15,20,.88) 48%, rgba(13,15,20,.45) 100%); }
+.gx-reco::before, .gx-reco::after { content: ""; position: absolute; width: 18px; height: 18px; border: 2px solid var(--gold); pointer-events: none; }
+.gx-reco::before { top: 10px; left: 10px; border-right: 0; border-bottom: 0; }
+.gx-reco::after { bottom: 10px; right: 10px; border-left: 0; border-top: 0; }
+.gx-reco-t { margin: 0; font: 700 clamp(1.6rem, 3vw, 2.2rem)/1.1 var(--ff-t); color: var(--ink); text-wrap: balance; }
+.gx-reco-p { margin: 12px 0 0; max-width: 56ch; font-size: .98rem; line-height: 1.6; color: var(--ink-2); }
+@media (max-width: 860px) {
+  .gx-crit { grid-template-columns: 1fr; }
+  .gx-mas-l { grid-template-columns: 1fr; }
+  .gx-mas-l a { flex-direction: column; gap: 6px; }
+  .gx-reco { grid-template-columns: 1fr; padding: 30px 22px 26px; }
+  .gx-reco-bg::after { background: linear-gradient(180deg, rgba(13,15,20,.55) 0%, #0d0f14 70%); }
+  .gx-reco .btn { justify-self: start; }
+}
+@media (prefers-reduced-motion: reduce) { .gx-mas-l b, .gx-todas a span { transition: none; } }
