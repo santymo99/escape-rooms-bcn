@@ -516,3 +516,6 @@ body.pg-qs .wrap.ficha .blk > p { text-align: left; }
   .gx-reco .btn { justify-self: start; }
 }
 @media (prefers-reduced-motion: reduce) { .gx-mas-l b, .gx-todas a span { transition: none; } }
+/* 23/11: cartel de una sala sin foto propia: no se repite la imagen de la categoría, solo el número sobre un fondo con su color */
+.gp-img--sin { aspect-ratio: 16 / 6; background: radial-gradient(90% 120% at 0% 100%, color-mix(in oklab, var(--c) 34%, transparent), transparent 70%), linear-gradient(180deg, #14161c, #0f1115); }
+.gp-img--sin::after { display: none; }
