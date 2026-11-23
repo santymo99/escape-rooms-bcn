@@ -1,6 +1,6 @@
 # GPS Escape
 
-> Guía independiente de escape rooms físicos en España por provincias: mapa, fichas revisadas a mano y un top propio en cada zona. 1242 salas abiertas en 24 zonas. Solo se publican salas abiertas y ningún local paga por aparecer ni por su puesto.
+> Guía independiente de escape rooms físicos en España por provincias: mapa, fichas revisadas a mano y un top propio en cada zona. 1243 salas abiertas en 24 zonas. Solo se publican salas abiertas y ningún local paga por aparecer ni por su puesto.
 
 Cada ficha de sala reúne categoría, número de jugadores, duración, dificultad, precio orientativo cuando el local lo publica, ubicación y enlace a la web del local para reservar.
 
@@ -55,7 +55,7 @@ Cada ficha de sala reúne categoría, número de jugadores, duración, dificulta
 - [Mejores escape rooms de Asturias](https://gpsescape.es/asturias/mejores/): top 15 en orden
 - [Todas las salas de Asturias](https://gpsescape.es/asturias/salas/): listado completo
 - [Los mejores escape rooms de Gijón](https://gpsescape.es/asturias/municipio/gijon/): salas del top 15 de Asturias en Gijón y el resto de la ciudad
-- [Aragón](https://gpsescape.es/aragon/): mapa con 52 salas abiertas
+- [Aragón](https://gpsescape.es/aragon/): mapa con 53 salas abiertas
 - [Mejores escape rooms de Aragón](https://gpsescape.es/aragon/mejores/): top 15 en orden
 - [Todas las salas de Aragón](https://gpsescape.es/aragon/salas/): listado completo
 - [Los mejores escape rooms de Zaragoza](https://gpsescape.es/aragon/municipio/zaragoza/): salas del top 15 de Aragón en Zaragoza y el resto de la ciudad
