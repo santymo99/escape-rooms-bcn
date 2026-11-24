@@ -567,3 +567,11 @@ body.pg-qs .wrap.ficha .blk > p { text-align: left; }
 .sello-ct { margin: 56px 0 0; padding-top: 36px; border-top: 1px solid rgba(225,175,74,.28); }
 .sello-ct h2 { font-family: Michroma, sans-serif; font-weight: 400; font-size: clamp(1.2rem, 2.6vw, 1.6rem); margin: 0 0 10px; }
 .sello-ct-p { color: var(--ink-2); line-height: 1.6; margin: 0 0 18px; max-width: 62ch; }
+/* 24/11 (Santi): texto justificado en los párrafos de lectura (artículos, Quiénes somos, Cómo puntuamos, entradilla de las
+   guías, bloques de la ficha). Con partición de palabras (html lang="es") para que no queden huecos grandes entre palabras.
+   Los párrafos largos no se centran nunca (sección 7 de la skill de diseño).
+   En el móvil se quedan a la izquierda: con unas 40 letras por línea, justificar abría huecos enormes entre palabras. */
+@media (min-width: 700px) {
+  .a-body p, .gx-intro p:not(:first-child), .f-why p, .blk p, .pg-qs .blk p, .wrap.ficha.como .blk p {
+    text-align: justify; hyphens: auto; -webkit-hyphens: auto; hyphenate-limit-chars: 10 4 4; text-wrap: pretty; }
+}
