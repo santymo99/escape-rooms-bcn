@@ -12,7 +12,7 @@
   <link rel="icon" href="/favicon-192.png" sizes="192x192" type="image/png" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 <link href="https://api.fontshare.com/v2/css?f%5B%5D=satoshi@400,500,700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="/portada.css?v=45" />
+<link rel="stylesheet" href="/portada.css?v=46" />
 <style>
   .page { padding: 120px 0 64px; }
   .page h1 { font-size: clamp(2rem, 5vw, 3.2rem); }
@@ -122,6 +122,20 @@
       <label class="consent"><input type="checkbox" name="acepto_privacidad" value="sí" required /> <span>He leído la <a href="/privacidad/">política de privacidad</a> y acepto que se usen estos datos para revisar la sala.</span></label>
       <p class="hint"><strong>Qué hacemos con estos datos.</strong> Solo los usamos para revisar la sala que nos propones y, si nos dejas tu correo, para escribirte si nos falta algo. Los tratamos porque tú lo consientes al enviar el formulario; el envío nos llega a través de FormSubmit y no los cedemos a nadie ni los usamos para boletines. Puedes pedir verlos, corregirlos o borrarlos cuando quieras en hola@gpsescape.es. Quién es el responsable y el resto de detalles están en la <a href="/privacidad/">política de privacidad</a>.</p>
     </form>
+    <!-- sello --><section class="sello-ct" id="sello"><h2>¿Tu sala está en el top?</h2><p class="sello-ct-p">Pon en tu web el sello con su puesto: enlaza a su ficha y se actualiza solo cada mes. Busca la sala y copia el código.</p>    <div class="sello-box">
+      <label class="sello-l" for="sello-q">Busca tu sala</label>
+      <input id="sello-q" type="search" autocomplete="off" placeholder="Nombre de la sala o del local" />
+      <ul id="sello-res" class="sello-res" aria-live="polite"></ul>
+      <div id="sello-out" class="sello-out" hidden>
+        <img id="sello-img" alt="" width="160" height="214" />
+        <div class="sello-code">
+          <p class="sello-l" id="sello-tit"></p>
+          <p class="sello-paso">Copia el código y pégalo en tu web. Si usas WordPress, Wix o similar, va en un bloque de «HTML personalizado».</p>
+          <button type="button" class="btn" id="sello-copiar">Copiar el código</button>
+          <details class="sello-ver"><summary>Ver el código</summary><textarea id="sello-cod" rows="5" readonly aria-label="Código del sello"></textarea></details>
+        </div>
+      </div>
+    </div></section><script src="/sello/salas.js?v=550" defer></script><script src="/sello/sello.js?v=45ebd2da" defer></script><!-- /sello -->
   </div>
 </main>
 <footer class="foot t-foot">
@@ -142,7 +156,7 @@
     </svg><p class="t-rule">GPS Escape</p><p class="t-motto">Escape rooms verificados sala a sala.</p></div>
     <div class="t-foot-b"><h3>¿Falta tu escape room?</h3><p>Si tienes una sala que no está en el mapa, o ves un dato que no cuadra, cuéntanoslo. Lo revisamos a mano antes de publicarlo.</p><a class="btn" href="/contacto/">Escríbenos <span aria-hidden="true">→</span></a></div>
   </div>
-  <nav class="t-foot-nav" aria-label="Enlaces"><a href="/">Inicio</a><a href="/guias/">Guías</a><a href="/articulos/">Artículos</a><a href="/novedades/">Novedades</a><a href="/quienes-somos/">Quiénes somos</a><a href="/#mapas">Mapas</a><a href="/contacto/">Contacto</a></nav>
+  <nav class="t-foot-nav" aria-label="Enlaces"><a href="/">Inicio</a><a href="/guias/">Guías</a><a href="/articulos/">Artículos</a><a href="/novedades/">Novedades</a><a href="/quienes-somos/">Quiénes somos</a><a href="/#mapas">Mapas</a><a href="/sello/">Sello para tu sala</a><a href="/contacto/">Contacto</a></nav>
   <div class="t-legal"><a href="/aviso-legal/">Aviso legal</a><a href="/privacidad/">Privacidad</a><a href="/cookies/">Cookies</a><a href="#" data-cookie-prefs onclick="if(window.googlefc){googlefc.callbackQueue.push({CONSENT_DATA_READY:function(){googlefc.showRevocationMessage()}});return false}">Preferencias de cookies</a></div>
   <p class="t-copy">© 2026 GPS Escape</p>
 </footer>

@@ -521,6 +521,18 @@ body.pg-qs .wrap.ficha .blk > p { text-align: left; }
 .gp-img--sin::after { display: none; }
 
 /* 24/11 · Sello del top (opción C de Santi): página /sello/ y enlace discreto en las fichas con puesto */
+/* 24/11 (Santi): medalla del sello en «Qué cuenta para su puesto», enlazada a /sello/ con la sala elegida */
+.f-why--med { grid-template-columns: 132px 1fr; }
+.f-med { display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; }
+.f-med-a { display: block; }
+.f-med img { display: block; width: 120px; height: auto; filter: drop-shadow(0 6px 14px rgba(0,0,0,.45)); transition: transform .15s ease; }
+.f-med-a:hover img { transform: translateY(-2px); }
+.f-med-s { font-size: .74rem; line-height: 1.35; padding: 6px 2px; max-width: 132px; color: var(--ink-3); text-decoration: underline; text-decoration-color: rgba(225,175,74,.35); text-underline-offset: 3px; }
+.f-med-s:hover { color: var(--gold); }
+/* Desde la medalla de la ficha se llega a /<zona>/mejores/#pN: la tarjeta de esa sala queda marcada en dorado */
+.c[id] { scroll-margin-top: 96px; }
+.c:target { border-color: var(--gold); box-shadow: 0 0 0 1px var(--gold), 0 8px 24px rgba(225,175,74,.18); }
+@media (max-width: 560px) { .f-why--med { grid-template-columns: 1fr; justify-items: center; } .f-why--med p { text-align: left; } }
 .f-sello { margin: 6px 0 0; font-size: .86rem; }
 .f-sello a { color: var(--ink-3); text-decoration: underline; text-decoration-color: rgba(225,175,74,.4); text-underline-offset: 3px; }
 .f-sello a:hover { color: var(--gold); }
@@ -550,3 +562,7 @@ body.pg-qs .wrap.ficha .blk > p { text-align: left; }
 .sello-ver summary:hover { color: var(--gold); }
 .sello-ver textarea { margin-top: 8px; }
 .sello-out { align-items: center; }
+/* 24/11: el buscador del sello también en Contacto */
+.sello-ct { margin: 56px 0 0; padding-top: 36px; border-top: 1px solid rgba(225,175,74,.28); }
+.sello-ct h2 { font-family: Michroma, sans-serif; font-weight: 400; font-size: clamp(1.2rem, 2.6vw, 1.6rem); margin: 0 0 10px; }
+.sello-ct-p { color: var(--ink-2); line-height: 1.6; margin: 0 0 18px; max-width: 62ch; }

@@ -476,12 +476,14 @@ h1, h2, h3 { font-family: Michroma, sans-serif; font-weight: 400; letter-spacing
 /* «Categorías» lo bastante abajo para que la lista abierta no la tape (ajustado midiendo a 1280, 1440 y 1920 px) */
 .t-hero + .t-sec { padding-top: var(--t-hueco, 300px); }
 
-/* desplegable de provincias en el móvil: dos columnas, solo nombre y número de salas */
+/* desplegable de provincias en el móvil: solo nombre y número de salas. 24/11 (Santi): con 24 zonas en dos columnas la lista
+   medía 670 px y había que bajar una pantalla entera; pasa a tres columnas, letra algo menor y filas de 44 px (zona táctil mínima) */
 @media (max-width: 640px) {
   .t-hero .zonas-list, .t-hero .zonas-list:has(li:nth-child(7)) { grid-template-columns: 1fr 1fr; gap: 2px; padding: 6px; max-height: none; }
-  .t-hero .zonas-list a { padding: 9px 4px; min-height: 48px; }
-  .t-hero .zonas-list strong { font-size: .72rem; letter-spacing: 0; }
-  .t-hero .zonas-list small { margin-top: 2px; font-size: .74rem; }
+  .t-hero .zonas-list:has(li:nth-child(13)) { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 2px; padding: 4px; }
+  .t-hero .zonas-list a { padding: 6px 2px; min-height: 44px; display: flex; flex-direction: column; justify-content: center; }
+  .t-hero .zonas-list strong { font-size: .62rem; letter-spacing: 0; line-height: 1.3; text-wrap: balance; }
+  .t-hero .zonas-list small { margin-top: 1px; font-size: .7rem; }
   .t-hero .zonas-list .z-com, .t-hero .zonas-list .z-mun { display: none; }
 }
 
