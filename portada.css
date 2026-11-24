@@ -1010,3 +1010,14 @@ h1, h2, h3 { font-family: Michroma, sans-serif; font-weight: 400; letter-spacing
 /* 31/10 (usuario): en la portada la lista de zonas se abre entera, sin barra de desplazamiento interna. Si no cabe en la
    pantalla, portada.js baja la página lo justo para verla y aparta «Recomiéndame» y «Categorías». */
 .t-hero .zonas-list { max-height: none; overflow-y: visible; }
+/* 24/11 (Santi): en el móvil «¿Dónde queréis jugar?» medía 760 px con 24 zonas en chips de dos en dos. Rejilla de tres
+   columnas, chips más bajos y sin la chincheta (ya está el pin grande del título): unos 430 px. */
+@media (max-width: 560px) {
+  .n-reco { gap: 16px; padding: 18px 14px; }
+  .n-reco h3 { font-size: 1.25rem; }
+  .n-reco-q { gap: 12px; }
+  .n-pin { width: 38px; height: 38px; } .n-pin svg { width: 19px; height: 19px; }
+  .n-reco-z { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+  .n-reco-z a { justify-content: center; min-height: 40px; padding: 4px 6px; font-size: .78rem; line-height: 1.2; text-align: center; text-wrap: balance; }
+  .n-reco-z a::before { display: none; }
+}
