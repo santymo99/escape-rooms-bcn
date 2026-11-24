@@ -519,3 +519,34 @@ body.pg-qs .wrap.ficha .blk > p { text-align: left; }
 /* 23/11: cartel de una sala sin foto propia: no se repite la imagen de la categoría, solo el número sobre un fondo con su color */
 .gp-img--sin { aspect-ratio: 16 / 6; background: radial-gradient(90% 120% at 0% 100%, color-mix(in oklab, var(--c) 34%, transparent), transparent 70%), linear-gradient(180deg, #14161c, #0f1115); }
 .gp-img--sin::after { display: none; }
+
+/* 24/11 · Sello del top (opción C de Santi): página /sello/ y enlace discreto en las fichas con puesto */
+.f-sello { margin: 6px 0 0; font-size: .86rem; }
+.f-sello a { color: var(--ink-3); text-decoration: underline; text-decoration-color: rgba(225,175,74,.4); text-underline-offset: 3px; }
+.f-sello a:hover { color: var(--gold); }
+.sello-p { max-width: 860px; }
+.sello-txt { max-width: 66ch; margin: 0 auto 28px; }
+.sello-txt p { color: var(--ink-2); line-height: 1.65; margin: 0 0 12px; }
+.sello-box { border: 1px solid rgba(225,175,74,.28); border-radius: var(--r-lg, 18px); background: #0e1015; padding: 26px; }
+.sello-l { display: block; margin: 0 0 8px; font: 500 .7rem/1.3 var(--ff-m, monospace); letter-spacing: .14em; text-transform: uppercase; color: var(--gold); }
+#sello-q, #sello-cod { width: 100%; box-sizing: border-box; border: 1px solid rgba(255,255,255,.14); border-radius: var(--r-sm, 8px); background: #090b10; color: var(--ink); font: 400 1rem/1.4 var(--ff-b, sans-serif); padding: 12px 14px; }
+#sello-q:focus, #sello-cod:focus { outline: 2px solid var(--gold); outline-offset: 2px; }
+#sello-cod { font: 400 .8rem/1.45 var(--ff-m, monospace); resize: vertical; }
+.sello-res { list-style: none; margin: 10px 0 0; padding: 0; }
+.sello-res button { width: 100%; min-height: 44px; text-align: left; padding: 10px 12px; border: 0; border-bottom: 1px dashed rgba(255,255,255,.1); background: none; color: var(--ink); font: 500 .95rem/1.35 var(--ff-b, sans-serif); cursor: pointer; }
+.sello-res button:hover, .sello-res button:focus-visible { background: rgba(225,175,74,.08); color: #f0c25c; outline: none; }
+.sello-nada { padding: 10px 2px; color: var(--ink-3); }
+.sello-out { display: grid; grid-template-columns: 160px minmax(0, 1fr); gap: 28px; align-items: start; margin-top: 22px; }
+.sello-out[hidden] { display: none; }
+.sello-out img { display: block; width: 160px; height: auto; }
+.sello-code .btn { margin-top: 12px; }
+.sello-nota { margin: 10px 0 0; font-size: .86rem; color: var(--ink-3); }
+@media (max-width: 560px) { .sello-box { padding: 18px; } .sello-out { grid-template-columns: 1fr; justify-items: start; } }
+.sello-p .l-head { text-align: center; margin-bottom: 22px; }
+.sello-p .l-head h1 { font-family: Michroma, sans-serif; font-weight: 400; font-size: clamp(1.4rem, 3.2vw, 2.1rem); line-height: 1.2; }
+.sello-paso { margin: 0 0 4px; color: var(--ink-2); line-height: 1.55; }
+.sello-ver { margin-top: 14px; }
+.sello-ver summary { cursor: pointer; color: var(--ink-3); font-size: .86rem; min-height: 32px; }
+.sello-ver summary:hover { color: var(--gold); }
+.sello-ver textarea { margin-top: 8px; }
+.sello-out { align-items: center; }
