@@ -91,6 +91,9 @@
       <input type="hidden" name="_next" value="https://gpsescape.es/gracias/" />
       <input type="hidden" name="_captcha" value="false" />
       <input type="hidden" name="_template" value="table" />
+      <!-- 24/11 (Santi): FormSubmit descarta en su servidor los envíos que contengan alguna de estas frases (máx. 20). Solo frases
+           de publicidad en inglés que nunca saldrán en una propuesta de sala de verdad; nada que pueda ser el nombre de una sala. -->
+      <input type="hidden" name="_blacklist" value="withtourists, tourist catalog, listing in the catalog, backlink, guest post, link building, SEO services, search engine optimization, web development services, digital marketing agency, increase your traffic, rank higher, first page of Google, free listing, our catalog, register your business, sponsored post, marketing services, lead generation, website redesign" />
       <div class="hp" aria-hidden="true"><label>No rellenes este campo <input type="text" name="_honey" tabindex="-1" autocomplete="off" /></label></div>
       <div class="f2">
         <label>Nombre de la sala <input name="sala" required autocomplete="off" /></label>
