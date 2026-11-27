@@ -1021,3 +1021,18 @@ h1, h2, h3 { font-family: Michroma, sans-serif; font-weight: 400; letter-spacing
   .n-reco-z a { justify-content: center; min-height: 40px; padding: 4px 6px; font-size: .78rem; line-height: 1.2; text-align: center; text-wrap: balance; }
   .n-reco-z a::before { display: none; }
 }
+
+/* 27/11 (Santi): sin hueco en la última fila del desplegable de zonas. Si la última fila no está completa, sus zonas van centradas.
+   Dos columnas (de 641 a 1039 px): rejilla de 4 pistas, cada zona ocupa 2. Tres columnas (móvil y desde 1040 px): rejilla de 6 pistas. */
+@media (min-width: 641px) and (max-width: 1039px) {
+  .t-hero .zonas-list:has(li:nth-child(7)) { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .t-hero .zonas-list:has(li:nth-child(7)) > li { grid-column: span 2; }
+  .t-hero .zonas-list:has(li:nth-child(7)) > li:last-child:nth-child(odd) { grid-column: 2 / 4; }
+}
+@media (max-width: 640px), (min-width: 1040px) {
+  .t-hero .zonas-list:has(li:nth-child(13)) { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .t-hero .zonas-list:has(li:nth-child(13)) > li { grid-column: span 2; }
+  .t-hero .zonas-list:has(li:nth-child(13)) > li:last-child:nth-child(3n+1) { grid-column: 3 / 5; }
+  .t-hero .zonas-list:has(li:nth-child(13)) > li:nth-last-child(2):nth-child(3n+1) { grid-column: 2 / 4; }
+  .t-hero .zonas-list:has(li:nth-child(13)) > li:last-child:nth-child(3n+2) { grid-column: 4 / 6; }
+}

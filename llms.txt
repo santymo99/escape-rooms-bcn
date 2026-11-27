@@ -1,6 +1,6 @@
 # GPS Escape
 
-> Guía independiente de escape rooms físicos en España por provincias: mapa, fichas revisadas a mano y un top propio en cada zona. 1267 salas abiertas en 26 zonas. Solo se publican salas abiertas y ningún local paga por aparecer ni por su puesto.
+> Guía independiente de escape rooms físicos en España por provincias: mapa, fichas revisadas a mano y un top propio en cada zona. 1276 salas abiertas en 27 zonas. Solo se publican salas abiertas y ningún local paga por aparecer ni por su puesto.
 
 Cada ficha de sala reúne categoría, número de jugadores, duración, dificultad, precio orientativo cuando el local lo publica, ubicación y enlace a la web del local para reservar.
 
@@ -126,6 +126,9 @@ Cada ficha de sala reúne categoría, número de jugadores, duración, dificulta
 - [Córdoba](https://gpsescape.es/cordoba/): mapa con 11 salas abiertas
 - [Mejores escape rooms de Córdoba](https://gpsescape.es/cordoba/mejores/): top 5 en orden
 - [Todas las salas de Córdoba](https://gpsescape.es/cordoba/salas/): listado completo
+- [Extremadura](https://gpsescape.es/extremadura/): mapa con 9 salas abiertas
+- [Mejores escape rooms de Extremadura](https://gpsescape.es/extremadura/mejores/): top 5 en orden
+- [Todas las salas de Extremadura](https://gpsescape.es/extremadura/salas/): listado completo
 
 ## Herramientas
 
